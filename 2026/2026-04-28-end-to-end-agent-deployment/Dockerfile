@@ -1,16 +1,29 @@
-FROM python:3.13.5-slim-bookworm
+# --- Stage 1: build frontend ---
+FROM node:24-alpine AS frontend-builder
 
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
-WORKDIR /code
+WORKDIR /app
 
-ENV PATH="/code/.venv/bin:$PATH"
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
 
-COPY "pyproject.toml" "uv.lock" ".python-version" ./
-RUN uv sync --locked
+COPY frontend/ ./
+RUN npm run build
 
-COPY "app.py" "engine.py" "faq.py" "ingest.py" "notebook.py" "search.py" ./
-COPY "frontend/" ./frontend/
+# --- Stage 2: backend ---
+FROM python:3.14-slim
 
-EXPOSE 9696
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
 
-ENTRYPOINT ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "9696"]
+WORKDIR /app
+
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-dev
+
+ENV PATH="/app/.venv/bin:$PATH"
+ENV PYTHONUNBUFFERED=1
+
+COPY search.py agent.py renderer.py schemas.py app.py ./
+COPY --from=frontend-builder /app/dist ./static
+
+EXPOSE 8000
+CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000}"]
