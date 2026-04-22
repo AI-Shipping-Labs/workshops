@@ -4,6 +4,23 @@ This directory contains the workshop code for the AI Shipping Labs session "End-
 
 The code in this folder is taken from the `alexeygrigorev/faq-agent` project and published here as the workshop code snapshot.
 
+## Overview
+
+```mermaid
+flowchart LR
+    UI["Frontend UI"]
+    API["FastAPI app"]
+    AGENT["Agent loop"]
+    SEARCH["FAQ search tool<br/>minsearch"]
+    OPENAI["OpenAI Responses API"]
+
+    UI -->|POST /ask or /ask/stream| API
+    API --> AGENT
+    AGENT -->|tool call| SEARCH
+    AGENT -->|model call| OPENAI
+    API -->|JSON or SSE| UI
+```
+
 ## Prerequisites
 
 - Python 3.13+
