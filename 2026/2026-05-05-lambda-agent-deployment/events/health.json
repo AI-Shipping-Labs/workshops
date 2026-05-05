@@ -1,0 +1,11 @@
+{
+  "version": "2.0",
+  "rawPath": "/health",
+  "requestContext": {
+    "http": {
+      "method": "GET",
+      "path": "/health"
+    }
+  },
+  "isBase64Encoded": false
+}

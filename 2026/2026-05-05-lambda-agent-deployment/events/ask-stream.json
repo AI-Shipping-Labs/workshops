@@ -1,0 +1,12 @@
+{
+  "version": "2.0",
+  "rawPath": "/ask/stream",
+  "body": "{\"question\":\"When is the course deadline?\"}",
+  "requestContext": {
+    "http": {
+      "method": "POST",
+      "path": "/ask/stream"
+    }
+  },
+  "isBase64Encoded": false
+}

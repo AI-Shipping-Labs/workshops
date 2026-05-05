@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+set -eu
+
+exec /var/lang/bin/python /var/task/backend/lambda_runtime.py

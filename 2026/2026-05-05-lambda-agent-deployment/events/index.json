@@ -1,0 +1,11 @@
+{
+  "version": "2.0",
+  "rawPath": "/",
+  "requestContext": {
+    "http": {
+      "method": "GET",
+      "path": "/"
+    }
+  },
+  "isBase64Encoded": false
+}
