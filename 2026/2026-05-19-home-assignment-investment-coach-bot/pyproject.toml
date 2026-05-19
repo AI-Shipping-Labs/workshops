@@ -1,0 +1,38 @@
+[project]
+name = "investment-coach-bot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Alexey Grigorev", email = "alexey.s.grigoriev@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "beautifulsoup4>=4.14.3",
+    "httpx>=0.28.1",
+    "logfire>=4.32.1",
+    "openai>=2.21.0",
+    "pydantic>=2.13.4",
+    "pydantic-ai>=1.59.0",
+    "pydantic-settings>=2.14.1",
+    "python-dotenv>=1.2.2",
+    "python-telegram-bot>=22.5",
+    "rich>=15.0.0",
+]
+
+[project.scripts]
+investment-coach-bot = "investment_coach_bot:main"
+investment-coach-telegram-bot = "investment_coach_bot.telegram:main"
+
+[build-system]
+requires = ["uv_build>=0.10.11,<0.11.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-asyncio>=1.3.0",
+]

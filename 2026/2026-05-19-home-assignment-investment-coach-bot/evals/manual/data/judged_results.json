@@ -1,0 +1,269 @@
+[
+  {
+    "id": "company_overview_01",
+    "group": "company_overview",
+    "input": "What can you tell me about Reddit?",
+    "expected_output": "Concise decision-useful summary; uses SEC evidence; avoids generic company description; no buy/sell advice",
+    "expected_tools": [
+      "search_company",
+      "get_financial_snapshot",
+      "get_filing_digest"
+    ],
+    "actual_output": "Verdict\n- Reddit has moved from a loss-making growth story to a business that is already producing operating profit, but the core question is whether that can scale beyond a few revenue drivers.\n- The most important new angle is content licensing for AI, which could help revenue but is still early and concentrated in only a couple of partners.\n- For research purposes, the key issue is not the brand, but whether user growth, ad pricing, and licensing renewals all keep improving at once.\n\nThesis\n- What could go well: Revenue grew from about $1.30B in 2024 to about $2.20B in 2025, and operating income was about $442M in 2025.\n- What seems most likely: Advertising remains the main engine, while AI/content licensing is an added but still secondary and unproven driver.\n- What could go wrong: Management says substantially all licensing contract value comes from two partners, and those deals may not renew or may reset on weaker terms.\n\nWatch\n- Quarterly revenue growth versus the prior year.\n- Operating income margin, not just top-line growth.\n- ARPU and user engagement trends, especially if ad monetization slows.\n- Renewal timing and concentration in content licensing agreements.\n\nWarning Signs\n- Licensing revenue becomes a bigger story but remains concentrated in very few customers.\n- User growth or engagement stops supporting ad revenue growth.\n- Profitability weakens again after the recent move into net income.\n\nEvidence\n- SEC companyfacts show 2025 revenue of about $2.20B and 2025 net income of about $530M.\n- The latest 10-Q shows Q1 2026 revenue of about $663.4M and net income of about $204.0M.\n- The 10-K says content licensing for AI training is a novel business model without an established track record.\n- The 10-K and 10-Q both say substantially all licensing contract value comes from two partners, which creates concentration risk.",
+    "needs_clarification": false,
+    "used_tools_from_output": [
+      "functions.search_company",
+      "functions.get_financial_snapshot",
+      "functions.get_latest_filings",
+      "functions.get_filing_digest"
+    ],
+    "tool_calls": [
+      {
+        "name": "search_company",
+        "args": "{\"query\":\"Reddit\", \"limit\":5}"
+      },
+      {
+        "name": "get_financial_snapshot",
+        "args": "{\"ticker_or_cik\": \"RDDT\"}"
+      },
+      {
+        "name": "get_latest_filings",
+        "args": "{\"ticker_or_cik\": \"RDDT\", \"limit\": 5}"
+      },
+      {
+        "name": "get_filing_digest",
+        "args": "{\"ticker_or_cik\": \"RDDT\", \"form_type\": \"10-K\", \"max_snippets\": 6}"
+      },
+      {
+        "name": "get_filing_digest",
+        "args": "{\"ticker_or_cik\": \"RDDT\", \"form_type\": \"10-Q\", \"max_snippets\": 6}"
+      }
+    ],
+    "usage": {
+      "input_tokens": 7189,
+      "output_tokens": 621,
+      "total_tokens": 7810,
+      "requests": 3,
+      "tool_calls": 5,
+      "details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "judge_label": "good",
+    "judge_reasoning": "The answer is good: it directly gives a concise, decision-useful summary of Reddit, uses SEC-backed evidence from company facts and filings, and highlights key business risks without generic filler. It avoids buy/sell advice and price predictions. The tool trajectory is also reasonable because it used company search, financial snapshot, latest filings, and filing digests to support the claims.",
+    "judge_usage": {
+      "input_tokens": 936,
+      "output_tokens": 94,
+      "total_tokens": 1030,
+      "requests": 1,
+      "tool_calls": 0,
+      "details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "company_overview_02",
+    "group": "company_overview",
+    "input": "Analyze RDDT.",
+    "expected_output": "Analyzes Reddit using SEC facts and filings; includes watch items and warning signs; no recommendation",
+    "expected_tools": [
+      "get_financial_snapshot",
+      "get_filing_digest"
+    ],
+    "actual_output": "Verdict\n- Reddit has moved into profitable growth, with 2025 revenue up sharply and net income positive, which is a meaningful shift in the story.\n- The main question is durability: most of the upside still depends on ad growth, user engagement, and whether AI/content licensing stays meaningful.\n- I\u2019m not giving a buy/sell view; this is a research brief only.\n\nThesis\n- What could go well: Revenue reached $2.20B in FY2025 versus $1.30B in FY2024, while operating income turned positive at $442.0M.\n- What seems most likely: The platform\u2019s next leg will be driven by ad monetization and engagement metrics like DAUq/ARPU, with licensing as a smaller but potentially useful add-on.\n- What could go wrong: The 10-K says substantially all licensing contract value is concentrated with two partners, so renewal and pricing risk is real.\n\nWatch\n- Quarterly revenue growth versus last year, because that shows whether monetization is still accelerating.\n- Operating margin and net income, because recent profitability needs to hold beyond one strong quarter.\n- DAUq and ARPU trends, because Reddit\u2019s ad model depends on both traffic and monetization efficiency.\n- Concentration in licensing revenue, because partner renewal terms could change quickly.\n\nWarning Signs\n- User growth slows while ad pricing weakens, because revenue quality would deteriorate.\n- Licensing contribution stalls or one major partner leaves, because the non-ad growth story would shrink.\n- Profitability fades back to losses, because the market would likely re-focus on spending intensity.\n\nEvidence\n- FY2025 revenue was $2.20B, up from $1.30B in FY2024, based on SEC companyfacts.\n- FY2025 net income was $529.7M, after a FY2024 net loss of $484.3M, based on SEC companyfacts.\n- The March 31, 2026 quarter showed revenue of $663.4M and net income of $204.0M in the 10-Q.\n- The 10-K and 10-Q both say licensing is early-stage and that substantially all licensing contract value comes from two partners.",
+    "needs_clarification": false,
+    "used_tools_from_output": [
+      "functions.get_financial_snapshot",
+      "functions.get_latest_filings",
+      "functions.get_filing_digest"
+    ],
+    "tool_calls": [
+      {
+        "name": "get_financial_snapshot",
+        "args": "{\"ticker_or_cik\": \"RDDT\"}"
+      },
+      {
+        "name": "get_latest_filings",
+        "args": "{\"ticker_or_cik\": \"RDDT\", \"limit\": 5}"
+      },
+      {
+        "name": "get_filing_digest",
+        "args": "{\"ticker_or_cik\": \"RDDT\", \"form_type\": \"10-K\", \"max_snippets\": 6}"
+      },
+      {
+        "name": "get_filing_digest",
+        "args": "{\"ticker_or_cik\": \"RDDT\", \"form_type\": \"10-Q\", \"max_snippets\": 6}"
+      }
+    ],
+    "usage": {
+      "input_tokens": 6186,
+      "output_tokens": 641,
+      "total_tokens": 6827,
+      "requests": 2,
+      "tool_calls": 4,
+      "details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "judge_label": "good",
+    "judge_reasoning": "The answer is good: it directly analyzes Reddit (RDDT), uses SEC-based facts from companyfacts and 10-K/10-Q, includes watch items and warning signs, and explicitly avoids a recommendation. It is concise and focused rather than generic filler. The tool trajectory is reasonable, with snapshot, latest filings, and filing digests used to support the analysis.",
+    "judge_usage": {
+      "input_tokens": 961,
+      "output_tokens": 93,
+      "total_tokens": 1054,
+      "requests": 1,
+      "tool_calls": 0,
+      "details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "company_overview_03",
+    "group": "company_overview",
+    "input": "Is Reddit interesting?",
+    "expected_output": "Treats question as educational research; explains what makes it worth further research; avoids buy/sell advice",
+    "expected_tools": [
+      "search_company",
+      "get_financial_snapshot",
+      "get_filing_digest"
+    ],
+    "actual_output": "Verdict\n- Yes, as a research candidate: Reddit has moved from pure growth story to a business with real profitability and a fast-rising revenue base.\n- The key question is durability, because a lot of newer upside appears tied to advertising execution and a still-early content-licensing model.\n- Safety boundary: I\u2019m not recommending a buy or sell; this is only an educational research brief.\n\nThesis\n- What could go well: Revenue grew from about $1.30B in 2024 to about $2.20B in 2025, and 2025 operating income turned positive at about $442M.\n- What seems most likely: The business will likely stay centered on ad growth, with content licensing as a useful but still secondary and unproven add-on.\n- What could go wrong: Management says licensing is early-stage, concentrated with two partners, and subject to renewal and API-performance risk.\n\nWatch\n- Quarterly user growth and engagement, especially DAUq and ARPU.\n- Ad revenue growth versus spend on sales and marketing.\n- Mix and concentration of non-ad revenue, especially licensing customers.\n- Cash generation versus ongoing investment in product, infrastructure, and legal/tax risk.\n\nWarning Signs\n- Licensing revenue stays concentrated and does not broaden beyond a small set of partners.\n- Revenue growth slows while operating expenses keep rising.\n- User or advertiser growth weakens, which would pressure ARPU and the core ad engine.\n\nEvidence\n- 2025 revenue was about $2.20B, up from about $1.30B in 2024, per SEC company facts.\n- 2025 operating income was about $442M after a 2024 operating loss of about $561M, per SEC company facts.\n- The latest 10-Q showed Q1 2026 revenue of about $663M and net income of about $204M.\n- The latest filings say content licensing is still early, with substantially all contract value tied to two partners and renewal risk.",
+    "needs_clarification": false,
+    "used_tools_from_output": [
+      "functions.search_company",
+      "functions.get_financial_snapshot",
+      "functions.get_latest_filings",
+      "functions.get_filing_digest"
+    ],
+    "tool_calls": [
+      {
+        "name": "search_company",
+        "args": "{\"query\":\"Reddit\", \"limit\":5}"
+      },
+      {
+        "name": "get_financial_snapshot",
+        "args": "{\"ticker_or_cik\": \"RDDT\"}"
+      },
+      {
+        "name": "get_latest_filings",
+        "args": "{\"ticker_or_cik\": \"RDDT\", \"limit\": 5}"
+      },
+      {
+        "name": "get_filing_digest",
+        "args": "{\"ticker_or_cik\": \"RDDT\", \"form_type\": \"10-K\", \"max_snippets\": 6}"
+      },
+      {
+        "name": "get_filing_digest",
+        "args": "{\"ticker_or_cik\": \"RDDT\", \"form_type\": \"10-Q\", \"max_snippets\": 6}"
+      }
+    ],
+    "usage": {
+      "input_tokens": 7177,
+      "output_tokens": 626,
+      "total_tokens": 7803,
+      "requests": 3,
+      "tool_calls": 5,
+      "details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "judge_label": "good",
+    "judge_reasoning": "Good. The answer treats the question as an educational research prompt, gives a concise assessment of why Reddit may be worth further research, and explicitly avoids buy/sell advice. It also uses SEC-based evidence from filings and financial snapshots rather than generic filler.",
+    "judge_usage": {
+      "input_tokens": 936,
+      "output_tokens": 70,
+      "total_tokens": 1006,
+      "requests": 1,
+      "tool_calls": 0,
+      "details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    }
+  },
+  {
+    "id": "financial_performance_01",
+    "group": "financial_performance",
+    "input": "How is Reddit performing financially?",
+    "expected_output": "Uses SEC financial facts; discusses revenue profitability cash assets or liabilities; explains why metrics matter",
+    "expected_tools": [
+      "get_financial_snapshot"
+    ],
+    "actual_output": "Verdict\n- Reddit has turned into a profitable company, with FY2025 revenue of $2.20B and net income of $530M.\n- The latest quarter shows continued growth and strong earnings leverage, with Q1 2026 revenue up to $663M and net income of $204M.\n- The main research question is durability: how much of the upside comes from ads versus newer licensing revenue.\n\nThesis\n- What could go well: Revenue is scaling quickly while operating income stays positive, which suggests the business is no longer reliant on loss-making growth.\n- What seems most likely: Ads remain the core engine, while licensing adds a meaningful but still concentrated second stream.\n- What could go wrong: Management says most licensing contract value comes from two partners, so renewal or pricing changes matter a lot.\n\nWatch\n- Quarterly revenue growth and whether it stays ahead of expense growth.\n- Operating margin trend, since Q1 2026 operating income was $183M on $663M of revenue.\n- Mix of advertising revenue versus content licensing revenue.\n- Cash balance and whether the company keeps adding liquidity without burning it.\n\nWarning Signs\n- Licensing revenue failing to broaden beyond a small number of counterparties.\n- Revenue growth slowing while sales and marketing or R&D rise faster.\n- Any return to operating losses after the recent profitable streak.\n\nEvidence\n- SEC company facts show FY2025 revenue of $2.20B versus $1.30B in FY2024.\n- FY2025 net income was $530M, after a $484M loss in FY2024.\n- The Q1 2026 10-Q reported $663M of revenue and $204M of net income.\n- The latest filings say substantially all licensing contract value is derived from two partners and the model is still early.",
+    "needs_clarification": false,
+    "used_tools_from_output": [
+      "functions.get_financial_snapshot",
+      "functions.get_latest_filings",
+      "functions.get_filing_digest"
+    ],
+    "tool_calls": [
+      {
+        "name": "get_financial_snapshot",
+        "args": "{\"ticker_or_cik\": \"RDDT\"}"
+      },
+      {
+        "name": "get_latest_filings",
+        "args": "{\"ticker_or_cik\": \"RDDT\", \"limit\": 5}"
+      },
+      {
+        "name": "get_filing_digest",
+        "args": "{\"ticker_or_cik\": \"RDDT\", \"form_type\": \"10-K\", \"max_snippets\": 6}"
+      },
+      {
+        "name": "get_filing_digest",
+        "args": "{\"ticker_or_cik\": \"RDDT\", \"form_type\": \"10-Q\", \"max_snippets\": 6}"
+      },
+      {
+        "name": "get_latest_filings",
+        "args": "{\"ticker_or_cik\":\"RDDT\",\"limit\":3,\"form_type\":\"10-Q\"}"
+      }
+    ],
+    "usage": {
+      "input_tokens": 11793,
+      "output_tokens": 591,
+      "total_tokens": 12384,
+      "requests": 3,
+      "tool_calls": 5,
+      "details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "judge_label": "good",
+    "judge_reasoning": "The response is good: it directly answers how Reddit is performing financially, uses SEC-backed facts from the latest filings, and discusses revenue, profitability, and a balance-sheet item (cash/liquidity) plus why the mix and concentration matter. It also avoids buy/sell advice, price predictions, and personalized guidance. The tool trajectory was reasonable, using the financial snapshot and filing digests to support company-specific claims.",
+    "judge_usage": {
+      "input_tokens": 897,
+      "output_tokens": 103,
+      "total_tokens": 1000,
+      "requests": 1,
+      "tool_calls": 0,
+      "details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    }
+  }
+]
