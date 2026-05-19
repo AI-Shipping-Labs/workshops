@@ -2,6 +2,8 @@
 
 This directory contains the workshop code for the AI Shipping Labs session "End-to-End Agent Deployment" on April 28, 2026.
 
+You can find the workshop write-up and video recording here: https://aishippinglabs.com/workshops/end-to-end-agent-deployment
+
 ## Overview
 
 ```mermaid
