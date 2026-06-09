@@ -1,0 +1,21 @@
+[project]
+name = "sqlite-vector-search-turso"
+version = "0.1.0"
+description = "FAQ agent with SQLite vector search (sqlitesearch) persisted to Turso"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.135.3",
+    "uvicorn>=0.44.0",
+    "openai>=2.31.0",
+    "python-dotenv>=1.2.2",
+    "requests>=2.33.1",
+    "numpy>=2.4.6",
+    # Local ONNX embeddings (no PyTorch)
+    "onnxruntime>=1.26.0",
+    "tokenizers>=0.23.1",
+    "huggingface-hub>=1.17.0",
+    # SQLite vector search + the Turso (libSQL) backend.
+    # The [turso] extra pulls in the libsql client.
+    "sqlitesearch[turso]>=0.0.6",
+]

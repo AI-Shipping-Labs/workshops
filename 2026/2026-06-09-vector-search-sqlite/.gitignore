@@ -1,0 +1,25 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+.env
+
+# Frontend
+node_modules/
+frontend/dist/
+
+# SQLite search indexes (built by ingest.py)
+data/
+*.db
+*.db-wal
+*.db-shm
+
+# Downloaded ONNX embedding model
+models/
