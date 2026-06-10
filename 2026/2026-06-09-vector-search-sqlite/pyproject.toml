@@ -15,7 +15,7 @@ dependencies = [
     "onnxruntime>=1.26.0",
     "tokenizers>=0.23.1",
     "huggingface-hub>=1.17.0",
-    # SQLite vector search + the Turso (libSQL) backend.
-    # The [turso] extra pulls in the libsql client.
-    "sqlitesearch[turso]>=0.0.6",
+    # SQLite vector search + the libSQL backend for Turso.
+    # The [libsql] extra pulls in the libsql client.
+    "sqlitesearch[libsql]>=0.0.6",
 ]

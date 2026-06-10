@@ -46,10 +46,10 @@ def embed_documents(embedder, documents):
 
 
 def build_vector_index(documents, vectors):
-    # Always build a plain local SQLite file (fast). Pushing to Turso is a
-    # separate one-shot import step (`make push-turso`), because writing through
-    # the embedded replica forwards every INSERT to the remote and is too slow.
-    index = open_vector_index(local=True)
+    # Build into whatever the factory opens: a local SQLite file for dev, or
+    # Turso when TURSO_DATABASE_URL is set. sqlitesearch batches the inserts, so
+    # writing straight to Turso is fast.
+    index = open_vector_index()
     index.clear()
     index.fit(vectors, documents)
     print(f"Vector index: {index.count()} documents -> {DB_PATH}")

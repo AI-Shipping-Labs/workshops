@@ -24,9 +24,9 @@ MODELS_DIR = BASE_DIR / "models"
 MODEL_PATH = MODELS_DIR / MODEL_REPO
 
 # --- SQLite database ---
-# Vector search only for now, so a single SQLite file is enough. Combining text
-# (FTS5) and vector indexes in one file currently collides on a shared `docs`
-# table; tracked at https://github.com/alexeygrigorev/sqlitesearch/issues/2
+# Vector search only for this workshop, so a single SQLite file is enough.
+# sqlitesearch can also keep a text (FTS5) index and a vector index in one file
+# for hybrid search; we stick to vector search here.
 DATA_DIR = BASE_DIR / "data"
 DB_PATH = DATA_DIR / "faq.db"
 
@@ -47,19 +47,18 @@ REPLICA_PATH = os.environ.get("REPLICA_PATH", str(DATA_DIR / "faq-replica.db"))
 _INDEX_KWARGS = dict(mode="lsh", keyword_fields=KEYWORD_FIELDS, hash_size=8, n_probe=4)
 
 
-def open_vector_index(local: bool = False):
+def open_vector_index():
     """Open the LSH vector index. Both `ingest.py` and `search.py` go through
     this so their index settings can never drift apart.
 
-    Serving (default) opens a Turso-backed embedded replica when configured:
-    data syncs down once and reads run against the local file. Ingest passes
-    ``local=True`` to build a plain local SQLite file (fast) — that file is then
-    imported into Turso in one shot, because writing through the replica
-    forwards every INSERT to the remote and is far too slow for bulk loads.
+    When TURSO_DATABASE_URL is set, the index is backed by Turso through a
+    libSQL embedded replica: reads run against REPLICA_PATH locally, and writes
+    batch up to Turso (fast since sqlitesearch >= 0.0.6). Without it, the index
+    is a plain local SQLite file at DB_PATH.
     """
     from sqlitesearch import VectorSearchIndex
 
-    if TURSO_DATABASE_URL and not local:
+    if TURSO_DATABASE_URL:
         Path(REPLICA_PATH).parent.mkdir(parents=True, exist_ok=True)
         return VectorSearchIndex(
             db_path=REPLICA_PATH,

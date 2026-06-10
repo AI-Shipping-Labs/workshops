@@ -14,8 +14,7 @@ flowchart LR
     subgraph ingest["ingest (offline, once)"]
         FAQ["FAQ JSON"] --> EMB1["ONNX embed"]
         EMB1 --> LSH["sqlitesearch<br/>LSH index"]
-        LSH --> FILE["local faq.db"]
-        FILE -->|turso db import| TURSO[("Turso<br/>(hosted libSQL)")]
+        LSH -->|writes| TURSO[("Turso<br/>(hosted libSQL)")]
     end
 
     subgraph serve["serve (every request)"]
@@ -50,38 +49,37 @@ The result deploys to any free host with three secrets and no database server.
 - Python 3.14 + [`uv`](https://docs.astral.sh/uv/)
 - An OpenAI API key (for the agent)
 - A free [Turso](https://turso.tech) account + the [Turso CLI](https://docs.turso.tech/cli/installation)
-- `sqlitesearch >= 0.0.6` (the version with the Turso/libSQL backend) — pulled in via the `[turso]` extra
+- `sqlitesearch >= 0.0.6` (the version with the Turso/libSQL backend) — pulled in via the `[libsql]` extra
 
 ## Setup
 
-Create a `.env`:
+Create a Turso database and read off its URL + token:
+
+```bash
+turso db create faq
+turso db show faq --url         # -> TURSO_DATABASE_URL
+turso db tokens create faq      # -> TURSO_AUTH_TOKEN
+```
+
+Put them in `.env`:
 
 ```
 OPENAI_API_KEY=sk-...
-TURSO_DATABASE_URL=        # filled in after the import step
-TURSO_AUTH_TOKEN=
+TURSO_DATABASE_URL=libsql://faq-<org>.turso.io
+TURSO_AUTH_TOKEN=...
 ```
 
-Install and build the index **locally** (fast):
+Install and build the index. With `TURSO_DATABASE_URL` set, ingest writes straight to Turso:
 
 ```bash
 make install      # uv sync
 make download     # fetch the ONNX embedding model into models/
-make ingest       # fetch FAQ -> embed (ONNX) -> build data/faq.db
+make ingest       # fetch FAQ -> embed (ONNX) -> write the index to Turso
 ```
 
-Push the index to Turso in one shot, then put the URL + token in `.env`:
-
-```bash
-make push-turso                 # turso db create faq --from-file data/faq.db
-turso db tokens create faq      # -> TURSO_AUTH_TOKEN
-turso db show faq --url         # -> TURSO_DATABASE_URL
-```
-
-> **Why build local then import?** Writing rows one-by-one *through* the Turso
-> replica forwards every INSERT to the remote and is slow for a bulk load.
-> Building a local file and importing it once is near-instant. Reads via the
-> replica are local and fast, so only the initial ingest needs this split.
+`sqlitesearch` batches the inserts, so the bulk load to Turso stays fast. Leave
+the `TURSO_*` vars unset to build a local `data/faq.db` for offline testing
+instead.
 
 ## Run
 
@@ -100,21 +98,19 @@ retrieved FAQ entries (with sources).
 
 ## What's In This Code
 
-- `config.py` — shared config and the `open_vector_index()` factory. It holds the LSH settings in one place so ingest and serve build the index identically. Turso-backed when `TURSO_DATABASE_URL` is set; `local=True` forces a plain local file (used by ingest).
+- `config.py` — shared config and the `open_vector_index()` factory. It holds the LSH settings in one place so ingest and serve build the index identically. Turso-backed when `TURSO_DATABASE_URL` is set, otherwise a plain local SQLite file.
 - `embedder.py` — local ONNX text embedder (mean-pooled, L2-normalized) so cosine similarity is a dot product. No PyTorch.
 - `download.py` — downloads the ONNX model + tokenizer from HuggingFace into `models/` (build time only).
-- `ingest.py` — the offline half: fetch FAQ → embed → build the vector index into a local SQLite file. Pushing to Turso is the separate one-shot `make push-turso` step.
+- `ingest.py` — the offline half: fetch FAQ → embed → build the vector index. Writes to Turso when `TURSO_DATABASE_URL` is set, otherwise to a local SQLite file.
 - `search.py` — the serve half: opens the Turso-backed index (syncs down), embeds the incoming query, returns nearest FAQ documents. Also defines the `search` tool schema shown to the model.
 - `agent.py` — the agent loop: sends the question to OpenAI, runs the `search` tool when the model asks, feeds results back, and produces a grounded answer.
 - `app.py` — FastAPI app: `GET /health` and `POST /ask`.
 - `renderer.py` — `CollectingRenderer` gathers the streamed tokens + tool calls into the final JSON response.
 - `schemas.py` — Pydantic request/response models.
-- `docs/turso-migration.md` — detailed migration notes: full architecture, step-by-step reproduction, learnings, and deployment next steps.
 
 ## Deploying for free
 
 The data lives in Turso, so the app host needs no persistent disk. Point any
 free host (Render, Hugging Face Spaces, Fly, …) at this code and set three
 secrets — `OPENAI_API_KEY`, `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` — plus bake
-the `models/` directory in (or run `make download` at build). See
-`docs/turso-migration.md` for the full deployment checklist.
+the `models/` directory in (or run `make download` at build).
