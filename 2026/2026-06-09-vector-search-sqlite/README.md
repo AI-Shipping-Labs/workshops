@@ -51,7 +51,7 @@ The result deploys to any free host with three secrets and no database server.
 - Python 3.14 + [`uv`](https://docs.astral.sh/uv/)
 - An OpenAI API key (for the agent)
 - A free [Turso](https://turso.tech) account + the [Turso CLI](https://docs.turso.tech/cli/installation)
-- `sqlitesearch >= 0.0.6` (the version with the Turso/libSQL backend) — pulled in via the `[libsql]` extra
+- `sqlitesearch >= 0.1.0` (transparent local/Turso `db_path` interface) — the libSQL backend is pulled in via the `[libsql]` extra
 
 ## Setup
 
@@ -59,7 +59,7 @@ Create a Turso database and read off its URL + token:
 
 ```bash
 turso db create faq
-turso db show faq --url         # -> TURSO_DATABASE_URL
+turso db show faq --url         # -> DB_PATH (libsql:// URL)
 turso db tokens create faq      # -> TURSO_AUTH_TOKEN
 ```
 
@@ -67,11 +67,15 @@ Put them in `.env`:
 
 ```
 OPENAI_API_KEY=sk-...
-TURSO_DATABASE_URL=libsql://faq-<org>.turso.io
+DB_PATH=libsql://faq-<org>.turso.io
 TURSO_AUTH_TOKEN=...
 ```
 
-Install and build the index. With `TURSO_DATABASE_URL` set, ingest writes straight to Turso:
+`DB_PATH` is the one variable that picks the database: a `libsql://` URL points
+at Turso, while a local path (the default `data/faq.db`) keeps everything on
+disk.
+
+Install and build the index. With a `libsql://` `DB_PATH`, ingest writes straight to Turso:
 
 ```bash
 make install      # uv sync
@@ -80,8 +84,7 @@ make ingest       # fetch FAQ -> embed (ONNX) -> write the index to Turso
 ```
 
 `sqlitesearch` batches the inserts, so the bulk load to Turso stays fast. Leave
-the `TURSO_*` vars unset to build a local `data/faq.db` for offline testing
-instead.
+`DB_PATH` unset to build a local `data/faq.db` for offline testing instead.
 
 ## Run
 
@@ -100,10 +103,10 @@ retrieved FAQ entries (with sources).
 
 ## What's In This Code
 
-- `config.py` — shared config and the `open_vector_index()` factory. It holds the LSH settings in one place so ingest and serve build the index identically. Turso-backed when `TURSO_DATABASE_URL` is set, otherwise a plain local SQLite file.
+- `config.py` — shared config and the `open_vector_index()` factory. It holds the LSH settings in one place so ingest and serve build the index identically. `DB_PATH` is Turso-backed when it is a `libsql://` URL, otherwise a plain local SQLite file.
 - `embedder.py` — local ONNX text embedder (mean-pooled, L2-normalized) so cosine similarity is a dot product. No PyTorch.
 - `download.py` — downloads the ONNX model + tokenizer from HuggingFace into `models/` (build time only).
-- `ingest.py` — the offline half: fetch FAQ → embed → build the vector index. Writes to Turso when `TURSO_DATABASE_URL` is set, otherwise to a local SQLite file.
+- `ingest.py` — the offline half: fetch FAQ → embed → build the vector index. Writes to Turso when `DB_PATH` is a `libsql://` URL, otherwise to a local SQLite file.
 - `search.py` — the serve half: opens the Turso-backed index (syncs down), embeds the incoming query, returns nearest FAQ documents. Also defines the `search` tool schema shown to the model.
 - `agent.py` — the agent loop: sends the question to OpenAI, runs the `search` tool when the model asks, feeds results back, and produces a grounded answer.
 - `app.py` — FastAPI app: `GET /health` and `POST /ask`.
@@ -114,5 +117,5 @@ retrieved FAQ entries (with sources).
 
 The data lives in Turso, so the app host needs no persistent disk. Point any
 free host (Render, Hugging Face Spaces, Fly, …) at this code and set three
-secrets — `OPENAI_API_KEY`, `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` — plus bake
-the `models/` directory in (or run `make download` at build).
+secrets — `OPENAI_API_KEY`, `DB_PATH` (the `libsql://` URL), `TURSO_AUTH_TOKEN`
+— plus bake the `models/` directory in (or run `make download` at build).

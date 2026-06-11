@@ -17,5 +17,5 @@ dependencies = [
     "huggingface-hub>=1.17.0",
     # SQLite vector search + the libSQL backend for Turso.
     # The [libsql] extra pulls in the libsql client.
-    "sqlitesearch[libsql]>=0.0.6",
+    "sqlitesearch[libsql]>=0.1.0",
 ]

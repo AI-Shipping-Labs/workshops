@@ -47,7 +47,7 @@ def embed_documents(embedder, documents):
 
 def build_vector_index(documents, vectors):
     # Build into whatever the factory opens: a local SQLite file for dev, or
-    # Turso when TURSO_DATABASE_URL is set. sqlitesearch batches the inserts, so
+    # Turso when DB_PATH is a libsql:// URL. sqlitesearch batches the inserts, so
     # writing straight to Turso is fast.
     index = open_vector_index()
     index.clear()

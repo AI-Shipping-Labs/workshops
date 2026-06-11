@@ -8,7 +8,7 @@ download:
 	uv run python download.py
 
 # Fetch the FAQ, embed it, and build the vector index. Writes to Turso when
-# TURSO_DATABASE_URL is set in .env, otherwise to a local SQLite file.
+# DB_PATH is a libsql:// URL in .env, otherwise to a local SQLite file.
 ingest:
 	uv run python ingest.py
 

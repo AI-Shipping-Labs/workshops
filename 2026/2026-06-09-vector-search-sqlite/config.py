@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
+from sqlitesearch import VectorSearchIndex
 
 load_dotenv()
 
@@ -28,19 +29,17 @@ MODEL_PATH = MODELS_DIR / MODEL_REPO
 # sqlitesearch can also keep a text (FTS5) index and a vector index in one file
 # for hybrid search; we stick to vector search here.
 DATA_DIR = BASE_DIR / "data"
-DB_PATH = DATA_DIR / "faq.db"
 
 # --- Index field configuration ---
 KEYWORD_FIELDS = ["course"]
 
-# --- Turso (remote libSQL) ---
-# When TURSO_DATABASE_URL is set, the index is backed by Turso via a local
-# embedded replica: reads/writes hit REPLICA_PATH locally and sync to Turso, so
-# the data persists even though the host's disk is ephemeral. Without it, we
-# fall back to a plain local SQLite file at DB_PATH (handy for offline dev).
-TURSO_DATABASE_URL = os.environ.get("TURSO_DATABASE_URL")
-TURSO_AUTH_TOKEN = os.environ.get("TURSO_AUTH_TOKEN")
-REPLICA_PATH = os.environ.get("REPLICA_PATH", str(DATA_DIR / "faq-replica.db"))
+# --- Database location (local file or remote Turso) ---
+# DB_PATH selects the database: a local SQLite file (handy for offline dev) or a
+# `libsql://` URL for a hosted Turso database. With a `libsql://` URL,
+# sqlitesearch sets up the embedded replica transparently — reads/writes run
+# locally and sync to Turso, so the data persists even on an ephemeral host.
+DB_PATH = os.environ.get("DB_PATH", str(DATA_DIR / "faq.db"))
+TURSO_AUTH_TOKEN = os.environ.get("TURSO_AUTH_TOKEN")  # only needed for a remote
 
 # LSH params tuned for a small (~hundreds of docs) corpus. Kept here so ingest
 # and serve build the index identically.
@@ -51,20 +50,9 @@ def open_vector_index():
     """Open the LSH vector index. Both `ingest.py` and `search.py` go through
     this so their index settings can never drift apart.
 
-    When TURSO_DATABASE_URL is set, the index is backed by Turso through a
-    libSQL embedded replica: reads run against REPLICA_PATH locally, and writes
-    batch up to Turso (fast since sqlitesearch >= 0.0.6). Without it, the index
-    is a plain local SQLite file at DB_PATH.
+    DB_PATH decides where the index lives: a local SQLite file, or a `libsql://`
+    Turso URL. For a Turso URL, sqlitesearch transparently sets up the embedded
+    replica (local reads/writes that sync to Turso). The local parent directory
+    is created automatically when DB_PATH is a file path.
     """
-    from sqlitesearch import VectorSearchIndex
-
-    if TURSO_DATABASE_URL:
-        Path(REPLICA_PATH).parent.mkdir(parents=True, exist_ok=True)
-        return VectorSearchIndex(
-            db_path=REPLICA_PATH,
-            sync_url=TURSO_DATABASE_URL,
-            auth_token=TURSO_AUTH_TOKEN,
-            **_INDEX_KWARGS,
-        )
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-    return VectorSearchIndex(db_path=str(DB_PATH), **_INDEX_KWARGS)
+    return VectorSearchIndex(db_path=DB_PATH, auth_token=TURSO_AUTH_TOKEN, **_INDEX_KWARGS)
