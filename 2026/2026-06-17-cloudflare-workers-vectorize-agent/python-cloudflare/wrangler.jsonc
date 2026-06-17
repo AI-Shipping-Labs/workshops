@@ -1,0 +1,23 @@
+{
+  "$schema": "../full-stack-cloudflare/apps/agent-worker/node_modules/wrangler/config-schema.json",
+  "name": "cloudflare-ai-agent-python",
+  "main": "src/entry.py",
+  "compatibility_date": "2026-06-17",
+  "compatibility_flags": ["python_workers"],
+  "workers_dev": true,
+  "vars": {
+    "CHAT_MODEL": "@cf/zai-org/glm-4.7-flash",
+    "EMBEDDING_MODEL": "@cf/baai/bge-base-en-v1.5"
+  },
+  "ai": {
+    "binding": "AI",
+    "remote": true
+  },
+  "vectorize": [
+    {
+      "binding": "FAQ_INDEX",
+      "index_name": "faq-index",
+      "remote": true
+    }
+  ]
+}

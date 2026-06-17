@@ -1,0 +1,12 @@
+node_modules/
+.wrangler/
+.dev.vars
+.env
+.venv/
+.venv-workers/
+.wrangler/
+__pycache__/
+.python-version
+python_modules/
+dist/
+npm-debug.log*

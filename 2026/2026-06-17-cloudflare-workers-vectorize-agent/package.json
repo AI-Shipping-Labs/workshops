@@ -1,0 +1,12 @@
+{
+  "name": "cloudflare-ai-agent-comparison",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "option1:dev": "npm --prefix full-stack-cloudflare/apps/agent-worker run dev",
+    "option1:deploy": "npm --prefix full-stack-cloudflare/apps/agent-worker run deploy",
+    "option1:ingest": "npm --prefix full-stack-cloudflare/apps/ingestion run ingest",
+    "option1:typecheck": "npm --prefix full-stack-cloudflare/packages/shared run typecheck && npm --prefix full-stack-cloudflare/apps/agent-worker run typecheck && npm --prefix full-stack-cloudflare/apps/ingestion run typecheck"
+  }
+}

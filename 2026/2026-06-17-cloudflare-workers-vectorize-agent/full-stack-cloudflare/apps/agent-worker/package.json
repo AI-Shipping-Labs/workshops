@@ -1,0 +1,23 @@
+{
+  "name": "cloudflare-agent-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ../../scripts/with-root-env.mjs -- wrangler dev --config wrangler.local.jsonc --env-file __ROOT_ENV_FILE__",
+    "dev:bindings": "node ../../scripts/with-root-env.mjs wrangler dev",
+    "dev:remote-preview": "node ../../scripts/with-root-env.mjs wrangler dev --remote",
+    "deploy": "node ../../scripts/with-root-env.mjs wrangler deploy",
+    "dry-run": "node ../../scripts/with-root-env.mjs wrangler deploy --dry-run --outdir dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260617.0",
+    "typescript": "^5.9.0",
+    "wrangler": "^4.25.0"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1",
+    "ws": "^8.21.0"
+  }
+}

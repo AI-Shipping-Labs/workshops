@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cloudflare AI FAQ Agent</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f7f4;
+        --panel: #ffffff;
+        --ink: #171717;
+        --muted: #5f6368;
+        --line: #d8d8d2;
+        --accent: #2563eb;
+        --accent-dark: #1d4ed8;
+        --soft: #f4f6f8;
+        --thinking: #f8fafc;
+        --tool: #eff6ff;
+        --answer: #f7fdf9;
+        --warn: #fff7ed;
+      }
+      * { box-sizing: border-box; }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        overflow: hidden;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      main {
+        width: min(960px, calc(100vw - 32px));
+        height: 100dvh;
+        min-height: 0;
+        margin: 0 auto;
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 0 0 18px;
+        border-bottom: 1px solid var(--line);
+      }
+      h1 {
+        margin: 0;
+        font-size: 28px;
+        line-height: 1.15;
+        letter-spacing: 0;
+      }
+      .status {
+        color: var(--muted);
+        font-size: 14px;
+        text-align: right;
+      }
+      form {
+        display: grid;
+        grid-template-columns: 1fr 150px auto;
+        gap: 10px;
+        margin: 18px 0;
+        align-items: end;
+      }
+      input {
+        min-width: 0;
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 14px 15px;
+        font: inherit;
+        background: var(--panel);
+        color: var(--ink);
+      }
+      label {
+        display: grid;
+        gap: 5px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+      }
+      button {
+        border: 0;
+        border-radius: 8px;
+        padding: 0 18px;
+        min-height: 48px;
+        font: inherit;
+        font-weight: 700;
+        background: var(--accent);
+        color: white;
+        cursor: pointer;
+      }
+      button:hover { background: var(--accent-dark); }
+      button:disabled { opacity: 0.55; cursor: wait; }
+      section {
+        min-width: 0;
+        min-height: 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+      section h2 {
+        margin: 0;
+        padding: 14px 16px;
+        font-size: 15px;
+        border-bottom: 1px solid var(--line);
+      }
+      #transcript {
+        min-height: 0;
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        overscroll-behavior: contain;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background: #fbfbf8;
+      }
+      .event {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        overflow: hidden;
+      }
+      details.event > summary {
+        cursor: pointer;
+        list-style: none;
+      }
+      details.event > summary::-webkit-details-marker {
+        display: none;
+      }
+      .event-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 9px 11px;
+        border-bottom: 1px solid rgba(216, 216, 210, 0.72);
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .event-main {
+        min-width: 0;
+        display: grid;
+        gap: 2px;
+      }
+      .event-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .event-subtitle {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .event-body {
+        padding: 10px 11px;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        line-height: 1.5;
+        font-size: 14px;
+      }
+      .event-status .event-body,
+      .event-iteration .event-body {
+        color: var(--muted);
+        background: var(--soft);
+      }
+      .event-thinking .event-body {
+        color: #334155;
+        background: var(--thinking);
+        max-height: 220px;
+        overflow: auto;
+      }
+      .event-tool .event-body {
+        background: var(--tool);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 13px;
+      }
+      .event-model .event-body {
+        color: var(--muted);
+        background: var(--soft);
+        font-size: 13px;
+      }
+      .event-warning .event-body {
+        color: #9a3412;
+        background: var(--warn);
+        font-size: 13px;
+      }
+      .event-result .event-body {
+        background: #f8fbff;
+        font-size: 13px;
+      }
+      .event-answer .event-body {
+        background: var(--answer);
+        white-space: normal;
+      }
+      .tool-section + .tool-section {
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(216, 216, 210, 0.8);
+      }
+      .tool-section-title {
+        margin: 0 0 6px;
+        color: #1f2937;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .tool-section pre {
+        margin: 0;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font: inherit;
+      }
+      .event-error .event-body {
+        background: #fff1f2;
+        color: #991b1b;
+      }
+      .markdown > *:first-child { margin-top: 0; }
+      .markdown > *:last-child { margin-bottom: 0; }
+      .markdown p {
+        margin: 0 0 10px;
+      }
+      .markdown ul,
+      .markdown ol {
+        margin: 0 0 10px 20px;
+        padding: 0;
+      }
+      .markdown li {
+        margin: 3px 0;
+      }
+      .markdown code {
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        padding: 1px 4px;
+        background: #ffffff;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.92em;
+      }
+      .markdown a {
+        color: var(--accent-dark);
+        text-decoration-thickness: 1px;
+      }
+      .badge {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 2px 8px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      @media (max-width: 760px) {
+        body { overflow: hidden; }
+        main {
+          width: min(100vw - 20px, 960px);
+          padding: 12px 0;
+        }
+        header { align-items: start; flex-direction: column; }
+        .status { text-align: left; }
+        h1 { font-size: 23px; }
+        form { grid-template-columns: 1fr; }
+        .event-header { align-items: start; }
+        button { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Cloudflare AI FAQ Agent</h1>
+        <div class="status">Workers AI + Vectorize</div>
+      </header>
+      <form id="ask-form">
+        <input id="question" name="question" autocomplete="off" value="I just discoverd the coure can I join it now">
+        <label>
+          Max tokens
+          <input id="max-tokens" name="maxTokens" type="number" min="256" max="16384" step="256" value="8192">
+        </label>
+        <button id="submit" type="submit">Ask</button>
+      </form>
+      <section>
+        <h2>Run</h2>
+        <div id="transcript"></div>
+      </section>
+    </main>
+    <script>
+      const form = document.querySelector("#ask-form");
+      const input = document.querySelector("#question");
+      const maxTokensInput = document.querySelector("#max-tokens");
+      const button = document.querySelector("#submit");
+      const transcript = document.querySelector("#transcript");
+      let thinkingBlock = null;
+      let currentToolBlock = null;
+      let answerBody = null;
+      let answerMarkdown = "";
+      let currentIteration = 1;
+      let toolCallCount = 0;
+      let scrollFrame = 0;
+
+      // Handles form submissions by opening the Worker SSE endpoint.
+      // Used by the browser UI served from renderHome().
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const question = input.value.trim();
+        const maxOutputTokens = Number(maxTokensInput.value) || 8192;
+        transcript.textContent = "";
+        thinkingBlock = null;
+        currentToolBlock = null;
+        answerBody = null;
+        answerMarkdown = "";
+        currentIteration = 1;
+        toolCallCount = 0;
+        button.disabled = true;
+
+        try {
+          const response = await fetch("/ask/stream", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ question, limit: 5, maxOutputTokens })
+          });
+          if (!response.ok || !response.body) {
+            const data = await response.json().catch(() => ({}));
+            throw new Error(data.error || "Request failed");
+          }
+
+          await readEventStream(response.body);
+        } catch (error) {
+          appendSimpleEvent("error", "Error", error instanceof Error ? error.message : String(error));
+        } finally {
+          button.disabled = false;
+          input.focus();
+        }
+      });
+
+      // Reads the /ask/stream SSE response and updates the timeline.
+      async function readEventStream(body) {
+        const reader = body.getReader();
+        const decoder = new TextDecoder();
+        let pendingEventText = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          pendingEventText += decoder.decode(value, { stream: true });
+          const chunks = pendingEventText.split("\n\n");
+          pendingEventText = chunks.pop() || "";
+
+          for (const chunk of chunks) {
+            const parsed = parseSse(chunk);
+            if (!parsed) continue;
+
+            handleAgentEvent(parsed);
+          }
+        }
+      }
+
+      // Adds or updates one chronological event in the transcript.
+      function handleAgentEvent(parsed) {
+        if (parsed.event === "status") {
+          ensureThinkingBlock(parsed.data.message || "thinking...");
+          return;
+        }
+
+        if (parsed.event === "iteration") {
+          currentIteration = parsed.data.n || currentIteration;
+          return;
+        }
+
+        if (parsed.event === "reasoning") {
+          const block = ensureThinkingBlock("reasoning");
+          block.body.textContent += parsed.data.delta || "";
+          block.subtitle.textContent = "click to inspect model reasoning";
+          scrollTranscript();
+          return;
+        }
+
+        if (parsed.event === "tool_call") {
+          currentToolBlock = appendToolCall(parsed.data.name, parsed.data.arguments);
+          return;
+        }
+
+        if (parsed.event === "tool_result") {
+          appendToolResult(currentToolBlock, parsed.data.result);
+          return;
+        }
+
+        if (parsed.event === "model_done") {
+          appendModelDone(parsed.data);
+          return;
+        }
+
+        if (parsed.event === "token") {
+          if (!answerBody) {
+            answerBody = appendSimpleEvent("answer", "Answer", "");
+          }
+          answerMarkdown += parsed.data.delta || "";
+          renderMarkdown(answerBody, answerMarkdown);
+          scrollTranscript();
+          return;
+        }
+
+        if (parsed.event === "done") {
+          if (!answerBody && parsed.data.answer) {
+            answerMarkdown = parsed.data.answer;
+            answerBody = appendSimpleEvent("answer", "Answer", "");
+            renderMarkdown(answerBody, answerMarkdown);
+          }
+          appendRunDone(parsed.data);
+          return;
+        }
+
+        if (parsed.event === "error") {
+          throw new Error(parsed.data.error || "Stream failed");
+        }
+      }
+
+      // Creates a normal timeline row and returns its body node for streaming updates.
+      function appendSimpleEvent(kind, title, body) {
+        const item = document.createElement("article");
+        item.className = "event event-" + kind;
+
+        const header = buildHeader(title, "", kind, false);
+
+        const content = document.createElement("div");
+        content.className = "event-body";
+        if (kind === "answer") {
+          content.classList.add("markdown");
+          renderMarkdown(content, body || "");
+        } else {
+          content.textContent = body || "";
+        }
+
+        item.appendChild(header);
+        item.appendChild(content);
+        transcript.appendChild(item);
+        scrollTranscript();
+        return content;
+      }
+
+      // Creates a collapsed timeline row and returns the mutable nodes inside it.
+      function appendDetailsEvent(kind, title, subtitle) {
+        const item = document.createElement("details");
+        item.className = "event event-" + kind;
+
+        const header = buildHeader(title, subtitle, kind, true);
+        const content = document.createElement("div");
+        content.className = "event-body";
+
+        item.appendChild(header);
+        item.appendChild(content);
+        transcript.appendChild(item);
+        scrollTranscript();
+
+        return {
+          details: item,
+          body: content,
+          subtitle: header.querySelector(".event-subtitle"),
+          badge: header.querySelector(".badge")
+        };
+      }
+
+      // Builds the shared event header used by regular and collapsed timeline rows.
+      function buildHeader(title, subtitle, badgeText, collapsible) {
+        const header = document.createElement(collapsible ? "summary" : "div");
+        header.className = "event-header";
+
+        const main = document.createElement("span");
+        main.className = "event-main";
+
+        const titleNode = document.createElement("span");
+        titleNode.className = "event-title";
+        titleNode.textContent = title;
+        main.appendChild(titleNode);
+
+        const subtitleNode = document.createElement("span");
+        subtitleNode.className = "event-subtitle";
+        subtitleNode.textContent = subtitle || "";
+        main.appendChild(subtitleNode);
+
+        const badge = document.createElement("span");
+        badge.className = "badge";
+        badge.textContent = badgeText;
+
+        header.appendChild(main);
+        header.appendChild(badge);
+        return header;
+      }
+
+      // Creates the thinking row once and keeps reasoning collapsed inside it.
+      function ensureThinkingBlock(subtitle) {
+        if (!thinkingBlock) {
+          thinkingBlock = appendDetailsEvent("thinking", "Thinking", subtitle || "waiting for model");
+        }
+        return thinkingBlock;
+      }
+
+      // Adds a collapsed search/tool-call row; results are attached later.
+      function appendToolCall(name, args) {
+        toolCallCount += 1;
+        const query = args && typeof args.query === "string" ? args.query : name;
+        const block = appendDetailsEvent(
+          "tool",
+          "Search " + toolCallCount + ": " + query,
+          "iteration " + currentIteration + " · click to inspect arguments and results"
+        );
+
+        const argsSection = appendToolSection(block.body, "Arguments");
+        argsSection.textContent = formatJson(args);
+
+        const resultSection = appendToolSection(block.body, "Result");
+        resultSection.textContent = "waiting for Vectorize...";
+
+        return { ...block, result: resultSection };
+      }
+
+      // Adds hidden Vectorize results to the most recent tool-call row.
+      function appendToolResult(block, result) {
+        const target = block || appendToolCall("search", {});
+        target.result.textContent = formatToolResult(result);
+        target.subtitle.textContent = resultSummary(result) + " · continuing";
+      }
+
+      // Appends a labelled section inside a collapsed tool row.
+      function appendToolSection(parent, title) {
+        const section = document.createElement("div");
+        section.className = "tool-section";
+
+        const label = document.createElement("p");
+        label.className = "tool-section-title";
+        label.textContent = title;
+
+        const body = document.createElement("pre");
+        section.appendChild(label);
+        section.appendChild(body);
+        parent.appendChild(section);
+        return body;
+      }
+
+      // Formats tool arguments without exposing noisy raw SSE objects.
+      function formatJson(value) {
+        return JSON.stringify(value || {}, null, 2);
+      }
+
+      // Summarizes Vectorize matches so tool results stay readable in one pane.
+      function formatToolResult(result) {
+        if (!Array.isArray(result) || result.length === 0) {
+          return "No matches";
+        }
+
+        return result.map((item, index) => {
+          const score = typeof item.score === "number" ? item.score.toFixed(3) : "n/a";
+          return [
+            String(index + 1) + ". " + item.question,
+            "   id: " + item.id + "   score: " + score,
+            "   " + item.section
+          ].join("\n");
+        }).join("\n\n");
+      }
+
+      // Produces the collapsed summary text for a completed tool result.
+      function resultSummary(result) {
+        if (!Array.isArray(result)) {
+          return "click to inspect result";
+        }
+        return String(result.length) + " Vectorize matches · click to inspect";
+      }
+
+      // Adds a compact row explaining why the model stopped streaming this turn.
+      function appendModelDone(data) {
+        const reason = String(data.finishReason || "unknown");
+        const tokens = formatTokenUsage(data);
+
+        if (reason === "length") {
+          appendSimpleEvent(
+            "warning",
+            "Token limit reached",
+            "The model stopped because it hit Max tokens = " + data.maxOutputTokens + tokens
+          );
+          return;
+        }
+
+        if (reason === "tool_calls") {
+          appendSimpleEvent("model", "Model finished: tool call", "finish_reason=tool_calls" + tokens);
+          return;
+        }
+
+        appendSimpleEvent("model", "Model finished: " + reason, "finish_reason=" + reason + tokens);
+      }
+
+      // Adds the final run status, including explicit guard stops.
+      function appendRunDone(data) {
+        if (data && data.stoppedBy === "max_iterations") {
+          appendSimpleEvent(
+            "warning",
+            "Stopped: max iterations",
+            "The agent used all " + data.maxIterations + " iterations before producing a final answer."
+          );
+          return;
+        }
+
+        if (data && data.stoppedBy === "token_limit") {
+          appendSimpleEvent(
+            "warning",
+            "Stopped: token limit",
+            "The final answer stopped because the model hit Max tokens = " + data.maxOutputTokens + "."
+          );
+          return;
+        }
+
+        appendSimpleEvent("model", "Run complete", "final answer finished");
+      }
+
+      // Formats token usage when Workers AI includes usage data in the stream.
+      function formatTokenUsage(data) {
+        const parts = [];
+        if (typeof data.completionTokens === "number") {
+          parts.push("completion " + data.completionTokens);
+        }
+        if (typeof data.totalTokens === "number") {
+          parts.push("total " + data.totalTokens);
+        }
+        return parts.length ? " · tokens: " + parts.join(", ") : "";
+      }
+
+      // Keeps the latest event visible as the stream updates.
+      function scrollTranscript() {
+        if (scrollFrame) {
+          cancelAnimationFrame(scrollFrame);
+        }
+
+        scrollFrame = requestAnimationFrame(() => {
+          transcript.scrollTop = transcript.scrollHeight;
+          const latest = answerBody || transcript.lastElementChild;
+          if (latest) {
+            latest.scrollIntoView({ block: "end", inline: "nearest" });
+          }
+          scrollFrame = 0;
+        });
+      }
+
+      // Renders the answer Markdown into sanitized HTML.
+      function renderMarkdown(target, markdown) {
+        target.innerHTML = markdownToHtml(markdown || "");
+      }
+
+      // Converts the small Markdown subset used by agent answers into HTML.
+      function markdownToHtml(markdown) {
+        const normalized = markdown.replace(/\r\n/g, "\n").trim();
+        if (!normalized) return "";
+
+        return normalized.split(/\n{2,}/).map((block) => {
+          const lines = block.split("\n");
+          const heading = block.match(/^(#{1,3})\s+(.+)$/);
+          if (heading) {
+            const level = heading[1].length;
+            return "<h" + level + ">" + inlineMarkdown(heading[2]) + "</h" + level + ">";
+          }
+
+          if (lines.every((line) => /^\s*[-*]\s+/.test(line))) {
+            return "<ul>" + lines.map((line) => "<li>" + inlineMarkdown(line.replace(/^\s*[-*]\s+/, "")) + "</li>").join("") + "</ul>";
+          }
+
+          if (lines.every((line) => /^\s*\d+\.\s+/.test(line))) {
+            return "<ol>" + lines.map((line) => "<li>" + inlineMarkdown(line.replace(/^\s*\d+\.\s+/, "")) + "</li>").join("") + "</ol>";
+          }
+
+          return "<p>" + lines.map(inlineMarkdown).join("<br>") + "</p>";
+        }).join("");
+      }
+
+      // Converts safe inline Markdown markers after escaping raw model text.
+      function inlineMarkdown(text) {
+        return escapeHtml(text)
+          .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
+          .replace(/`([^`]+)`/g, "<code>$1</code>")
+          .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+      }
+
+      // Escapes model output before the Markdown subset is converted to HTML.
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      // Parses one SSE event block emitted by SseRenderer in the Worker.
+      function parseSse(chunk) {
+        const lines = chunk.split("\n");
+        const eventLine = lines.find((line) => line.startsWith("event:"));
+        const dataLine = lines.find((line) => line.startsWith("data:"));
+        if (!eventLine || !dataLine) return null;
+        return {
+          event: eventLine.slice("event:".length).trim(),
+          data: JSON.parse(dataLine.slice("data:".length).trim())
+        };
+      }
+    </script>
+  </body>
+</html>
