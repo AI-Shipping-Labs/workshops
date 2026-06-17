@@ -1,5 +1,8 @@
 # Cloudflare AI Agent Architecture Comparison
 
+Published workshop:
+[AI-Shipping-Labs/workshops/2026/2026-06-17-cloudflare-workers-vectorize-agent](https://github.com/AI-Shipping-Labs/workshops/tree/main/2026/2026-06-17-cloudflare-workers-vectorize-agent)
+
 This repo is organized as two architecture tracks.
 
 ## `full-stack-cloudflare`
