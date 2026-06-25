@@ -1,0 +1,20 @@
+# With a .vercelignore present, Vercel ignores .gitignore and uses only this file.
+# So backend/static (gitignored, but needed in the function bundle) DOES upload —
+# while we still must explicitly exclude secrets and heavy/uneeded dirs here.
+
+.git
+.vercel
+node_modules
+**/__pycache__
+**/*.pyc
+backend/.venv
+
+# secrets — never upload
+.env
+.env.*
+backend/.env
+backend/.env.*
+
+# the frontend source isn't needed at runtime; its build output lives in
+# backend/static (bundled via includeFiles). Exclude it to keep uploads small.
+frontend

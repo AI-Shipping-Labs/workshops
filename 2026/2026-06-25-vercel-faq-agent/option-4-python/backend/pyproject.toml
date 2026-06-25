@@ -1,0 +1,13 @@
+[project]
+name = "faq-agent-backend"
+version = "0.1.0"
+description = "Python (FastAPI) backend for the DataTalks.Club FAQ agent — option 4"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "openai>=2.31.0",
+    "minsearch>=0.0.10",
+    "python-dotenv>=1.2.2",
+]
