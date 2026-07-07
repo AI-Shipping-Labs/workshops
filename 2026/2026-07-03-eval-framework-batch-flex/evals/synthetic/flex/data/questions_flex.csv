@@ -1,0 +1,114 @@
+question,reference_answer,line_number_start,line_number_end,question_type,doc_id,section,source_question
+How do I change the name that shows up on the leaderboard? I only see some random auto-generated name right now.,The display name listed on the leaderboard is an auto-generated randomized name. You can edit it to be a nickname or your real name if you prefer. Your entry on the Leaderboard is the one highlighted in light green.,1,1,course_logistics,16005581f2,General Course-Related Questions,Edit Course Profile.
+Can I use my real name instead of the random leaderboard name?,The display name listed on the leaderboard is an auto-generated randomized name. You can edit it to be a nickname or your real name if you prefer. Your entry on the Leaderboard is the one highlighted in light green.,1,1,course_logistics,16005581f2,General Course-Related Questions,Edit Course Profile.
+What name am I supposed to put for the certificate? I don't want to mess that up.,The Certificate name should be your actual name that you want to appear on your certificate after completing the course.,3,3,course_logistics,16005581f2,General Course-Related Questions,Edit Course Profile.
+What's the difference between the leaderboard name and the certificate name?,"The display name listed on the leaderboard is an auto-generated randomized name. You can edit it to be a nickname or your real name if you prefer. Your entry on the Leaderboard is the one highlighted in light green.
+
+The Certificate name should be your actual name that you want to appear on your certificate after completing the course.",1,3,course_logistics,16005581f2,General Course-Related Questions,Edit Course Profile.
+"What does the “Display on Leaderboard” setting do? If I turn it off, does that hide my name?","The ""Display on Leaderboard"" option indicates whether you want your name to be listed on the course leaderboard.",5,5,course_logistics,16005581f2,General Course-Related Questions,Edit Course Profile.
+How do I find the Docker network name again?,"Get the network name via:
+
+```bash
+docker network ls
+```",1,5,stuck_participant,79e44b9c07,Module 1: Docker,Docker: Docker network name
+I'm trying to check what Docker network I'm supposed to use — what command shows the network name?,"Get the network name via:
+
+```bash
+docker network ls
+```",1,5,stuck_participant,79e44b9c07,Module 1: Docker,Docker: Docker network name
+What do I run to list Docker networks and see the network name?,"Get the network name via:
+
+```bash
+docker network ls
+```",1,5,stuck_participant,79e44b9c07,Module 1: Docker,Docker: Docker network name
+Is there a command to view the Docker network name for this module?,"Get the network name via:
+
+```bash
+docker network ls
+```",1,5,stuck_participant,79e44b9c07,Module 1: Docker,Docker: Docker network name
+Where do I check the Docker network name if I need it for the exercise?,"Get the network name via:
+
+```bash
+docker network ls
+```",1,5,stuck_participant,79e44b9c07,Module 1: Docker,Docker: Docker network name
+I'm getting `curl: (6) Could not resolve host: output.csv` when I run the Taxi Data download step. Am I supposed to change the curl command somehow?,"Use `os.system(f""curl {url} --output {csv_name}"")` to download the file.",2,2,stuck_participant,48cae101d6,Module 1: Taxi Data (download & handling),CURL: curl: (6) Could not resolve host: output.csv
+My CSV download is failing and it looks like curl is treating `output.csv` like a host. What command should I use instead?,"Use `os.system(f""curl {url} --output {csv_name}"")` to download the file.",2,2,stuck_participant,48cae101d6,Module 1: Taxi Data (download & handling),CURL: curl: (6) Could not resolve host: output.csv
+"In the Taxi Data module, what's the exact curl command for saving the file to `csv_name`? I think mine is downloading wrong.","Use `os.system(f""curl {url} --output {csv_name}"")` to download the file.",2,2,stuck_participant,48cae101d6,Module 1: Taxi Data (download & handling),CURL: curl: (6) Could not resolve host: output.csv
+"When I try to get the CSV, curl says it can't resolve `output.csv`. Is there a specific command format I need for the download?","Use `os.system(f""curl {url} --output {csv_name}"")` to download the file.",2,2,stuck_participant,48cae101d6,Module 1: Taxi Data (download & handling),CURL: curl: (6) Could not resolve host: output.csv
+I'm stuck on the data download part — what should the curl line look like so the file is saved properly?,"Use `os.system(f""curl {url} --output {csv_name}"")` to download the file.",2,2,stuck_participant,48cae101d6,Module 1: Taxi Data (download & handling),CURL: curl: (6) Could not resolve host: output.csv
+"I'm trying to hook dbt into Airflow, but I only have the trial dbt account. Can Airflow still trigger a dbt job, or am I missing some setup?","The trial dbt account provides access to the dbt API. A job will still need to be added manually. Airflow can run the job using a Python operator that calls the API. You will need to provide an API key, job ID, etc., and be careful not to commit this information to GitHub.",1,1,stuck_participant,c81e613d5a,Project,Orchestrating dbt with Airflow
+"Do I need to create the dbt job myself before Airflow can run it, or does the trial account already handle that part?","The trial dbt account provides access to the dbt API. A job will still need to be added manually. Airflow can run the job using a Python operator that calls the API. You will need to provide an API key, job ID, etc., and be careful not to commit this information to GitHub.",1,1,course_logistics,c81e613d5a,Project,Orchestrating dbt with Airflow
+"What do I need to pass from dbt into Airflow to make this work? I'm guessing there's an API key and job ID somewhere, but I'm not sure how it connects.","The trial dbt account provides access to the dbt API. A job will still need to be added manually. Airflow can run the job using a Python operator that calls the API. You will need to provide an API key, job ID, etc., and be careful not to commit this information to GitHub.",1,1,stuck_participant,c81e613d5a,Project,Orchestrating dbt with Airflow
+"Is there an example of how people are orchestrating dbt from Airflow, or a writeup I can follow instead of figuring it out from scratch?","Detailed explanation: [dbt and Airflow Spiritual Alignment](https://docs.getdbt.com/blog/dbt-airflow-spiritual-alignment)
+- Source code example: [GitHub dbt Cloud Example](https://github.com/sungchun12/airflow-toolkit/blob/95d40ac76122de337e1b1cdc8eed35ba1c3051ed/dags/examples/dbt_cloud_example.py)",3,4,stuck_participant,c81e613d5a,Project,Orchestrating dbt with Airflow
+I'm setting up the dbt-Airflow integration and want the example code plus the docs link. Where should I look?,"Detailed explanation: [dbt and Airflow Spiritual Alignment](https://docs.getdbt.com/blog/dbt-airflow-spiritual-alignment)
+- Source code example: [GitHub dbt Cloud Example](https://github.com/sungchun12/airflow-toolkit/blob/95d40ac76122de337e1b1cdc8eed35ba1c3051ed/dags/examples/dbt_cloud_example.py)",3,4,course_logistics,c81e613d5a,Project,Orchestrating dbt with Airflow
+"I'm getting a public key error when I try to SSH into my VM, and I think it might be because I set up the key in Command Prompt instead of the tutorial's bash steps. What was actually wrong here?","It wasn’t an issue with the key generation at all; the problem was with the username. The SSH key had a different username than the one in the VM (the Google account username), so the login was being attempted with `googleacctuser@[ipaddr]` instead of `mySSHuser@[ipaddr]`.",5,5,stuck_participant,eb759226aa,Module 1: GCP setup & VM,GCP: SSH public key error - multiple users / usernames
+I have two different usernames showing up for the same VM SSH setup. Which username am I supposed to use in the config file and SSH login?,"The username in the config file needed to be changed to the correct one, `googleacctuser`, and the SSH login was updated accordingly. The issue was that two users had been created, and the installations and permissions were on `googleacctuser`, not `mySSHuser`.",7,11,stuck_participant,eb759226aa,Module 1: GCP setup & VM,GCP: SSH public key error - multiple users / usernames
+"So if I already created one SSH user but my VM is showing my Google account username, do I need to make a new key or just fix the username somewhere?","You just need to fix the username. The SSH key username should match the VM user, so the key was edited to change the username at the end, and the GCP console and config file were updated accordingly.",5,11,stuck_participant,eb759226aa,Module 1: GCP setup & VM,GCP: SSH public key error - multiple users / usernames
+"I can get in through the browser SSH, but not when I try from VSCode. Is there a workaround for this VM access issue?","A temporary workaround was to SSH into the VM in the browser, which worked for a while. But eventually, VSCode was needed.",15,17,stuck_participant,eb759226aa,Module 1: GCP setup & VM,GCP: SSH public key error - multiple users / usernames
+"If I made the installations and permissions under one VM username, but now I'm logging in with another one, what should I do about the extra account?","The issue was that all installations and permissions were on `googleacctuser`, not accessible from `mySSHuser`. Since `mySSHuser` wasn’t needed, the SSH key username was edited and the GCP console and config file were updated accordingly; the extra `mySSHuser` account could then be deleted to keep things clean.",11,13,stuck_participant,eb759226aa,Module 1: GCP setup & VM,GCP: SSH public key error - multiple users / usernames
+VS Code port forwarding is connecting but Jupyter on localhost still won't open — what am I supposed to use instead?,"Try to forward the port using SSH CLI instead of VS Code. Run: `ssh -L <local port>:<VM host/ip>:<VM port> <ssh hostname>`. For example, for Jupyter Notebook: `ssh -L 8888:localhost:8888 gcp-vm` from your local machine’s CLI.",1,17,stuck_participant,05dc43cda8,Module 6: Spark,Jupyter Notebook or SparkUI not loading properly at localhost after port forwarding from VS code?
+"I started the Jupyter port forward, but localhost:8888 still isn't loading. Do I need to use a different SSH command?","Try to forward the port using SSH CLI instead of VS Code. Run: `ssh -L <local port>:<VM host/ip>:<VM port> <ssh hostname>`. For example, for Jupyter Notebook: `ssh -L 8888:localhost:8888 gcp-vm` from your local machine’s CLI.",1,17,stuck_participant,05dc43cda8,Module 6: Spark,Jupyter Notebook or SparkUI not loading properly at localhost after port forwarding from VS code?
+"Do I have to keep the SSH session open for the forwarded localhost port to work, or can I log out after starting Spark?","If you logout from the session, the connection would break. While creating the Spark session, check the block's log because sometimes it fails to run at 4040 and switches to 4041.",19,19,course_logistics,05dc43cda8,Module 6: Spark,Jupyter Notebook or SparkUI not loading properly at localhost after port forwarding from VS code?
+My Spark UI keeps failing on 4040 — is there some fallback port I should look for?,"While creating the Spark session, check the block's log because sometimes it fails to run at 4040 and switches to 4041.",19,19,stuck_participant,05dc43cda8,Module 6: Spark,Jupyter Notebook or SparkUI not loading properly at localhost after port forwarding from VS code?
+I'm having trouble reaching localhost ports from the GCP VM. Is there a way to set up forwarding once so I don't have to do it every time?,"Add the forwarding instructions to the `.ssh/config` file. Example: `LocalForward 8888 localhost:8888`, `LocalForward 8080 localhost:8080`, `LocalForward 5432 localhost:5432`, and `LocalForward 4040 localhost:4040`. This should automatically forward all ports and enable accessing localhost ports.",21,34,course_logistics,05dc43cda8,Module 6: Spark,Jupyter Notebook or SparkUI not loading properly at localhost after port forwarding from VS code?
+I'm following the taxi data part and my file is ending up as .csv.gz instead of .csv. I tried using output.csv like in the video and it doesn't save right — what am I supposed to do with these gz files?,"Replace `csv_name = ""output.csv""` with the file name extracted from the URL. For example, for the yellow taxi data, use `csv_name = url.split(""/"")[-1]`. Then use `csv_name` with `pandas.read_csv`, which can directly read files with the `csv.gz` extension.",5,12,stuck_participant,d677df9ccb,Module 1: Taxi Data (download & handling),Taxi Data: How to handle *.csv.gz taxi data files?
+"Do I need to unzip the taxi CSV.gz file first, or can pandas read it directly?","`pandas.read_csv` can directly read files with the `csv.gz` extension, so you can use `csv_name` with `pandas.read_csv` without unzipping it first.",12,12,stuck_participant,d677df9ccb,Module 1: Taxi Data (download & handling),Taxi Data: How to handle *.csv.gz taxi data files?
+"The download URL for yellow taxi gives me yellow_tripdata_2021-01.csv.gz. Should I rename it to output.csv, or use the filename from the link somehow?","Replace `csv_name = ""output.csv""` with the file name extracted from the URL. For example, for the yellow taxi data, use `csv_name = url.split(""/"")[-1]`.",5,10,stuck_participant,d677df9ccb,Module 1: Taxi Data (download & handling),Taxi Data: How to handle *.csv.gz taxi data files?
+"When I call read_csv on the .csv.gz file, is there anything special I need to do, or should I just pass the gz filename?","When you use `csv_name` with `pandas.read_csv`, it will work correctly because `pandas.read_csv` can directly read files with the `csv.gz` extension.",12,12,stuck_participant,d677df9ccb,Module 1: Taxi Data (download & handling),Taxi Data: How to handle *.csv.gz taxi data files?
+"In the taxi data video, what should I do if the file extension isn't csv and I want to keep the .gz file working properly?","If the file extension is `csv.gz` instead of `csv`, it won't store correctly. To handle this, replace `csv_name = ""output.csv""` with the file name extracted from the URL, for example `csv_name = url.split(""/"")[-1]`, and then use `pandas.read_csv` on `csv_name`.",1,12,stuck_participant,d677df9ccb,Module 1: Taxi Data (download & handling),Taxi Data: How to handle *.csv.gz taxi data files?
+"I'm trying to pick a dataset for the project — is there a list somewhere with nice, fairly large datasets I can use?",See a list of datasets here: [GitHub Datasets](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/projects/datasets.md),1,1,course_logistics,2220285e58,Project,Does anyone know nice and relatively large datasets?
+Where do I find a bunch of dataset ideas for the project? I need something decent-sized.,See a list of datasets here: [GitHub Datasets](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/projects/datasets.md),1,1,course_logistics,2220285e58,Project,Does anyone know nice and relatively large datasets?
+Are there any recommended datasets for the project that are actually big enough to work with?,See a list of datasets here: [GitHub Datasets](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/projects/datasets.md),1,1,course_logistics,2220285e58,Project,Does anyone know nice and relatively large datasets?
+I need a good dataset for the project — can someone point me to a list of options?,See a list of datasets here: [GitHub Datasets](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/projects/datasets.md),1,1,course_logistics,2220285e58,Project,Does anyone know nice and relatively large datasets?
+What's the link to the dataset list for the project? I'm looking for something large and usable.,See a list of datasets here: [GitHub Datasets](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/projects/datasets.md),1,1,course_logistics,2220285e58,Project,Does anyone know nice and relatively large datasets?
+I'm on Windows and VS Code keeps saying it can't connect to `de-zoomcamp` with `Permission denied (publickey)`. What am I supposed to change in my SSH setup?,"If you are using Windows, try the following steps to resolve the error:
+
+1. Copy the `.ssh` folder from the Linux file path to Windows.
+2. In the `config` file, use:
+   ```
+   IdentityFile C:\Users\<username>\.ssh\gcp
+   ```
+   Instead of:
+   ```
+   IdentityFile ~/.ssh/gcp
+   ```
+3. Ensure the private key file located at `C:\Users\<username>\.ssh\gcp` has an extra line at the end:",1,16,stuck_participant,7889d2bad5,Module 1: GCP setup & VM,"SSH error in VS Code - “Could not establish connection to ""de-zoomcamp"": Permission denied (publickey).”"
+My SSH connection works in Linux but not from Windows in VS Code. Do I need to copy anything over or change the key path?,"If you are using Windows, try the following steps to resolve the error:
+
+1. Copy the `.ssh` folder from the Linux file path to Windows.
+2. In the `config` file, use:
+   ```
+   IdentityFile C:\Users\<username>\.ssh\gcp
+   ```
+   Instead of:
+   ```
+   IdentityFile ~/.ssh/gcp
+   ```
+3. Ensure the private key file located at `C:\Users\<username>\.ssh\gcp` has an extra line at the end:",1,16,stuck_participant,7889d2bad5,Module 1: GCP setup & VM,"SSH error in VS Code - “Could not establish connection to ""de-zoomcamp"": Permission denied (publickey).”"
+I changed the SSH config but I'm still getting `Permission denied (publickey)` in VS Code. What exact `IdentityFile` path should I use on Windows?,"2. In the `config` file, use:
+   ```
+   IdentityFile C:\Users\<username>\.ssh\gcp
+   ```
+   Instead of:
+   ```
+   IdentityFile ~/.ssh/gcp
+   ```",4,14,stuck_participant,7889d2bad5,Module 1: GCP setup & VM,"SSH error in VS Code - “Could not establish connection to ""de-zoomcamp"": Permission denied (publickey).”"
+"After copying my `.ssh` folder to Windows, is there anything else I need to check in the private key file?",3. Ensure the private key file located at `C:\Users\<username>\.ssh\gcp` has an extra line at the end:,16,16,stuck_participant,7889d2bad5,Module 1: GCP setup & VM,"SSH error in VS Code - “Could not establish connection to ""de-zoomcamp"": Permission denied (publickey).”"
+I'm setting up the VM on Windows and the SSH key still isn't accepted. What's the fix for the `.ssh` config file path?,"In the `config` file, use:
+``` 
+IdentityFile C:\Users\<username>\.ssh\gcp
+```
+Instead of:
+``` 
+IdentityFile ~/.ssh/gcp
+```",4,14,stuck_participant,7889d2bad5,Module 1: GCP setup & VM,"SSH error in VS Code - “Could not establish connection to ""de-zoomcamp"": Permission denied (publickey).”"
+I upgraded my Docker Postgres from 16 to 18 and now the container just dies on startup. pgAdmin is showing connection/DNS errors too — do I need to change something with the volume mount?,"Postgres 18 changes how the data directory is structured inside Docker containers. While Postgres ≤16 stored data under /var/lib/postgresql/data, Postgres 18 expects the volume to be mounted at /var/lib/postgresql. If an existing volume created with an older Postgres version is reused without updating the mount path, Postgres 18 will detect an incompatible layout and exit during startup. This can appear as DNS resolution errors or failed connections from pgAdmin or ingestion jobs.",1,1,stuck_participant,5f560784b0,"Module 1: Postgres, pgAdmin & Python ingestion",Postgres fails to start after upgrading from postgres:16 to postgres:18 in Docker
+I’m following the Week 1 Docker setup and Postgres 18 won’t start after I reused my old postgres:16 volume. What’s the fix?,"For Week 1 setups, the fix is to update the volume mount path, remove the old volume, and recreate the containers so Postgres 18 can initialize a new data directory.",1,1,course_logistics,5f560784b0,"Module 1: Postgres, pgAdmin & Python ingestion",Postgres fails to start after upgrading from postgres:16 to postgres:18 in Docker
+What exact changes do I need to make in docker-compose after moving from postgres:16 to postgres:18?,"- Update the volume mount path to /var/lib/postgresql (instead of /var/lib/postgresql/data).
+- Remove the old volume that was created with Postgres 16.
+- Recreate the containers so Postgres 18 initializes a fresh data directory.",3,6,course_logistics,5f560784b0,"Module 1: Postgres, pgAdmin & Python ingestion",Postgres fails to start after upgrading from postgres:16 to postgres:18 in Docker
+Do I need to mount the Postgres 18 data volume somewhere different now? Mine is still pointed at /var/lib/postgresql/data and the container won’t come up.,- Update the volume mount path to /var/lib/postgresql (instead of /var/lib/postgresql/data).,3,4,stuck_participant,5f560784b0,"Module 1: Postgres, pgAdmin & Python ingestion",Postgres fails to start after upgrading from postgres:16 to postgres:18 in Docker
+"Before I nuke my old Postgres volume and start over, is there anything I should back up or verify after restarting?","- Ensure you have a backup of any important data before removing volumes.
+- After restarting, verify that Postgres starts and the data directory is initialized under /var/lib/postgresql.",48,49,course_logistics,5f560784b0,"Module 1: Postgres, pgAdmin & Python ingestion",Postgres fails to start after upgrading from postgres:16 to postgres:18 in Docker

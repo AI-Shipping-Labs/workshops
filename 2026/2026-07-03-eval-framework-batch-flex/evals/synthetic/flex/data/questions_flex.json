@@ -1,0 +1,502 @@
+[
+  {
+    "question":"How do I change the name that shows up on the leaderboard? I only see some random auto-generated name right now.",
+    "reference_answer":"The display name listed on the leaderboard is an auto-generated randomized name. You can edit it to be a nickname or your real name if you prefer. Your entry on the Leaderboard is the one highlighted in light green.",
+    "line_number_start":1,
+    "line_number_end":1,
+    "question_type":"course_logistics",
+    "doc_id":"16005581f2",
+    "section":"General Course-Related Questions",
+    "source_question":"Edit Course Profile."
+  },
+  {
+    "question":"Can I use my real name instead of the random leaderboard name?",
+    "reference_answer":"The display name listed on the leaderboard is an auto-generated randomized name. You can edit it to be a nickname or your real name if you prefer. Your entry on the Leaderboard is the one highlighted in light green.",
+    "line_number_start":1,
+    "line_number_end":1,
+    "question_type":"course_logistics",
+    "doc_id":"16005581f2",
+    "section":"General Course-Related Questions",
+    "source_question":"Edit Course Profile."
+  },
+  {
+    "question":"What name am I supposed to put for the certificate? I don't want to mess that up.",
+    "reference_answer":"The Certificate name should be your actual name that you want to appear on your certificate after completing the course.",
+    "line_number_start":3,
+    "line_number_end":3,
+    "question_type":"course_logistics",
+    "doc_id":"16005581f2",
+    "section":"General Course-Related Questions",
+    "source_question":"Edit Course Profile."
+  },
+  {
+    "question":"What's the difference between the leaderboard name and the certificate name?",
+    "reference_answer":"The display name listed on the leaderboard is an auto-generated randomized name. You can edit it to be a nickname or your real name if you prefer. Your entry on the Leaderboard is the one highlighted in light green.\n\nThe Certificate name should be your actual name that you want to appear on your certificate after completing the course.",
+    "line_number_start":1,
+    "line_number_end":3,
+    "question_type":"course_logistics",
+    "doc_id":"16005581f2",
+    "section":"General Course-Related Questions",
+    "source_question":"Edit Course Profile."
+  },
+  {
+    "question":"What does the \u201cDisplay on Leaderboard\u201d setting do? If I turn it off, does that hide my name?",
+    "reference_answer":"The \"Display on Leaderboard\" option indicates whether you want your name to be listed on the course leaderboard.",
+    "line_number_start":5,
+    "line_number_end":5,
+    "question_type":"course_logistics",
+    "doc_id":"16005581f2",
+    "section":"General Course-Related Questions",
+    "source_question":"Edit Course Profile."
+  },
+  {
+    "question":"How do I find the Docker network name again?",
+    "reference_answer":"Get the network name via:\n\n```bash\ndocker network ls\n```",
+    "line_number_start":1,
+    "line_number_end":5,
+    "question_type":"stuck_participant",
+    "doc_id":"79e44b9c07",
+    "section":"Module 1: Docker",
+    "source_question":"Docker: Docker network name"
+  },
+  {
+    "question":"I'm trying to check what Docker network I'm supposed to use \u2014 what command shows the network name?",
+    "reference_answer":"Get the network name via:\n\n```bash\ndocker network ls\n```",
+    "line_number_start":1,
+    "line_number_end":5,
+    "question_type":"stuck_participant",
+    "doc_id":"79e44b9c07",
+    "section":"Module 1: Docker",
+    "source_question":"Docker: Docker network name"
+  },
+  {
+    "question":"What do I run to list Docker networks and see the network name?",
+    "reference_answer":"Get the network name via:\n\n```bash\ndocker network ls\n```",
+    "line_number_start":1,
+    "line_number_end":5,
+    "question_type":"stuck_participant",
+    "doc_id":"79e44b9c07",
+    "section":"Module 1: Docker",
+    "source_question":"Docker: Docker network name"
+  },
+  {
+    "question":"Is there a command to view the Docker network name for this module?",
+    "reference_answer":"Get the network name via:\n\n```bash\ndocker network ls\n```",
+    "line_number_start":1,
+    "line_number_end":5,
+    "question_type":"stuck_participant",
+    "doc_id":"79e44b9c07",
+    "section":"Module 1: Docker",
+    "source_question":"Docker: Docker network name"
+  },
+  {
+    "question":"Where do I check the Docker network name if I need it for the exercise?",
+    "reference_answer":"Get the network name via:\n\n```bash\ndocker network ls\n```",
+    "line_number_start":1,
+    "line_number_end":5,
+    "question_type":"stuck_participant",
+    "doc_id":"79e44b9c07",
+    "section":"Module 1: Docker",
+    "source_question":"Docker: Docker network name"
+  },
+  {
+    "question":"I'm getting `curl: (6) Could not resolve host: output.csv` when I run the Taxi Data download step. Am I supposed to change the curl command somehow?",
+    "reference_answer":"Use `os.system(f\"curl {url} --output {csv_name}\")` to download the file.",
+    "line_number_start":2,
+    "line_number_end":2,
+    "question_type":"stuck_participant",
+    "doc_id":"48cae101d6",
+    "section":"Module 1: Taxi Data (download & handling)",
+    "source_question":"CURL: curl: (6) Could not resolve host: output.csv"
+  },
+  {
+    "question":"My CSV download is failing and it looks like curl is treating `output.csv` like a host. What command should I use instead?",
+    "reference_answer":"Use `os.system(f\"curl {url} --output {csv_name}\")` to download the file.",
+    "line_number_start":2,
+    "line_number_end":2,
+    "question_type":"stuck_participant",
+    "doc_id":"48cae101d6",
+    "section":"Module 1: Taxi Data (download & handling)",
+    "source_question":"CURL: curl: (6) Could not resolve host: output.csv"
+  },
+  {
+    "question":"In the Taxi Data module, what's the exact curl command for saving the file to `csv_name`? I think mine is downloading wrong.",
+    "reference_answer":"Use `os.system(f\"curl {url} --output {csv_name}\")` to download the file.",
+    "line_number_start":2,
+    "line_number_end":2,
+    "question_type":"stuck_participant",
+    "doc_id":"48cae101d6",
+    "section":"Module 1: Taxi Data (download & handling)",
+    "source_question":"CURL: curl: (6) Could not resolve host: output.csv"
+  },
+  {
+    "question":"When I try to get the CSV, curl says it can't resolve `output.csv`. Is there a specific command format I need for the download?",
+    "reference_answer":"Use `os.system(f\"curl {url} --output {csv_name}\")` to download the file.",
+    "line_number_start":2,
+    "line_number_end":2,
+    "question_type":"stuck_participant",
+    "doc_id":"48cae101d6",
+    "section":"Module 1: Taxi Data (download & handling)",
+    "source_question":"CURL: curl: (6) Could not resolve host: output.csv"
+  },
+  {
+    "question":"I'm stuck on the data download part \u2014 what should the curl line look like so the file is saved properly?",
+    "reference_answer":"Use `os.system(f\"curl {url} --output {csv_name}\")` to download the file.",
+    "line_number_start":2,
+    "line_number_end":2,
+    "question_type":"stuck_participant",
+    "doc_id":"48cae101d6",
+    "section":"Module 1: Taxi Data (download & handling)",
+    "source_question":"CURL: curl: (6) Could not resolve host: output.csv"
+  },
+  {
+    "question":"I'm trying to hook dbt into Airflow, but I only have the trial dbt account. Can Airflow still trigger a dbt job, or am I missing some setup?",
+    "reference_answer":"The trial dbt account provides access to the dbt API. A job will still need to be added manually. Airflow can run the job using a Python operator that calls the API. You will need to provide an API key, job ID, etc., and be careful not to commit this information to GitHub.",
+    "line_number_start":1,
+    "line_number_end":1,
+    "question_type":"stuck_participant",
+    "doc_id":"c81e613d5a",
+    "section":"Project",
+    "source_question":"Orchestrating dbt with Airflow"
+  },
+  {
+    "question":"Do I need to create the dbt job myself before Airflow can run it, or does the trial account already handle that part?",
+    "reference_answer":"The trial dbt account provides access to the dbt API. A job will still need to be added manually. Airflow can run the job using a Python operator that calls the API. You will need to provide an API key, job ID, etc., and be careful not to commit this information to GitHub.",
+    "line_number_start":1,
+    "line_number_end":1,
+    "question_type":"course_logistics",
+    "doc_id":"c81e613d5a",
+    "section":"Project",
+    "source_question":"Orchestrating dbt with Airflow"
+  },
+  {
+    "question":"What do I need to pass from dbt into Airflow to make this work? I'm guessing there's an API key and job ID somewhere, but I'm not sure how it connects.",
+    "reference_answer":"The trial dbt account provides access to the dbt API. A job will still need to be added manually. Airflow can run the job using a Python operator that calls the API. You will need to provide an API key, job ID, etc., and be careful not to commit this information to GitHub.",
+    "line_number_start":1,
+    "line_number_end":1,
+    "question_type":"stuck_participant",
+    "doc_id":"c81e613d5a",
+    "section":"Project",
+    "source_question":"Orchestrating dbt with Airflow"
+  },
+  {
+    "question":"Is there an example of how people are orchestrating dbt from Airflow, or a writeup I can follow instead of figuring it out from scratch?",
+    "reference_answer":"Detailed explanation: [dbt and Airflow Spiritual Alignment](https:\/\/docs.getdbt.com\/blog\/dbt-airflow-spiritual-alignment)\n- Source code example: [GitHub dbt Cloud Example](https:\/\/github.com\/sungchun12\/airflow-toolkit\/blob\/95d40ac76122de337e1b1cdc8eed35ba1c3051ed\/dags\/examples\/dbt_cloud_example.py)",
+    "line_number_start":3,
+    "line_number_end":4,
+    "question_type":"stuck_participant",
+    "doc_id":"c81e613d5a",
+    "section":"Project",
+    "source_question":"Orchestrating dbt with Airflow"
+  },
+  {
+    "question":"I'm setting up the dbt-Airflow integration and want the example code plus the docs link. Where should I look?",
+    "reference_answer":"Detailed explanation: [dbt and Airflow Spiritual Alignment](https:\/\/docs.getdbt.com\/blog\/dbt-airflow-spiritual-alignment)\n- Source code example: [GitHub dbt Cloud Example](https:\/\/github.com\/sungchun12\/airflow-toolkit\/blob\/95d40ac76122de337e1b1cdc8eed35ba1c3051ed\/dags\/examples\/dbt_cloud_example.py)",
+    "line_number_start":3,
+    "line_number_end":4,
+    "question_type":"course_logistics",
+    "doc_id":"c81e613d5a",
+    "section":"Project",
+    "source_question":"Orchestrating dbt with Airflow"
+  },
+  {
+    "question":"I'm getting a public key error when I try to SSH into my VM, and I think it might be because I set up the key in Command Prompt instead of the tutorial's bash steps. What was actually wrong here?",
+    "reference_answer":"It wasn\u2019t an issue with the key generation at all; the problem was with the username. The SSH key had a different username than the one in the VM (the Google account username), so the login was being attempted with `googleacctuser@[ipaddr]` instead of `mySSHuser@[ipaddr]`.",
+    "line_number_start":5,
+    "line_number_end":5,
+    "question_type":"stuck_participant",
+    "doc_id":"eb759226aa",
+    "section":"Module 1: GCP setup & VM",
+    "source_question":"GCP: SSH public key error - multiple users \/ usernames"
+  },
+  {
+    "question":"I have two different usernames showing up for the same VM SSH setup. Which username am I supposed to use in the config file and SSH login?",
+    "reference_answer":"The username in the config file needed to be changed to the correct one, `googleacctuser`, and the SSH login was updated accordingly. The issue was that two users had been created, and the installations and permissions were on `googleacctuser`, not `mySSHuser`.",
+    "line_number_start":7,
+    "line_number_end":11,
+    "question_type":"stuck_participant",
+    "doc_id":"eb759226aa",
+    "section":"Module 1: GCP setup & VM",
+    "source_question":"GCP: SSH public key error - multiple users \/ usernames"
+  },
+  {
+    "question":"So if I already created one SSH user but my VM is showing my Google account username, do I need to make a new key or just fix the username somewhere?",
+    "reference_answer":"You just need to fix the username. The SSH key username should match the VM user, so the key was edited to change the username at the end, and the GCP console and config file were updated accordingly.",
+    "line_number_start":5,
+    "line_number_end":11,
+    "question_type":"stuck_participant",
+    "doc_id":"eb759226aa",
+    "section":"Module 1: GCP setup & VM",
+    "source_question":"GCP: SSH public key error - multiple users \/ usernames"
+  },
+  {
+    "question":"I can get in through the browser SSH, but not when I try from VSCode. Is there a workaround for this VM access issue?",
+    "reference_answer":"A temporary workaround was to SSH into the VM in the browser, which worked for a while. But eventually, VSCode was needed.",
+    "line_number_start":15,
+    "line_number_end":17,
+    "question_type":"stuck_participant",
+    "doc_id":"eb759226aa",
+    "section":"Module 1: GCP setup & VM",
+    "source_question":"GCP: SSH public key error - multiple users \/ usernames"
+  },
+  {
+    "question":"If I made the installations and permissions under one VM username, but now I'm logging in with another one, what should I do about the extra account?",
+    "reference_answer":"The issue was that all installations and permissions were on `googleacctuser`, not accessible from `mySSHuser`. Since `mySSHuser` wasn\u2019t needed, the SSH key username was edited and the GCP console and config file were updated accordingly; the extra `mySSHuser` account could then be deleted to keep things clean.",
+    "line_number_start":11,
+    "line_number_end":13,
+    "question_type":"stuck_participant",
+    "doc_id":"eb759226aa",
+    "section":"Module 1: GCP setup & VM",
+    "source_question":"GCP: SSH public key error - multiple users \/ usernames"
+  },
+  {
+    "question":"VS Code port forwarding is connecting but Jupyter on localhost still won't open \u2014 what am I supposed to use instead?",
+    "reference_answer":"Try to forward the port using SSH CLI instead of VS Code. Run: `ssh -L <local port>:<VM host\/ip>:<VM port> <ssh hostname>`. For example, for Jupyter Notebook: `ssh -L 8888:localhost:8888 gcp-vm` from your local machine\u2019s CLI.",
+    "line_number_start":1,
+    "line_number_end":17,
+    "question_type":"stuck_participant",
+    "doc_id":"05dc43cda8",
+    "section":"Module 6: Spark",
+    "source_question":"Jupyter Notebook or SparkUI not loading properly at localhost after port forwarding from VS code?"
+  },
+  {
+    "question":"I started the Jupyter port forward, but localhost:8888 still isn't loading. Do I need to use a different SSH command?",
+    "reference_answer":"Try to forward the port using SSH CLI instead of VS Code. Run: `ssh -L <local port>:<VM host\/ip>:<VM port> <ssh hostname>`. For example, for Jupyter Notebook: `ssh -L 8888:localhost:8888 gcp-vm` from your local machine\u2019s CLI.",
+    "line_number_start":1,
+    "line_number_end":17,
+    "question_type":"stuck_participant",
+    "doc_id":"05dc43cda8",
+    "section":"Module 6: Spark",
+    "source_question":"Jupyter Notebook or SparkUI not loading properly at localhost after port forwarding from VS code?"
+  },
+  {
+    "question":"Do I have to keep the SSH session open for the forwarded localhost port to work, or can I log out after starting Spark?",
+    "reference_answer":"If you logout from the session, the connection would break. While creating the Spark session, check the block's log because sometimes it fails to run at 4040 and switches to 4041.",
+    "line_number_start":19,
+    "line_number_end":19,
+    "question_type":"course_logistics",
+    "doc_id":"05dc43cda8",
+    "section":"Module 6: Spark",
+    "source_question":"Jupyter Notebook or SparkUI not loading properly at localhost after port forwarding from VS code?"
+  },
+  {
+    "question":"My Spark UI keeps failing on 4040 \u2014 is there some fallback port I should look for?",
+    "reference_answer":"While creating the Spark session, check the block's log because sometimes it fails to run at 4040 and switches to 4041.",
+    "line_number_start":19,
+    "line_number_end":19,
+    "question_type":"stuck_participant",
+    "doc_id":"05dc43cda8",
+    "section":"Module 6: Spark",
+    "source_question":"Jupyter Notebook or SparkUI not loading properly at localhost after port forwarding from VS code?"
+  },
+  {
+    "question":"I'm having trouble reaching localhost ports from the GCP VM. Is there a way to set up forwarding once so I don't have to do it every time?",
+    "reference_answer":"Add the forwarding instructions to the `.ssh\/config` file. Example: `LocalForward 8888 localhost:8888`, `LocalForward 8080 localhost:8080`, `LocalForward 5432 localhost:5432`, and `LocalForward 4040 localhost:4040`. This should automatically forward all ports and enable accessing localhost ports.",
+    "line_number_start":21,
+    "line_number_end":34,
+    "question_type":"course_logistics",
+    "doc_id":"05dc43cda8",
+    "section":"Module 6: Spark",
+    "source_question":"Jupyter Notebook or SparkUI not loading properly at localhost after port forwarding from VS code?"
+  },
+  {
+    "question":"I'm following the taxi data part and my file is ending up as .csv.gz instead of .csv. I tried using output.csv like in the video and it doesn't save right \u2014 what am I supposed to do with these gz files?",
+    "reference_answer":"Replace `csv_name = \"output.csv\"` with the file name extracted from the URL. For example, for the yellow taxi data, use `csv_name = url.split(\"\/\")[-1]`. Then use `csv_name` with `pandas.read_csv`, which can directly read files with the `csv.gz` extension.",
+    "line_number_start":5,
+    "line_number_end":12,
+    "question_type":"stuck_participant",
+    "doc_id":"d677df9ccb",
+    "section":"Module 1: Taxi Data (download & handling)",
+    "source_question":"Taxi Data: How to handle *.csv.gz taxi data files?"
+  },
+  {
+    "question":"Do I need to unzip the taxi CSV.gz file first, or can pandas read it directly?",
+    "reference_answer":"`pandas.read_csv` can directly read files with the `csv.gz` extension, so you can use `csv_name` with `pandas.read_csv` without unzipping it first.",
+    "line_number_start":12,
+    "line_number_end":12,
+    "question_type":"stuck_participant",
+    "doc_id":"d677df9ccb",
+    "section":"Module 1: Taxi Data (download & handling)",
+    "source_question":"Taxi Data: How to handle *.csv.gz taxi data files?"
+  },
+  {
+    "question":"The download URL for yellow taxi gives me yellow_tripdata_2021-01.csv.gz. Should I rename it to output.csv, or use the filename from the link somehow?",
+    "reference_answer":"Replace `csv_name = \"output.csv\"` with the file name extracted from the URL. For example, for the yellow taxi data, use `csv_name = url.split(\"\/\")[-1]`.",
+    "line_number_start":5,
+    "line_number_end":10,
+    "question_type":"stuck_participant",
+    "doc_id":"d677df9ccb",
+    "section":"Module 1: Taxi Data (download & handling)",
+    "source_question":"Taxi Data: How to handle *.csv.gz taxi data files?"
+  },
+  {
+    "question":"When I call read_csv on the .csv.gz file, is there anything special I need to do, or should I just pass the gz filename?",
+    "reference_answer":"When you use `csv_name` with `pandas.read_csv`, it will work correctly because `pandas.read_csv` can directly read files with the `csv.gz` extension.",
+    "line_number_start":12,
+    "line_number_end":12,
+    "question_type":"stuck_participant",
+    "doc_id":"d677df9ccb",
+    "section":"Module 1: Taxi Data (download & handling)",
+    "source_question":"Taxi Data: How to handle *.csv.gz taxi data files?"
+  },
+  {
+    "question":"In the taxi data video, what should I do if the file extension isn't csv and I want to keep the .gz file working properly?",
+    "reference_answer":"If the file extension is `csv.gz` instead of `csv`, it won't store correctly. To handle this, replace `csv_name = \"output.csv\"` with the file name extracted from the URL, for example `csv_name = url.split(\"\/\")[-1]`, and then use `pandas.read_csv` on `csv_name`.",
+    "line_number_start":1,
+    "line_number_end":12,
+    "question_type":"stuck_participant",
+    "doc_id":"d677df9ccb",
+    "section":"Module 1: Taxi Data (download & handling)",
+    "source_question":"Taxi Data: How to handle *.csv.gz taxi data files?"
+  },
+  {
+    "question":"I'm trying to pick a dataset for the project \u2014 is there a list somewhere with nice, fairly large datasets I can use?",
+    "reference_answer":"See a list of datasets here: [GitHub Datasets](https:\/\/github.com\/DataTalksClub\/data-engineering-zoomcamp\/blob\/main\/projects\/datasets.md)",
+    "line_number_start":1,
+    "line_number_end":1,
+    "question_type":"course_logistics",
+    "doc_id":"2220285e58",
+    "section":"Project",
+    "source_question":"Does anyone know nice and relatively large datasets?"
+  },
+  {
+    "question":"Where do I find a bunch of dataset ideas for the project? I need something decent-sized.",
+    "reference_answer":"See a list of datasets here: [GitHub Datasets](https:\/\/github.com\/DataTalksClub\/data-engineering-zoomcamp\/blob\/main\/projects\/datasets.md)",
+    "line_number_start":1,
+    "line_number_end":1,
+    "question_type":"course_logistics",
+    "doc_id":"2220285e58",
+    "section":"Project",
+    "source_question":"Does anyone know nice and relatively large datasets?"
+  },
+  {
+    "question":"Are there any recommended datasets for the project that are actually big enough to work with?",
+    "reference_answer":"See a list of datasets here: [GitHub Datasets](https:\/\/github.com\/DataTalksClub\/data-engineering-zoomcamp\/blob\/main\/projects\/datasets.md)",
+    "line_number_start":1,
+    "line_number_end":1,
+    "question_type":"course_logistics",
+    "doc_id":"2220285e58",
+    "section":"Project",
+    "source_question":"Does anyone know nice and relatively large datasets?"
+  },
+  {
+    "question":"I need a good dataset for the project \u2014 can someone point me to a list of options?",
+    "reference_answer":"See a list of datasets here: [GitHub Datasets](https:\/\/github.com\/DataTalksClub\/data-engineering-zoomcamp\/blob\/main\/projects\/datasets.md)",
+    "line_number_start":1,
+    "line_number_end":1,
+    "question_type":"course_logistics",
+    "doc_id":"2220285e58",
+    "section":"Project",
+    "source_question":"Does anyone know nice and relatively large datasets?"
+  },
+  {
+    "question":"What's the link to the dataset list for the project? I'm looking for something large and usable.",
+    "reference_answer":"See a list of datasets here: [GitHub Datasets](https:\/\/github.com\/DataTalksClub\/data-engineering-zoomcamp\/blob\/main\/projects\/datasets.md)",
+    "line_number_start":1,
+    "line_number_end":1,
+    "question_type":"course_logistics",
+    "doc_id":"2220285e58",
+    "section":"Project",
+    "source_question":"Does anyone know nice and relatively large datasets?"
+  },
+  {
+    "question":"I'm on Windows and VS Code keeps saying it can't connect to `de-zoomcamp` with `Permission denied (publickey)`. What am I supposed to change in my SSH setup?",
+    "reference_answer":"If you are using Windows, try the following steps to resolve the error:\n\n1. Copy the `.ssh` folder from the Linux file path to Windows.\n2. In the `config` file, use:\n   ```\n   IdentityFile C:\\Users\\<username>\\.ssh\\gcp\n   ```\n   Instead of:\n   ```\n   IdentityFile ~\/.ssh\/gcp\n   ```\n3. Ensure the private key file located at `C:\\Users\\<username>\\.ssh\\gcp` has an extra line at the end:",
+    "line_number_start":1,
+    "line_number_end":16,
+    "question_type":"stuck_participant",
+    "doc_id":"7889d2bad5",
+    "section":"Module 1: GCP setup & VM",
+    "source_question":"SSH error in VS Code - \u201cCould not establish connection to \"de-zoomcamp\": Permission denied (publickey).\u201d"
+  },
+  {
+    "question":"My SSH connection works in Linux but not from Windows in VS Code. Do I need to copy anything over or change the key path?",
+    "reference_answer":"If you are using Windows, try the following steps to resolve the error:\n\n1. Copy the `.ssh` folder from the Linux file path to Windows.\n2. In the `config` file, use:\n   ```\n   IdentityFile C:\\Users\\<username>\\.ssh\\gcp\n   ```\n   Instead of:\n   ```\n   IdentityFile ~\/.ssh\/gcp\n   ```\n3. Ensure the private key file located at `C:\\Users\\<username>\\.ssh\\gcp` has an extra line at the end:",
+    "line_number_start":1,
+    "line_number_end":16,
+    "question_type":"stuck_participant",
+    "doc_id":"7889d2bad5",
+    "section":"Module 1: GCP setup & VM",
+    "source_question":"SSH error in VS Code - \u201cCould not establish connection to \"de-zoomcamp\": Permission denied (publickey).\u201d"
+  },
+  {
+    "question":"I changed the SSH config but I'm still getting `Permission denied (publickey)` in VS Code. What exact `IdentityFile` path should I use on Windows?",
+    "reference_answer":"2. In the `config` file, use:\n   ```\n   IdentityFile C:\\Users\\<username>\\.ssh\\gcp\n   ```\n   Instead of:\n   ```\n   IdentityFile ~\/.ssh\/gcp\n   ```",
+    "line_number_start":4,
+    "line_number_end":14,
+    "question_type":"stuck_participant",
+    "doc_id":"7889d2bad5",
+    "section":"Module 1: GCP setup & VM",
+    "source_question":"SSH error in VS Code - \u201cCould not establish connection to \"de-zoomcamp\": Permission denied (publickey).\u201d"
+  },
+  {
+    "question":"After copying my `.ssh` folder to Windows, is there anything else I need to check in the private key file?",
+    "reference_answer":"3. Ensure the private key file located at `C:\\Users\\<username>\\.ssh\\gcp` has an extra line at the end:",
+    "line_number_start":16,
+    "line_number_end":16,
+    "question_type":"stuck_participant",
+    "doc_id":"7889d2bad5",
+    "section":"Module 1: GCP setup & VM",
+    "source_question":"SSH error in VS Code - \u201cCould not establish connection to \"de-zoomcamp\": Permission denied (publickey).\u201d"
+  },
+  {
+    "question":"I'm setting up the VM on Windows and the SSH key still isn't accepted. What's the fix for the `.ssh` config file path?",
+    "reference_answer":"In the `config` file, use:\n``` \nIdentityFile C:\\Users\\<username>\\.ssh\\gcp\n```\nInstead of:\n``` \nIdentityFile ~\/.ssh\/gcp\n```",
+    "line_number_start":4,
+    "line_number_end":14,
+    "question_type":"stuck_participant",
+    "doc_id":"7889d2bad5",
+    "section":"Module 1: GCP setup & VM",
+    "source_question":"SSH error in VS Code - \u201cCould not establish connection to \"de-zoomcamp\": Permission denied (publickey).\u201d"
+  },
+  {
+    "question":"I upgraded my Docker Postgres from 16 to 18 and now the container just dies on startup. pgAdmin is showing connection\/DNS errors too \u2014 do I need to change something with the volume mount?",
+    "reference_answer":"Postgres 18 changes how the data directory is structured inside Docker containers. While Postgres \u226416 stored data under \/var\/lib\/postgresql\/data, Postgres 18 expects the volume to be mounted at \/var\/lib\/postgresql. If an existing volume created with an older Postgres version is reused without updating the mount path, Postgres 18 will detect an incompatible layout and exit during startup. This can appear as DNS resolution errors or failed connections from pgAdmin or ingestion jobs.",
+    "line_number_start":1,
+    "line_number_end":1,
+    "question_type":"stuck_participant",
+    "doc_id":"5f560784b0",
+    "section":"Module 1: Postgres, pgAdmin & Python ingestion",
+    "source_question":"Postgres fails to start after upgrading from postgres:16 to postgres:18 in Docker"
+  },
+  {
+    "question":"I\u2019m following the Week 1 Docker setup and Postgres 18 won\u2019t start after I reused my old postgres:16 volume. What\u2019s the fix?",
+    "reference_answer":"For Week 1 setups, the fix is to update the volume mount path, remove the old volume, and recreate the containers so Postgres 18 can initialize a new data directory.",
+    "line_number_start":1,
+    "line_number_end":1,
+    "question_type":"course_logistics",
+    "doc_id":"5f560784b0",
+    "section":"Module 1: Postgres, pgAdmin & Python ingestion",
+    "source_question":"Postgres fails to start after upgrading from postgres:16 to postgres:18 in Docker"
+  },
+  {
+    "question":"What exact changes do I need to make in docker-compose after moving from postgres:16 to postgres:18?",
+    "reference_answer":"- Update the volume mount path to \/var\/lib\/postgresql (instead of \/var\/lib\/postgresql\/data).\n- Remove the old volume that was created with Postgres 16.\n- Recreate the containers so Postgres 18 initializes a fresh data directory.",
+    "line_number_start":3,
+    "line_number_end":6,
+    "question_type":"course_logistics",
+    "doc_id":"5f560784b0",
+    "section":"Module 1: Postgres, pgAdmin & Python ingestion",
+    "source_question":"Postgres fails to start after upgrading from postgres:16 to postgres:18 in Docker"
+  },
+  {
+    "question":"Do I need to mount the Postgres 18 data volume somewhere different now? Mine is still pointed at \/var\/lib\/postgresql\/data and the container won\u2019t come up.",
+    "reference_answer":"- Update the volume mount path to \/var\/lib\/postgresql (instead of \/var\/lib\/postgresql\/data).",
+    "line_number_start":3,
+    "line_number_end":4,
+    "question_type":"stuck_participant",
+    "doc_id":"5f560784b0",
+    "section":"Module 1: Postgres, pgAdmin & Python ingestion",
+    "source_question":"Postgres fails to start after upgrading from postgres:16 to postgres:18 in Docker"
+  },
+  {
+    "question":"Before I nuke my old Postgres volume and start over, is there anything I should back up or verify after restarting?",
+    "reference_answer":"- Ensure you have a backup of any important data before removing volumes.\n- After restarting, verify that Postgres starts and the data directory is initialized under \/var\/lib\/postgresql.",
+    "line_number_start":48,
+    "line_number_end":49,
+    "question_type":"course_logistics",
+    "doc_id":"5f560784b0",
+    "section":"Module 1: Postgres, pgAdmin & Python ingestion",
+    "source_question":"Postgres fails to start after upgrading from postgres:16 to postgres:18 in Docker"
+  }
+]
