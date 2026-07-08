@@ -8,7 +8,7 @@ optimality — bundled into one Batch job.
 Because Batch is asynchronous, this has subcommands (like generate_batch.py):
 
     # one shot: submit, poll until done, then download + save the judged file
-    uv run python -m evals.synthetic.run_judge_batch run --data evals/synthetic/data/evals_run_100_synthetic.json
+    uv run python -m evals.synthetic.run_judge_batch run --data evals/synthetic/data/evals_run_sample.json
 
     # or drive the phases yourself
     uv run python -m evals.synthetic.run_judge_batch submit --data <run.json>

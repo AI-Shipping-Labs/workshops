@@ -1,8 +1,0 @@
-{
-  "batch_id": "batch_6a463f8df1ac81909c03aaa20bb4787b",
-  "input_file_id": "file-HiHkRAuKLLKhLBnC5cTzpT",
-  "model": "gpt-5.4-mini",
-  "num_questions": 5,
-  "num_docs": 400,
-  "output": "questions_generated"
-}

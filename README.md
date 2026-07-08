@@ -14,5 +14,5 @@ organized by year, with one date-prefixed directory per session.
 | 2026-06-09 | Deploying Vector Search with SQLite | [2026-06-09-vector-search-sqlite](2026/2026-06-09-vector-search-sqlite) |
 | 2026-06-17 | Cloudflare Workers Vectorize Agent | [2026-06-17-cloudflare-workers-vectorize-agent](2026/2026-06-17-cloudflare-workers-vectorize-agent) |
 | 2026-06-25 | Vercel FAQ Agent | [2026-06-25-vercel-faq-agent](2026/2026-06-25-vercel-faq-agent) |
-| 2026-07-03 | Eval Framework with Batch and Flex | [2026-07-03-eval-framework-batch-flex](2026/2026-07-03-eval-framework-batch-flex) |
+| 2026-07-03 | Saving Money with Batch and Flex | [2026-07-03-saving-money-with-batch-and-flex](2026/2026-07-03-saving-money-with-batch-and-flex) |
 | 2026-07-08 | AI CV Pipeline | [2026-07-08-ai-cv-pipeline](2026/2026-07-08-ai-cv-pipeline) |

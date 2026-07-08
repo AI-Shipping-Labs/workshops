@@ -1,0 +1,13 @@
+.env
+
+# generated eval artifacts
+evals/synthetic/data/questions_generated.*
+evals/synthetic/data/evals_run_*.json
+evals/synthetic/data/*.batch.json
+evals/synthetic/data/*.batch_input.jsonl
+evals/synthetic/data/*.judge_batch.json
+evals/synthetic/data/*.judge_batch_input.jsonl
+evals/synthetic/data/*_judged.json
+evals/synthetic/flex/data/
+
+!evals/synthetic/data/evals_run_sample.json

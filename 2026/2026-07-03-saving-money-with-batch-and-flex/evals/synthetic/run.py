@@ -114,7 +114,7 @@ def report(results: list[dict], elapsed: float) -> None:
 
 async def main() -> None:
     parser = argparse.ArgumentParser(description="Run the FAQ agent on synthetic questions.")
-    parser.add_argument("--questions", default=str(DATA_DIR / "questions_generated.csv"),
+    parser.add_argument("--questions", default=str(DATA_DIR / "questions_sample.csv"),
                         help="Path to the generated questions CSV.")
     parser.add_argument("--output", default=None,
                         help="Output JSON path (default: data/evals_run_<timestamp>_synthetic.json).")
