@@ -1,0 +1,14 @@
+# generated output (regenerate with: uv run render.py <person>/cv.yml <person>/cv.html)
+**/cv.html
+**/cv.pdf
+**/cv.artifact.html
+
+# reference third-party documents — not for publication
+reference/cv_munira_khamitova_ai_eng.pdf
+
+# other people's CVs — kept local, not part of the public pipeline repo
+vancesca/
+munira/
+
+__pycache__/
+*.pyc

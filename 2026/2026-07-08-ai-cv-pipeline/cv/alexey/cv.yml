@@ -1,0 +1,118 @@
+# =============================================================================
+# Alexey Grigorev — CV (display-agnostic source of truth)
+# Positioning: Applied AI Engineer. Renders to a 1–2 page Harvard-format resume.
+#
+#   Build:  uv run render.py               # -> cv.html
+#   Print:  open cv.html in Chrome -> Print -> Save as PDF (A4/Letter)
+#
+# Edit THIS file, then re-render. Keep bullets tight and quantified.
+# `variant:` on experience/project entries lets us later filter by target role
+# (applied-ai | ai-platform | fde). Entries with no variant show in all.
+# =============================================================================
+
+basics:
+  name: Alexey Grigorev
+  headline: AI Product Engineer — End-to-End Production LLM Systems
+  location: Berlin, Germany
+  email: alexey@datatalks.club
+  # phone: intentionally omitted from the public web version
+  links:
+    - label: LinkedIn
+      text: linkedin.com/in/agrigorev
+      url: https://www.linkedin.com/in/agrigorev
+    - label: GitHub
+      text: github.com/alexeygrigorev
+      url: https://github.com/alexeygrigorev
+    - label: Site
+      text: alexeygrigorev.com
+      url: https://alexeygrigorev.com
+
+  summary: >-
+    Product-minded AI engineer with 16 years in software engineering and 14 in
+    machine learning. I take AI ideas from raw form to production end-to-end —
+    discovering the real workflow, scoping an MVP, and building the system.
+    Founder of DataTalks.Club, which
+    I run as a live AI deployment environment for a 100k+ learner community;
+    previously led the ML platform and production ML systems at OLX.
+
+# Grouped for scannability and ATS keyword coverage.
+skills:
+  - group: Product & Delivery
+    items: [end-to-end ownership, MVP scoping, product thinking, stakeholder communication]
+  - group: Applied AI / LLM
+    items: [RAG, agentic workflows, evaluations]
+  - group: Platform
+    items: [AWS, Kubernetes, Terraform, Docker, "CI/CD"]
+
+experience:
+  - company: DataTalks.Club
+    title: Founder & Product Engineer
+    location: Berlin, Germany
+    period: Sep 2020 – Present
+    bullets:
+      - Own AI product work end-to-end for a 100k+ learner community — discover
+        painful workflows, scope MVPs, and ship production LLM/RAG systems with
+        evaluation pipelines, CI/CD, and deployment.
+      - Use AI extensively across the business to automate operations and improve
+        quality — for example, a Slack FAQ assistant for the community and internal
+        tooling for automating recurring business workflows.
+      - Created free education programs (ML, MLOps, LLM, and Data Engineering
+        Zoomcamps) reaching 100k+ students; run day-to-day operations with a small
+        team using coding-agent-assisted workflows.
+
+  - company: OLX Group
+    title: Senior → Lead → Principal Data Scientist
+    location: Berlin, Germany
+    period: Oct 2018 – Mar 2023
+    bullets:
+      - Led OLX Europe's internal ML platform and a cross-functional MLOps team,
+        standardizing how data scientists and ML engineers build, deploy, and
+        operate models across the group.
+      - Built a large-scale duplicate-image detection system covering 95% of inventory
+        (~250 images/sec) and production inference infrastructure serving ~200 images/sec.
+      - Drove the DS/ML community through mentoring and upskilling programs,
+        hackathons, lead editor of the OLX tech blog, and representing OLX at conferences.
+
+# Compact one-liners so the page stays at two pages.
+experience_earlier:
+  - { period: "2017 – 2018", company: Simplaex, role: Data Scientist / Engineer, location: "Berlin", stack: [Python, Scala, Spark, AWS] }
+  - { period: "2015 – 2017", company: Searchmetrics, role: Data Scientist, location: "Berlin", stack: [Java, Python, Elasticsearch, AWS] }
+  - { period: "2013 – 2014", company: Small Software Factory, role: Data Scientist, location: "Remote", stack: [Java, Python, scikit-learn] }
+  - { period: "2010 – 2013", company: "Luxoft / Auriga / Intech", role: Software Engineer (Java), location: "EU / Russia", stack: [Java, Spring, Hibernate] }
+
+projects:
+  - name: Slack FAQ Assistant
+    bullets:
+      - Slack RAG assistant that answers community members' questions directly
+        in their workflow, deployed as a serverless application.
+      - Evaluation of both retrieval (search) quality and answer (generation)
+        quality to catch regressions and guide improvements.
+      - A process that reviews unanswered and corrected questions from Slack to
+        expand both the evaluation set and the knowledge base, so the assistant
+        keeps improving from real usage.
+
+  - name: DataOps — AI-Assisted Operations Platform
+    bullets:
+      - Internal platform for SOPs, playbooks, recurring workflows, task state,
+        search, and assistant jobs on a cloud/serverless backend.
+      - Turns messy business operations (support, content, podcast, course ops)
+        into reviewable, semi-automated human-in-the-loop workflows.
+
+education:
+  - degree: MSc — IT4BI (Information Technologies for Business Intelligence)
+    school: Erasmus Mundus joint program — ULB, Université François-Rabelais, TU Berlin
+    period: 2013 – 2015
+    note: "Specialization: Large-Scale Business Intelligence"
+  - degree: BSc — Information Systems and Technologies
+    school: Far Eastern State Academy, Russia
+    period: 2006 – 2010
+    note: "Faculty of Mathematics, Information Technologies and Engineering"
+
+recognition:
+  books:
+    - { title: "Machine Learning Bookcamp", publisher: Manning, year: 2021, url: "https://mlbookcamp.com/" }
+    - { title: "Mastering Java for Data Science", publisher: Packt, year: 2017, url: "https://www.packtpub.com/en-de/product/mastering-java-for-data-science-9781785887390" }
+  highlights:
+    - Kaggle Master — multiple top-10 finishes and competition wins (NIPS'17 Criteo, WSDM Cup 2017, Instagram Challenge).
+    - Top 100 among all GitHub users by number of commits.
+    - Author, technical reviewer, and international conference speaker.
