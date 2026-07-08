@@ -1,0 +1,116 @@
+# =============================================================================
+# Alexey Grigorev — CV  ·  EdTech / AI-in-education variant
+# Tailored for Berlin education companies hiring AI engineers
+# (Knowunity, Babbel, AMBOSS, Cornelsen, DojoStack, bettermarks).
+#
+# Angle vs. the master CV: foreground learner-facing AI + teaching at scale.
+# DataTalks.Club = AI-in-education (100k+ learner community + 100k+ students).
+#
+#   Build:  uv run render.py alexey-edtech/cv.yml alexey-edtech/cv.html
+# =============================================================================
+
+basics:
+  name: Alexey Grigorev
+  headline: AI Product Engineer — Production LLM Systems for Education
+  location: Berlin, Germany
+  email: alexey@datatalks.club
+  links:
+    - label: LinkedIn
+      text: linkedin.com/in/agrigorev
+      url: https://www.linkedin.com/in/agrigorev
+    - label: GitHub
+      text: github.com/alexeygrigorev
+      url: https://github.com/alexeygrigorev
+    - label: Site
+      text: alexeygrigorev.com
+      url: https://alexeygrigorev.com
+
+  summary: >-
+    Product-minded AI engineer with 16 years in software engineering and 14 in
+    machine learning, focused on AI for learning. For the past five years I've
+    built production AI for a 100k+ learner community at DataTalks.Club — a
+    learner Q&A assistant, evaluation pipelines, and content/operations
+    automation — and taught AI and data to 100k+ students worldwide. I take AI
+    ideas from raw form to production end-to-end: discovering the real workflow,
+    scoping an MVP, and building the system. Previously led the ML platform and
+    production ML systems at OLX.
+
+skills:
+  - group: Product & Delivery
+    items: [end-to-end ownership, MVP scoping, product thinking, A/B experimentation]
+  - group: Applied AI / LLM
+    items: [RAG, agentic workflows, evaluations, prompt engineering, LLM orchestration]
+  - group: Platform
+    items: [AWS, Kubernetes, Terraform, Docker, "CI/CD"]
+
+experience:
+  - company: DataTalks.Club
+    title: Founder & Product Engineer
+    location: Berlin, Germany
+    period: Sep 2020 – Present
+    bullets:
+      - Own AI product work end-to-end for a 100k+ learner community — discover
+        learning workflows, scope MVPs, and ship production LLM/RAG systems with
+        evaluation pipelines, CI/CD, and deployment.
+      - Shipped learner-facing AI — a Q&A assistant that answers students'
+        questions in their workflow — and use AI across the platform to automate
+        operations and improve content quality.
+      - Created free education programs (ML, MLOps, LLM, and Data Engineering
+        Zoomcamps) reaching 100k+ students worldwide, with open-source materials
+        and a weekly expert podcast.
+
+  - company: OLX Group
+    title: Senior → Lead → Principal Data Scientist
+    location: Berlin, Germany
+    period: Oct 2018 – Mar 2023
+    bullets:
+      - Led OLX Europe's internal ML platform and a cross-functional MLOps team,
+        standardizing how data scientists and ML engineers build, deploy, and
+        operate models across the group.
+      - Built a large-scale duplicate-image detection system covering 95% of inventory
+        (~250 images/sec) and production inference infrastructure serving ~200 images/sec.
+      - Drove the DS/ML community through mentoring and upskilling programs,
+        hackathons, lead editor of the OLX tech blog, and representing OLX at conferences.
+
+experience_earlier:
+  - { period: "2017 – 2018", company: Simplaex, role: Data Scientist / Engineer, location: "Berlin", stack: [Python, Scala, Spark, AWS] }
+  - { period: "2015 – 2017", company: Searchmetrics, role: Data Scientist, location: "Berlin", stack: [Java, Python, Elasticsearch, AWS] }
+  - { period: "2013 – 2014", company: Small Software Factory, role: Data Scientist, location: "Remote", stack: [Java, Python, scikit-learn] }
+  - { period: "2010 – 2013", company: "Luxoft / Auriga / Intech", role: Software Engineer (Java), location: "EU / Russia", stack: [Java, Spring, Hibernate] }
+
+projects:
+  - name: Learner Q&A Assistant (Slack)
+    bullets:
+      - Q&A assistant that answers learners' questions directly in their workflow,
+        deployed as a serverless application.
+      - Evaluation of both retrieval (search) quality and answer (generation)
+        quality to catch regressions and guide improvements.
+      - A process that reviews unanswered and corrected questions to expand both
+        the evaluation set and the knowledge base, so the assistant keeps
+        improving from real usage.
+
+  - name: DataOps — AI-Assisted Operations Platform
+    bullets:
+      - Internal platform for SOPs, playbooks, recurring workflows, task state,
+        search, and assistant jobs on a cloud/serverless backend.
+      - Turns messy business operations (support, content, podcast, course ops)
+        into reviewable, semi-automated human-in-the-loop workflows.
+
+education:
+  - degree: MSc — IT4BI (Information Technologies for Business Intelligence)
+    school: Erasmus Mundus joint program — ULB, Université François-Rabelais, TU Berlin
+    period: 2013 – 2015
+    note: "Specialization: Large-Scale Business Intelligence"
+  - degree: BSc — Information Systems and Technologies
+    school: Far Eastern State Academy, Russia
+    period: 2006 – 2010
+    note: "Faculty of Mathematics, Information Technologies and Engineering"
+
+recognition:
+  books:
+    - { title: "Machine Learning Bookcamp", publisher: Manning, year: 2021, url: "https://mlbookcamp.com/" }
+    - { title: "Mastering Java for Data Science", publisher: Packt, year: 2017, url: "https://www.packtpub.com/en-de/product/mastering-java-for-data-science-9781785887390" }
+  highlights:
+    - Taught AI, ML, and data engineering to 100k+ learners through free open-source courses.
+    - Kaggle Master — multiple top-10 finishes and competition wins (NIPS'17 Criteo, WSDM Cup 2017).
+    - Author, technical reviewer, and international conference speaker.
