@@ -16,3 +16,4 @@ organized by year, with one date-prefixed directory per session.
 | 2026-06-25 | Vercel FAQ Agent | [2026-06-25-vercel-faq-agent](2026/2026-06-25-vercel-faq-agent) |
 | 2026-07-03 | Saving Money with Batch and Flex | [2026-07-03-saving-money-with-batch-and-flex](2026/2026-07-03-saving-money-with-batch-and-flex) |
 | 2026-07-08 | AI CV Pipeline | [2026-07-08-ai-cv-pipeline](2026/2026-07-08-ai-cv-pipeline) |
+| 2026-07-22 | NVC Voice Coach with ElevenLabs | [2026-07-22-nvc-voice-coach](2026/2026-07-22-nvc-voice-coach) |
