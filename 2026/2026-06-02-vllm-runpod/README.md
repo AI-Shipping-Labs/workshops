@@ -1,5 +1,7 @@
 # Serving Open-Source Models with vLLM and RunPod
 
+[Follow the tutorial on AI Shipping Labs](https://aishippinglabs.com/workshops/serving-open-models-vllm-runpod).
+
 This workshop shows how to serve an open-source model with vLLM on RunPod,
 expose it through vLLM's OpenAI-compatible API, verify GPU access inside the
 container, and run a small FAQ agent against the deployed endpoint.

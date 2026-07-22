@@ -1,5 +1,7 @@
 # Vercel FAQ Agent — Workshop
 
+[Follow the tutorial on AI Shipping Labs](https://aishippinglabs.com/workshops/vercel-faq-agent).
+
 Building and deploying an FAQ agent on **Vercel**, ported from the Cloudflare
 Workers + Vectorize workshop. The workshop is split into progressive options,
 each a self-contained, separately-deployable app.

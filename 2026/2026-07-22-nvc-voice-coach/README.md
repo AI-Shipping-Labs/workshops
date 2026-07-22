@@ -1,5 +1,7 @@
 # Luma — NVC Voice Coach
 
+[View the workshop session on AI Shipping Labs](https://aishippinglabs.com/events/41/freestyle-workshop-july-22-2026).
+
 A private-by-default web prototype using ElevenLabs ElevenAgents (the managed-platform Option C from the project brief).
 
 ## Setup

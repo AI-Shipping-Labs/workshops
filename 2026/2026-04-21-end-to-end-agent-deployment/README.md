@@ -1,8 +1,8 @@
 # End-to-End Agent Deployment
 
-This directory contains the workshop code for the AI Shipping Labs session "End-to-End Agent Deployment" on April 28, 2026.
+[Follow the tutorial on AI Shipping Labs](https://aishippinglabs.com/workshops/end-to-end-agent-deployment).
 
-You can find the workshop write-up and video recording here: https://aishippinglabs.com/workshops/end-to-end-agent-deployment
+This directory contains the workshop code for the AI Shipping Labs session "End-to-End Agent Deployment" on April 28, 2026.
 
 ## Overview
 

@@ -1,8 +1,8 @@
 # Deploying an Agent to AWS Lambda
 
-This project serves a Vite frontend and an OpenAI-powered FAQ agent from one AWS Lambda Function URL.
+[Follow the tutorial on AI Shipping Labs](https://aishippinglabs.com/workshops/lambda-agent-deployment).
 
-You can find the workshop write-up and video recording here: https://aishippinglabs.com/workshops/lambda-agent-deployment
+This project serves a Vite frontend and an OpenAI-powered FAQ agent from one AWS Lambda Function URL.
 
 ## Overview
 

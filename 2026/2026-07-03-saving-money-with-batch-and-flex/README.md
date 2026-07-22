@@ -1,5 +1,7 @@
 # Saving Money with Batch and Flex
 
+[Follow the tutorial on AI Shipping Labs](https://aishippinglabs.com/workshops/eval-framework-batch-flex).
+
 This directory contains the workshop code for the AI Shipping Labs session
 "Saving Money with Batch and Flex" on July 3, 2026.
 

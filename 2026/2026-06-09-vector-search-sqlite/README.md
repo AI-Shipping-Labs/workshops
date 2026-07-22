@@ -1,5 +1,7 @@
 # Deploying Vector Search with SQLite
 
+[Follow the tutorial on AI Shipping Labs](https://aishippinglabs.com/workshops/vector-search-sqlite).
+
 Workshop code for the AI Shipping Labs session **"Deploying Vector Search with SQLite"** (June 9, 2026).
 
 It builds on the [End-to-End Agent Deployment](../2026-04-21-end-to-end-agent-deployment) workshop. That agent answered FAQ questions using **minsearch**, an in-memory keyword index rebuilt on every boot. Here we make retrieval **persistent and free to host** in two steps:

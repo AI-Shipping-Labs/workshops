@@ -1,5 +1,7 @@
 # Cloudflare AI Agent Architecture Comparison
 
+[Follow the tutorial on AI Shipping Labs](https://aishippinglabs.com/workshops/cloudflare-workers-vectorize-agent).
+
 Published workshop:
 [AI-Shipping-Labs/workshops/2026/2026-06-17-cloudflare-workers-vectorize-agent](https://github.com/AI-Shipping-Labs/workshops/tree/main/2026/2026-06-17-cloudflare-workers-vectorize-agent)
 

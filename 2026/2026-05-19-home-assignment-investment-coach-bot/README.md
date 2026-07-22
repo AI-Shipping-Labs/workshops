@@ -1,5 +1,7 @@
 # Investment Coach Bot
 
+[Follow the tutorial on AI Shipping Labs](https://aishippinglabs.com/workshops/home-assignment-investment-coach-bot).
+
 Investment Coach Bot is a prototype investment research assistant built with
 Python, uv, PydanticAI, OpenAI, and free SEC EDGAR data.
 

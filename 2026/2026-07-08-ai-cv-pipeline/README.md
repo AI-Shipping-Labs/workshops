@@ -1,5 +1,7 @@
 # AI CV Pipeline
 
+[Follow the tutorial on AI Shipping Labs](https://aishippinglabs.com/workshops/tailor-cv-ai-engineering).
+
 This directory contains the workshop code and example data for building focused,
 ATS-friendly AI engineering CVs from structured YAML.
 
