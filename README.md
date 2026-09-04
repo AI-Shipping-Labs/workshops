@@ -1,8 +1,7 @@
 # AI Shipping Labs Workshops
 
-We keep the public code from AI Shipping Labs sessions in this repository. Each
-dated directory contains the working project, setup instructions, and notes from
-the session.
+We keep each workshop's working project, setup instructions, and session notes in
+this repository's dated directories.
 
 ## [End-to-End Agent Deployment](2026/2026-04-21-end-to-end-agent-deployment)
 
