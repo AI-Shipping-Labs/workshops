@@ -6,43 +6,43 @@ The main principle is simple: test observable behavior, not implementation wordi
 
 For an agent, observable behavior means:
 
-- what answer the user receives;
-- which tools the agent called;
-- whether the answer follows product rules;
+- what answer the user receives.
+- which tools the agent called.
+- whether the answer follows product rules.
 - whether data parsing code returns correct values.
 
-It does not mean checking that a prompt contains a specific sentence.
+It doesn't mean checking that a prompt contains a specific sentence.
 
 ## Test Categories
 
 Use two kinds of tests.
 
-### Deterministic Tests
+## Deterministic Tests
 
-These are normal pytest tests. They should have clear pass/fail assertions.
+These are normal pytest tests with clear pass/fail assertions.
 
 Use them for:
 
-- SEC data parsing;
-- company lookup;
-- tool-call behavior;
-- forbidden terminology checks;
-- output safety checks;
-- answer shape checks that can be expressed exactly.
+- SEC data parsing.
+- company lookup.
+- tool-call behavior.
+- forbidden terminology checks.
+- output safety checks.
+- answer structure checks that can be expressed exactly.
 
-### Judge Tests
+## Judge Tests
 
 Use judge tests later for subjective quality.
 
 Use them for:
 
-- whether the answer is useful;
-- whether it is concise enough;
-- whether it avoids generic company description;
-- whether the analysis is balanced;
+- whether the answer is useful.
+- whether it's concise enough.
+- whether it avoids generic company description.
+- whether the analysis is balanced.
 - whether the answer explains why metrics matter.
 
-Judge tests should not replace deterministic tests.
+Judge tests shouldn't replace deterministic tests.
 
 ## Agent Test Style
 
@@ -58,7 +58,7 @@ async def test_agent_includes_code_in_answer(agent):
     assert "```python" in answer.answer
 ```
 
-For this project, write tests in the same shape:
+For this project, write tests in the same structure:
 
 ```python
 @pytest.mark.asyncio
@@ -81,10 +81,10 @@ async def test_agent_avoids_forbidden_terminology() -> None:
 
 The structure should be easy to scan:
 
-1. create the agent;
-2. define the user prompt;
-3. run the agent;
-4. extract the output or tool calls;
+1. create the agent.
+2. define the user prompt.
+3. run the agent.
+4. extract the output or tool calls.
 5. assert the behavior.
 
 Keep blank lines between these blocks.
@@ -93,7 +93,9 @@ Keep blank lines between these blocks.
 
 For agent behavior tests, call the configured OpenAI model.
 
-Do not use `TestModel` with canned output for tests that are supposed to check behavior. Canned output proves only that the test fixture returned what we hardcoded.
+Don't use `TestModel` with canned output for tests that are supposed to
+check behavior. That output only proves the test fixture returned what we
+hardcoded.
 
 Bad:
 
@@ -105,7 +107,7 @@ model = TestModel(
 )
 ```
 
-This does not prove the agent can produce a good answer.
+This doesn't prove the agent can produce a good answer.
 
 Prefer:
 
@@ -117,11 +119,12 @@ agent = create_agent(InvestmentAgentConfig(model=settings.openai_model), tools)
 result = await agent.run("what can you tell me about reddit")
 ```
 
-If `OPENAI_API_KEY` is missing, let the test fail naturally. Do not silently skip required agent tests.
+If `OPENAI_API_KEY` is missing, let the test fail naturally, and don't
+silently skip required agent tests.
 
 ## Tool-Call Tests
 
-Tool-call tests should inspect `result.new_messages()` and collect tool calls.
+Tool-call tests should look at `result.new_messages()` and collect tool calls.
 
 Good:
 
@@ -134,7 +137,7 @@ assert "get_financial_snapshot" in tool_names
 assert "get_filing_digest" in tool_names
 ```
 
-Do not assert exact tool order unless the order is part of the required behavior.
+Don't assert exact tool order unless the order is part of the required behavior.
 
 ## Output Rule Tests
 
@@ -142,11 +145,11 @@ Some answer-quality rules can be deterministic.
 
 Examples:
 
-- forbidden terminology is absent;
-- the answer is not empty;
-- required sections are present;
-- raw JSON is not included;
-- buy/sell/hold advice is not included.
+- forbidden terminology is absent.
+- the answer isn't empty.
+- required sections are present.
+- raw JSON isn't included.
+- buy/sell/hold advice isn't included.
 
 These tests should check the final answer, not the prompt.
 
@@ -178,14 +181,14 @@ Use helpers only when they remove real duplication.
 
 Good shared helpers:
 
-- `FakeSecClient`, because multiple agent tests may need stable SEC data;
+- `FakeSecClient`, because multiple agent tests may need stable SEC data.
 - `collect_tools`, because tool-call extraction is noisy.
 
 Keep test-specific data inside the test when it improves readability.
 
 For example, keep `forbidden_terms` inside `test_agent_avoids_forbidden_terminology` unless several tests reuse the exact same list.
 
-Do not create helpers that hide the point of the test.
+Don't create helpers that hide what the test checks.
 
 Bad:
 
@@ -194,7 +197,7 @@ def build_test_agent(model):
     ...
 ```
 
-if it is used once and makes the setup less explicit.
+This is bad if it's used once and makes the setup less explicit.
 
 ## Coding Style In Tests
 
@@ -228,40 +231,40 @@ SEC parsing tests are useful because they protect real data behavior.
 
 Good SEC tests:
 
-- search by company name returns the expected ticker and normalized CIK;
-- annual facts ignore quarterly rows;
-- annual facts deduplicate overlapping period ends;
-- Reddit revenue uses `RevenueFromContractWithCustomerExcludingAssessedTax`;
+- search by company name returns the expected ticker and normalized CIK.
+- annual facts ignore quarterly rows.
+- annual facts deduplicate overlapping period ends.
+- Reddit revenue uses `RevenueFromContractWithCustomerExcludingAssessedTax`.
 - filing snippets are extracted from realistic filing-like text.
 
 Weak SEC tests:
 
-- tests that use toy text unrelated to real filings;
-- tests that check only topic names but not snippet quality;
-- tests that use awkward fake objects instead of the real dataclass;
+- tests that use toy text unrelated to real filings.
+- tests that check only topic names but not snippet quality.
+- tests that use awkward fake objects instead of the real dataclass.
 - tests that call private helpers when a public method can be used.
 
 Private helper tests are acceptable only when the parsing logic is important and difficult to reach cleanly through public methods.
 
-## What Not To Test
+## Tests To Avoid
 
-Do not write tests that only prove:
+Don't write tests that only prove:
 
-- the agent object can be constructed;
-- a prompt contains a phrase;
-- a Pydantic field description contains a phrase;
-- a canned model response contains a hardcoded word;
+- the agent object can be constructed.
+- a prompt contains a phrase.
+- a Pydantic field description contains a phrase.
+- a canned model response contains a hardcoded word.
 - tool names appear in the tool list without running the agent.
 
-These tests are cheap to write but do not protect the product.
+These tests are cheap to write but don't protect the product.
 
 ## Current Direction
 
 The preferred agent tests are:
 
-- real OpenAI-backed async tests;
-- fake SEC client for stable data;
-- observable assertions on final answer and tool calls;
-- simple helper functions only for repeated mechanics;
-- no prompt-string assertions;
+- real OpenAI-backed async tests.
+- fake SEC client for stable data.
+- observable assertions on final answer and tool calls.
+- simple helper functions only for repeated mechanics.
+- no prompt-string assertions.
 - no canned model answers.
