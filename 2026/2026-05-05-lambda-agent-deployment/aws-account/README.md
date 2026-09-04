@@ -9,6 +9,8 @@ The workflow is split into two steps:
 
 ## Requirements
 
+Prepare the following requirements:
+
 - AWS CLI or environment credentials with permissions to manage AWS Organizations from the management account.
 - `uv`
 - Python 3.13+
@@ -39,9 +41,11 @@ AWS_EXPERIMENTS_ACCESS_ROLE_NAME=OrganizationAccountAccessRole
 AWS_EXPERIMENTS_MAX_SESSION_DURATION=7200
 ```
 
-Do not commit `.env`, generated credentials, or initial passwords.
+Don't commit `.env`, generated credentials, or initial passwords.
 
 ## 1. Set Up Account And User
+
+Run the setup script:
 
 ```sh
 uv run python setup_account.py
@@ -90,7 +94,7 @@ uv run python get_temporary_credentials.py \
 
 Remote behavior:
 
-- creates the env file if it does not exist
+- creates the env file if it doesn't exist
 - appends missing AWS credential variables
 - updates existing AWS credential variables
 - preserves unrelated variables and comments

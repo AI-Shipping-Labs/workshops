@@ -6,6 +6,8 @@ This project serves a Vite frontend and an OpenAI-powered FAQ agent from one AWS
 
 ## Overview
 
+This diagram shows the request path from the frontend through Lambda and the agent to the search tool and model:
+
 ```mermaid
 flowchart LR
     UI["Frontend UI"]
@@ -23,6 +25,8 @@ flowchart LR
 
 ## Project Layout
 
+This tree shows the files and directories in the project:
+
 ```text
 .
 ├── backend/              # Lambda runtime, agent loop, renderers, and FAQ search
@@ -37,6 +41,8 @@ flowchart LR
 
 ## Backend
 
+The backend contains these modules:
+
 - `backend/lambda_runtime.py`: custom Lambda runtime. It serves static frontend assets, handles `/health`, `/ask`, and `/ask/stream`, and writes streaming responses to the Lambda Runtime API.
 - `backend/agent.py`: core agent loop using the OpenAI Responses API and the FAQ search tool.
 - `backend/search.py`: lazily downloads and indexes the DataTalks.Club FAQ with `minsearch`.
@@ -44,17 +50,17 @@ flowchart LR
 
 ## Frontend
 
-`frontend/` contains the Vite app. During local development, Vite proxies
-`/ask`, `/ask/stream`, and `/health` to the local Python backend. During Docker
-builds, the compiled frontend is copied into the Lambda image and served by
-`backend/lambda_runtime.py`.
+We run the Vite app from `frontend/`, where Vite proxies `/ask`, `/ask/stream`,
+and `/health` to the local Python backend. During Docker builds, the compiled
+frontend is copied into the Lambda image and served by `backend/lambda_runtime.py`.
 
 ## Scripts
 
-Use `make` for common workflows. Local development helpers live in `scripts/`.
-Deployment helpers live in `deploy/scripts/`.
+Use `make` for common workflows, with local development helpers in `scripts/` and deployment helpers in `deploy/scripts/`.
 
 ## Local Checks
+
+Run these checks locally:
 
 ```bash
 uv sync --locked
@@ -79,9 +85,10 @@ This starts:
 - the Vite frontend on `http://127.0.0.1:5173`
 
 The frontend proxies `/ask`, `/ask/stream`, and `/health` to the local backend,
-so SSE works without rebuilding the Docker image. Frontend changes hot reload
-through Vite. Backend changes require restarting `make dev` or running the
-backend separately with:
+so SSE works without rebuilding the Docker image. Vite hot reloads frontend
+changes, but backend changes need a restart.
+
+Run the backend separately with:
 
 ```bash
 make backend
@@ -147,15 +154,18 @@ AWS_REGION=eu-central-1 STACK_NAME=faq-agent-lambda ECR_REPOSITORY=faq-agent IMA
 
 ## Publishing Recommendations
 
-- Keep application code in `backend/` and `frontend/`; keep the repo root limited
-  to docs, lockfiles, and deployment config.
+Keep the published project organized with these rules:
+
+- Keep application code in `backend/` and `frontend/`. Limit the repo root to
+  docs, lockfiles, and deployment config.
 - Keep local development commands in `scripts/` and deployment commands in
-  `deploy/scripts/`, then expose the common commands through `Makefile`.
-- Do not commit `.env`, virtual environments, frontend build output, or generated
-  caches. They are already ignored.
+  `deploy/scripts/`. Expose the common commands through `Makefile`.
+- Don't commit `.env`, virtual environments, frontend build output, or generated
+  caches because Git already ignores them.
 - Use a unique `IMAGE_TAG` for real deploys so CloudFormation sees changed image
   URIs.
-- Before publishing, run:
+
+Run these commands before publishing:
 
 ```bash
 uv run python -m compileall backend scripts/dev-server.py

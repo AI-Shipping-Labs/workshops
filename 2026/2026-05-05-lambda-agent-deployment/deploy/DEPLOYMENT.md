@@ -5,6 +5,8 @@ the agent API through a Lambda Function URL.
 
 ## Final Architecture
 
+The deployed image follows this architecture:
+
 - The frontend is built with Vite during the Docker build.
 - The built frontend files are copied into `/var/task/static`.
 - `backend/lambda_runtime.py` handles Function URL requests directly:
@@ -18,7 +20,7 @@ the agent API through a Lambda Function URL.
 - Python dependencies are installed into the Lambda system Python with `uv`.
 - Deployment is done with `./deploy.sh`, which delegates work to `deploy/scripts/`.
 
-## Why There Is A Custom Runtime
+## Custom Runtime
 
 The normal Python Lambda handler style:
 
@@ -26,9 +28,10 @@ The normal Python Lambda handler style:
 CMD ["lambda_function.lambda_handler"]
 ```
 
-is good for normal buffered responses, but it does not expose a streaming
-response object for Python. We need streaming for `/ask/stream`, so this project
-uses a custom runtime entrypoint:
+is good for normal buffered responses, but it doesn't expose a streaming response
+object for Python.
+
+We need streaming for `/ask/stream`, so we use a custom runtime entrypoint:
 
 ```dockerfile
 ENTRYPOINT ["/var/task/bootstrap"]
@@ -43,7 +46,7 @@ Transfer-Encoding: chunked
 Content-Type: application/vnd.awslambda.http-integration-response
 ```
 
-That is what allows the Lambda Function URL to stream SSE chunks to the browser.
+That's what allows the Lambda Function URL to stream SSE chunks to the browser.
 
 ## Deployment Command
 
@@ -62,7 +65,7 @@ set +a
 ./deploy.sh
 ```
 
-The script prints the Function URL at the end. Open that URL in the browser.
+The script prints the Function URL at the end, which you can open in the browser.
 
 ## Useful Environment Variables
 
@@ -75,9 +78,9 @@ export ECR_REPOSITORY=faq-agent
 export IMAGE_TAG=$(date +%Y%m%d%H%M%S)
 ```
 
-Use a unique `IMAGE_TAG` when redeploying changed image contents. CloudFormation
-only sees the image URI string. If the URI stays `:latest`, it can report "No
-changes to deploy" even when ECR has a newer image behind that tag.
+Use a unique `IMAGE_TAG` when redeploying changed image contents because
+CloudFormation only sees the image URI string. If the URI stays `:latest`, it can
+report "No changes to deploy" even when ECR has a newer image behind that tag.
 
 ## Local Testing
 
@@ -88,7 +91,7 @@ export OPENAI_API_KEY=sk-...
 make dev
 ```
 
-Open `http://127.0.0.1:5173`. Vite serves the frontend and proxies API/SSE
+Open `http://127.0.0.1:5173` to use the Vite frontend, which proxies API/SSE
 requests to the local Python backend on port `8000`.
 
 Run the exact production image through AWS Lambda Runtime Interface Emulator:
@@ -104,8 +107,10 @@ curl -i http://127.0.0.1:9000/2015-03-31/functions/function/invocations \
   -d @events/health.json
 ```
 
-Important: RIE does not emulate a public Function URL web server. This means
-`http://localhost:9000/` returns 404. RIE only accepts Lambda invoke requests at:
+Important: RIE doesn't emulate a public Function URL web server, so
+`http://localhost:9000/` returns 404.
+
+RIE accepts Lambda invoke requests only at this path:
 
 ```text
 /2015-03-31/functions/function/invocations
@@ -115,7 +120,7 @@ For streaming responses, RIE returns the raw Lambda streaming integration
 payload: response metadata, eight null bytes, then the body. In AWS, the
 Function URL unwraps that into normal HTTP for the browser.
 
-### Lambda Rejected The Docker Image Manifest
+## Lambda Rejected The Docker Image Manifest
 
 The first CloudFormation deploy failed with:
 
@@ -123,8 +128,10 @@ The first CloudFormation deploy failed with:
 The image manifest, config or layer media type for the source image ... is not supported.
 ```
 
-Docker BuildKit had produced an image manifest with provenance/SBOM attestation
-metadata that Lambda rejected. The build script now disables those:
+Docker BuildKit produced an image manifest with provenance/SBOM attestation
+metadata that Lambda rejected.
+
+The build script now disables those settings:
 
 ```bash
 docker build \
@@ -135,10 +142,12 @@ docker build \
   .
 ```
 
-### Rolled Back Stack Had To Be Deleted
+## Rolled Back Stack Had To Be Deleted
 
-After the failed initial create, the stack ended in `ROLLBACK_COMPLETE`.
-CloudFormation cannot update a stack in that state. Delete it before redeploying:
+After the failed initial create, the stack ended in `ROLLBACK_COMPLETE`, and
+CloudFormation can't update a stack in that state.
+
+Delete it before redeploying:
 
 ```bash
 aws cloudformation delete-stack \
@@ -150,13 +159,13 @@ aws cloudformation wait stack-delete-complete \
   --region "$AWS_REGION"
 ```
 
-### Static Requests Were Slow On Cold Start
+## Static Requests Were Slow On Cold Start
 
 Originally, the runtime initialized the FAQ search index on cold start. That made
 even `GET /` and `GET /health` wait for the FAQ download and index build.
 
-Fix: `backend/search.py` now initializes the index lazily on the first actual search.
-This keeps static frontend and health requests fast.
+To avoid that delay, `backend/search.py` now initializes the index lazily on the
+first actual search. This keeps static frontend and health requests fast.
 
 ## Quick Verification After Deploy
 
