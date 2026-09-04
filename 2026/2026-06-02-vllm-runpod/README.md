@@ -2,15 +2,17 @@
 
 [Follow the tutorial on AI Shipping Labs](https://aishippinglabs.com/workshops/serving-open-models-vllm-runpod).
 
-This workshop shows how to serve an open-source model with vLLM on RunPod,
-expose it through vLLM's OpenAI-compatible API, verify GPU access inside the
-container, and run a small FAQ agent against the deployed endpoint.
+In this workshop, you serve an open-source model with vLLM on RunPod and expose
+it through vLLM's OpenAI-compatible API. You then verify GPU access inside the
+container and run a small FAQ agent against the deployed endpoint.
 
-The tested model is `stelterlab/DeepSeek-R1-Distill-Qwen-14B-AWQ`. The model
-weights are not baked into an image; vLLM downloads them at pod startup and
-caches them under `/workspace/hf-cache/hub`.
+We tested `stelterlab/DeepSeek-R1-Distill-Qwen-14B-AWQ`, whose model weights
+aren't baked into an image. vLLM downloads them at pod startup and caches them
+under `/workspace/hf-cache/hub`.
 
 ## Project Structure
+
+You'll work with this project layout:
 
 ```text
 .
@@ -32,6 +34,8 @@ caches them under `/workspace/hf-cache/hub`.
     └── vllm_tool_agent.py
 ```
 
+You'll use these paths:
+
 - `src/check_vllm_gpu.py`: smoke-tests a vLLM OpenAI-compatible endpoint.
 - `src/vllm_tool_agent.py`: runs the FAQ agent against vLLM.
 - `deploy/runpod/`: RunPod deployment helper and environment example.
@@ -52,7 +56,7 @@ Get your RunPod API key:
 4. Give it a name, choose permissions (All, Restricted, or Read Only), then click Create.
 5. Click the newly created key to copy it.
 
-RunPod does not store the key, so copy and save it right away. Treat it like a
+RunPod doesn't store the key, so copy and save it right away. Treat it like a
 password. Full guide: [Manage API keys](https://docs.runpod.io/get-started/api-keys).
 
 Set local secrets:
@@ -76,7 +80,7 @@ runpodctl doctor
 runpodctl user
 ```
 
-The working SSH-enabled template created for this setup is:
+We used this SSH-enabled template:
 
 ```text
 Template name: vllm-deepseek-awq-api-ssh
@@ -105,7 +109,7 @@ Why `--public-ip`: RunPod SSH needs an external TCP mapping for port `22`.
 Without it, `runpodctl ssh info <pod-id>` can report `pod not ready` even when
 the vLLM HTTP API is already serving.
 
-The template configures:
+We configured the template with these settings:
 
 - Container image: `vllm/vllm-openai:latest`
 - Exposed HTTP port: `8000`
@@ -115,12 +119,18 @@ The template configures:
 - GPU used successfully: RTX PRO 6000 Blackwell Server Edition
 - Startup command starts `sshd`, then starts `vllm serve`
 
-RunPod REST pod creation accepts `cloudType` values `SECURE` or `COMMUNITY`;
-`ALL` is not valid for the REST endpoint. For Europe/Czech deployments, use
-datacenter `EU-CZ-1`. At the time of checking, `EU-CZ-1` listed RTX 3090,
-RTX 4090, RTX 5090, and RTX PRO 6000 availability.
+RunPod REST pod creation accepts `cloudType` values `SECURE` or `COMMUNITY`, but
+the REST endpoint doesn't accept `ALL`. For Europe/Czech deployments, use
+datacenter `EU-CZ-1`.
 
-Template environment variables:
+At the time of checking, this datacenter had four GPU types available:
+
+- RTX 3090
+- RTX 4090
+- RTX 5090
+- RTX PRO 6000
+
+Set these environment variables in the template:
 
 ```text
 MODEL_ID=stelterlab/DeepSeek-R1-Distill-Qwen-14B-AWQ
@@ -139,7 +149,7 @@ HF_TOKEN=hf_...
 EXTRA_VLLM_ARGS=--cpu-offload-gb 8
 ```
 
-The model weights are not included in the Docker image. vLLM downloads them on
+The Docker image doesn't include the model weights. vLLM downloads them on
 first startup and caches them in `/workspace/hf-cache/hub`.
 
 After the Pod starts, set the OpenAI-compatible base URL:
@@ -179,8 +189,9 @@ uv run python src/check_vllm_gpu.py \
   --max-tokens 96
 ```
 
-Run the FAQ agent. For this model, forced tool mode is more reliable than
-automatic tool choice:
+For this model, forced tool mode is more reliable than automatic tool choice.
+
+Run the FAQ agent in forced tool mode:
 
 ```bash
 uv run python src/vllm_tool_agent.py \
@@ -222,8 +233,8 @@ runpodctl pod stop <pod-id>
 runpodctl pod list
 ```
 
-Stopping is important: GPU Pods bill by the hour while running. `pod list`
-should return `[]` or show no `RUNNING` Pod when you are finished. Use
+Stop the Pod because GPU Pods bill by the hour while running. `pod list`
+should return `[]` or show no `RUNNING` Pod when you're finished. Use
 `--stop-after` when creating Pods as a backup spend limit.
 
 For a different model, change only `MODEL_ID` and any memory/context settings
@@ -232,7 +243,7 @@ in the template environment. For a gated model, set `HF_TOKEN`.
 ## Start vLLM
 
 Use `/workspace` for caches and temporary files so model downloads and compiler
-caches do not fill the container root filesystem.
+caches don't fill the container root filesystem.
 
 ```bash
 mkdir -p /workspace/tmp /workspace/hf-cache /workspace/uv-cache \
@@ -251,7 +262,7 @@ export TRITON_CACHE_DIR=/workspace/triton-cache
 export TORCHINDUCTOR_CACHE_DIR=/workspace/torchinductor-cache
 ```
 
-For normal chat:
+Start vLLM for normal chat:
 
 ```bash
 export VLLM_API_KEY="$(openssl rand -hex 32)"
@@ -288,6 +299,7 @@ hostname -I
 ```
 
 Use the address that looks like `192.168.x.x`, `10.x.x.x`, or `172.16-31.x.x`.
+
 From another computer on the same network, call vLLM with the same bearer token:
 
 ```bash
@@ -298,7 +310,7 @@ curl "$VLLM_BASE_URL/v1/models" \
   -H "Authorization: Bearer $VLLM_API_KEY"
 ```
 
-Chat request:
+Send a chat request:
 
 ```bash
 curl "$VLLM_BASE_URL/v1/chat/completions" \
@@ -320,13 +332,15 @@ uv run python src/check_vllm_gpu.py \
   --model stelterlab/DeepSeek-R1-Distill-Qwen-14B-AWQ
 ```
 
-Keep the token private. Do not put it in the repo, shell history, chat messages,
-or screenshots. vLLM's `--api-key` protects the OpenAI-compatible API by
-requiring `Authorization: Bearer <token>` on requests. For internet exposure,
-put vLLM behind a VPN or HTTPS reverse proxy; do not expose raw port `8000` to
-the public internet.
+Keep the token out of the repo, shell history, chat messages, and screenshots.
+vLLM's `--api-key` protects the OpenAI-compatible API by requiring
+`Authorization: Bearer <token>` on requests. For internet exposure, put vLLM
+behind a VPN or HTTPS reverse proxy. Don't expose raw port `8000` to the public
+internet.
 
 ## Test GPU Usage
+
+Run the smoke test against the model:
 
 ```bash
 uv run python src/check_vllm_gpu.py \
@@ -343,6 +357,8 @@ uv run python src/check_vllm_gpu.py \
 
 ## Test Tool Use
 
+Ask the FAQ agent a question:
+
 ```bash
 uv run python src/vllm_tool_agent.py \
   --model stelterlab/DeepSeek-R1-Distill-Qwen-14B-AWQ \
@@ -358,7 +374,7 @@ uv run python src/vllm_tool_agent.py \
   "How do I join the course?"
 ```
 
-The agent uses `--tool-choice auto` by default. To force the search tool only
+Although the agent uses `--tool-choice auto` by default, force the search tool
 when debugging tool transport:
 
 ```bash
@@ -372,11 +388,13 @@ In auto mode, the script retries once with a stricter prompt if the model
 answers without a tool call. Tune that with `--tool-retries`.
 
 With this AWQ DeepSeek/Qwen model, vLLM may not return native `tool_calls` in
-auto mode. The agent also accepts a model-written JSON tool call like:
+auto mode. The agent also accepts a model-written JSON tool call.
+
+Use this JSON structure:
 
 ```json
 {"name":"search","arguments":{"query":"how do I join the course?"}}
 ```
 
-That still produces the intended two-call loop: model requests search, Python
-executes search, then Python sends the tool result back to the model.
+Python still completes the intended sequence by running the requested search
+and sending its result back to the model.

@@ -1,12 +1,12 @@
 # Command Notes
 
-This file keeps the workshop command snippets with short comments about when to
-use each one. Replace placeholder values before running the commands.
+Use these workshop command snippets as a quick reference, and replace
+placeholder values before you run the commands.
 
 ## Prepare Cache Directories
 
 Use `/workspace` on RunPod so model downloads and compiler caches survive pod
-restarts and do not fill the container root filesystem.
+restarts and don't fill the container root filesystem.
 
 ```bash
 mkdir -p /workspace/tmp \
@@ -31,7 +31,7 @@ export TORCHINDUCTOR_CACHE_DIR=/workspace/torchinductor-cache
 
 ## Create A vLLM API Key
 
-Generate a local bearer token for the vLLM API. Keep it private.
+Generate a local bearer token for the vLLM API and keep it private.
 
 ```bash
 export VLLM_API_KEY="$(openssl rand -hex 32)"
@@ -71,8 +71,8 @@ uv run vllm serve stelterlab/DeepSeek-R1-Distill-Qwen-14B-AWQ \
 
 ## Start vLLM Without API Auth
 
-This is useful only for private debugging. Do not expose an unauthenticated
-vLLM endpoint to the public internet.
+Start vLLM without API authentication only for private debugging. Don't expose
+an unauthenticated vLLM endpoint to the public internet.
 
 ```bash
 uv run vllm serve stelterlab/DeepSeek-R1-Distill-Qwen-14B-AWQ \
@@ -94,7 +94,7 @@ uv run python src/check_vllm_gpu.py \
 
 ## Run The FAQ Agent
 
-Force tool use for this model; auto mode is less reliable.
+Force tool use for this model because auto mode is less reliable.
 
 ```bash
 uv run python src/vllm_tool_agent.py \
@@ -116,7 +116,7 @@ that vLLM listens on.
 5. Add `8000`.
 6. Save and restart the pod.
 
-The public URL will be:
+After the Pod restarts, use this public URL:
 
 ```text
 https://<pod-id>-8000.proxy.runpod.net/v1
@@ -133,7 +133,8 @@ RunPod's HTTP proxy can time out on long non-streaming generations, so streaming
 is useful for longer responses. Keep `--host 0.0.0.0 --port 8000` in the vLLM
 command.
 
-Docs: https://docs.runpod.io/pods/configuration/expose-ports
+See [Expose HTTP ports](https://docs.runpod.io/pods/configuration/expose-ports)
+in the RunPod documentation.
 
 ## OpenAI Client Example
 
@@ -162,4 +163,4 @@ For this workshop, local June 2, 2026 session logs were copied into:
 .codex/sessions/2026/06/02/
 ```
 
-Do not publish `.codex` logs without checking for secrets first.
+Don't publish `.codex` logs without checking for secrets first.

@@ -2,8 +2,8 @@
 
 ## 1. Use The Official vLLM Image
 
-Use `vllm/vllm-openai:latest` directly. Do not build or push a custom image for
-this workshop.
+Use `vllm/vllm-openai:latest` directly, and don't build or push a custom image
+for this workshop.
 
 ## 2. Create A RunPod Pod Via API
 
@@ -15,7 +15,7 @@ Get your RunPod API key:
 4. Give it a name, choose permissions (All, Restricted, or Read Only), then click Create.
 5. Click the newly created key to copy it.
 
-RunPod does not store the key, so copy and save it right away. Treat it like a
+RunPod doesn't store the key, so copy and save it right away. Treat it like a
 password. Full guide: [Manage API keys](https://docs.runpod.io/get-started/api-keys).
 
 Set secrets locally:
@@ -59,14 +59,14 @@ runpodctl pod create \
   --stop-after "$stop_after"
 ```
 
-The working template is:
+Use this working template:
 
 ```text
 Template name: vllm-deepseek-awq-api-ssh
 Template ID: neh2kqf1zt
 ```
 
-The script creates a GPU Pod with:
+When you run the command, RunPod creates a GPU Pod with these settings:
 
 ```text
 Container image: vllm/vllm-openai:latest
@@ -79,6 +79,8 @@ Startup command: start sshd, then start vLLM
 ```
 
 ## 3. Environment Variables Used On The Pod
+
+Set these environment variables on the Pod:
 
 ```text
 MODEL_ID=stelterlab/DeepSeek-R1-Distill-Qwen-14B-AWQ
@@ -99,9 +101,9 @@ EXTRA_VLLM_ARGS=--cpu-offload-gb 8
 
 ## 4. Runtime Behavior
 
-The model is not baked into the image. vLLM downloads `MODEL_ID` on first
-startup and caches it under `/workspace/hf-cache/hub`. Reusing the same
-RunPod volume avoids downloading the model again.
+Because the image doesn't contain the model, vLLM downloads `MODEL_ID` on first
+startup and caches it under `/workspace/hf-cache/hub`. Reuse the same RunPod
+volume to avoid downloading the model again.
 
 After the Pod starts, the OpenAI-compatible base URL will be:
 
@@ -111,6 +113,8 @@ https://<pod-id>-8000.proxy.runpod.net/v1
 
 ## 5. Test The API
 
+List the models served by the API:
+
 ```bash
 curl https://<pod-id>-8000.proxy.runpod.net/v1/models \
   -H "Authorization: Bearer $VLLM_API_KEY"
@@ -118,12 +122,16 @@ curl https://<pod-id>-8000.proxy.runpod.net/v1/models \
 
 ## 6. Configure Your Laptop
 
+Export the API key and base URL on your laptop:
+
 ```bash
 export VLLM_API_KEY=replace-with-a-long-random-secret
 export VLLM_BASE_URL=https://<pod-id>-8000.proxy.runpod.net/v1
 ```
 
 ## 7. Run The Agent
+
+Ask the FAQ agent a question:
 
 ```bash
 python src/vllm_tool_agent.py "how do I join the course?"
@@ -140,6 +148,8 @@ uv run python src/vllm_tool_agent.py \
 ```
 
 ## 8. SSH And GPU Check
+
+Get the Pod's SSH connection details:
 
 ```bash
 runpodctl ssh info <pod-id>
@@ -167,10 +177,10 @@ runpodctl pod stop <pod-id>
 runpodctl pod list
 ```
 
-Stopping is important: GPU Pods bill by the hour while running. `pod list`
-should return `[]` or show no `RUNNING` Pod when you are finished. Use
+Stop the Pod because GPU Pods bill by the hour while running. `pod list`
+should return `[]` or show no `RUNNING` Pod when you're finished. Use
 `--stop-after` when creating Pods as a backup spend limit.
 
-This setup avoids SSH setup work. The container starts vLLM automatically,
-uses `/workspace` for model/cache/temp files, enables tool-call support, and
-serves an OpenAI-compatible API.
+You don't need to configure SSH manually. The container starts vLLM
+automatically, uses `/workspace` for model/cache/temp files, enables tool-call
+support, and serves an OpenAI-compatible API.

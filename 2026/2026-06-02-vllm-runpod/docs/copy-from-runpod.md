@@ -1,7 +1,7 @@
 # Copy `/vllm-project` From RunPod
 
-This historical note documents how the initial project files were copied from a
-RunPod pod.
+We used the commands in this historical note to copy the initial project files
+from a RunPod pod.
 
 Remote source:
 
@@ -17,7 +17,7 @@ Local target:
 
 ## Key Point
 
-Do not use the `ssh.runpod.io` Basic SSH gateway for file copy.
+Don't use the `ssh.runpod.io` Basic SSH gateway for file copy.
 
 The local SSH alias `runpod` pointed at RunPod's Basic SSH gateway:
 
@@ -28,7 +28,7 @@ Host runpod
     IdentityFile ~/.ssh/runpod
 ```
 
-That path supported interactive SSH, but it did not support SCP/SFTP in this
+That path supported interactive SSH, but it didn't support SCP/SFTP in this
 environment. RunPod file transfer needed the pod's Full SSH endpoint: public IP
 plus the mapped TCP port for SSH.
 
@@ -52,7 +52,7 @@ exit
 EOF
 ```
 
-For this pod, the result was:
+This pod returned these values:
 
 ```text
 RUNPOD_PUBLIC_IP=<public-ip>
@@ -67,8 +67,9 @@ root@<public-ip> -p <ssh-port>
 
 ## 2. Enable Key-Only Auth On The Direct Endpoint
 
-The direct endpoint initially rejected the local `runpod` key. Add the public
-key to the pod through the working Basic SSH session:
+The direct endpoint initially rejected the local `runpod` key.
+
+Add the public key to the pod through the working Basic SSH session:
 
 ```bash
 pub="$(cat ~/.ssh/runpod.pub)"
@@ -93,7 +94,7 @@ ssh -p <ssh-port> \
   root@<public-ip> "echo ok"
 ```
 
-Expected output:
+You should see this output:
 
 ```text
 ok
@@ -173,7 +174,7 @@ List local files:
 find . -maxdepth 2 -type f | sort
 ```
 
-Expected local files after later cleanup:
+After the later cleanup, you should see these local files:
 
 ```text
 .gitignore
@@ -211,7 +212,7 @@ subsystem request failed on channel 0
 /usr/bin/scp: Connection closed
 ```
 
-Legacy SCP mode also did not transfer files through the gateway:
+Legacy SCP mode also didn't transfer files through the gateway:
 
 ```bash
 scp -O -r runpod:/vllm-project/. .
@@ -223,4 +224,4 @@ Verbose output showed:
 Error: Your SSH client doesn't support PTY
 ```
 
-The fix was to use Full SSH with `scp -P <ssh-port> root@<public-ip>:...`.
+We instead used Full SSH with `scp -P <ssh-port> root@<public-ip>:...`.
