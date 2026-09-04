@@ -2,14 +2,18 @@
 
 [Follow the tutorial on AI Shipping Labs](https://aishippinglabs.com/workshops/vector-search-sqlite).
 
-Workshop code for the AI Shipping Labs session **"Deploying Vector Search with SQLite"** (June 9, 2026).
+In this AI Shipping Labs session, "Deploying Vector Search with SQLite" (June 9, 2026), we add persistent vector search to an FAQ agent.
 
-It builds on the [End-to-End Agent Deployment](../2026-04-21-end-to-end-agent-deployment) workshop. That agent answered FAQ questions using **minsearch**, an in-memory keyword index rebuilt on every boot. Here we make retrieval **persistent and free to host** in two steps:
+We build on the [End-to-End Agent Deployment](../2026-04-21-end-to-end-agent-deployment) workshop, where we answered FAQ questions with `minsearch`.
 
-1. **Swap minsearch for `sqlitesearch`** — real vector (semantic) search that lives in a single SQLite file instead of memory.
-2. **Host that SQLite database on Turso** — so the data survives restarts even on free/ephemeral hosts, with no Postgres and no paid disk.
+Because that in-memory keyword index is rebuilt on every boot, we make retrieval persistent and free to host in two steps:
+
+1. Replace `minsearch` with `sqlitesearch` to run vector (semantic) search from a single SQLite file instead of memory.
+2. Host the SQLite database on Turso so the data survives restarts on free, ephemeral hosts without Postgres or paid disk.
 
 ## Overview
+
+The agent uses a local replica for fast searches while Turso stores the durable index:
 
 ```mermaid
 flowchart LR
@@ -30,32 +34,36 @@ flowchart LR
     TURSO -.->|syncs down once on boot| REPLICA
 ```
 
-## What is Turso?
+## Turso
 
-[**Turso**](https://turso.tech) is a hosted database built on **libSQL**, an open-source fork of SQLite. In short: **SQLite that runs on a server you connect to over the network.**
+[Turso](https://turso.tech) is a hosted database built on `libSQL`, an open-source fork of SQLite. You can think of it as SQLite running on a server that you access over the network.
 
-Why it matters here: a plain SQLite file is great until you deploy to a host whose disk gets wiped on every restart (most free tiers). Turso keeps the data on its own infrastructure, so it persists no matter how ephemeral your app host is — and its free tier doesn't expire (~5 GB storage, 500M row reads/month, no credit card to start).
+You can use a plain SQLite file until you deploy to a host that wipes its disk on every restart, as most free tiers do. Turso stores the data on its own infrastructure, so an ephemeral app host can't erase it. Its free tier includes about 5 GB of storage and 500 million row reads per month. You don't need a credit card to start, and the tier doesn't expire.
 
-This app uses Turso in **embedded-replica** mode: the data syncs down to a local file once on boot, and all search reads run against that local file (fast, no per-query network hops). Turso is just the durable source of truth.
+We use Turso in embedded-replica mode. On boot, we sync the data to a local file and run every search against that file, avoiding a network request for each query. We use Turso only to store the durable copy.
 
-## Why this stack
+## Stack choices
 
-- **`sqlitesearch`** does approximate vector search (LSH / IVF / HNSW) and FTS5 text search entirely inside one SQLite file — no extension to compile, no vector database to run. We use **LSH** here, tuned for a few hundred docs (`hash_size=8, n_probe=4`).
-- **ONNX embeddings** (`Xenova/all-MiniLM-L6-v2`, 384-dim) run locally via `onnxruntime` — embeddings are free and need no PyTorch and no embedding API. OpenAI is used **only** for the agent's answers.
-- **Turso** provides free, durable storage so the index outlives the host's disk.
+We use three pieces to keep vector search local and the index durable:
 
-The result deploys to any free host with three secrets and no database server.
+- `sqlitesearch` runs approximate vector search (LSH, IVF, or HNSW) and FTS5 text search inside one SQLite file. You don't need to compile an extension or run a vector database. We use LSH here and tune it for a few hundred documents with `hash_size=8, n_probe=4`.
+- We generate 384-dimensional ONNX embeddings with `Xenova/all-MiniLM-L6-v2` and `onnxruntime`. They run locally without PyTorch or an embedding API, while we use OpenAI only for the agent's answers.
+- We store the index on Turso so the app host can wipe its disk without removing the index.
+
+You can deploy the app to any free host with three secrets and no database server.
 
 ## Prerequisites
+
+Before you start, install or create these dependencies:
 
 - Python 3.14 + [`uv`](https://docs.astral.sh/uv/)
 - An OpenAI API key (for the agent)
 - A free [Turso](https://turso.tech) account + the [Turso CLI](https://docs.turso.tech/cli/installation)
-- `sqlitesearch >= 0.1.0` (transparent local/Turso `db_path` interface) — the libSQL backend is pulled in via the `[libsql]` extra
+- `sqlitesearch >= 0.1.0` for the same `db_path` interface with local SQLite and Turso. The `[libsql]` extra installs the libSQL backend.
 
 ## Setup
 
-Create a Turso database and read off its URL + token:
+Create a Turso database, then retrieve the URL and token:
 
 ```bash
 turso db create faq
@@ -63,19 +71,17 @@ turso db show faq --url         # -> DB_PATH (libsql:// URL)
 turso db tokens create faq      # -> TURSO_AUTH_TOKEN
 ```
 
-Put them in `.env`:
+Add the URL, token, and OpenAI API key to `.env`:
 
-```
+```text
 OPENAI_API_KEY=sk-...
 DB_PATH=libsql://faq-<org>.turso.io
 TURSO_AUTH_TOKEN=...
 ```
 
-`DB_PATH` is the one variable that picks the database: a `libsql://` URL points
-at Turso, while a local path (the default `data/faq.db`) keeps everything on
-disk.
+Set `DB_PATH` to a `libsql://` URL for Turso or to a local path for an on-disk database. If you don't set it, the app uses `data/faq.db`.
 
-Install and build the index. With a `libsql://` `DB_PATH`, ingest writes straight to Turso:
+Run these commands to install dependencies, download the model, and build the index:
 
 ```bash
 make install      # uv sync
@@ -83,10 +89,11 @@ make download     # fetch the ONNX embedding model into models/
 make ingest       # fetch FAQ -> embed (ONNX) -> write the index to Turso
 ```
 
-`sqlitesearch` batches the inserts, so the bulk load to Turso stays fast. Leave
-`DB_PATH` unset to build a local `data/faq.db` for offline testing instead.
+With a `libsql://` `DB_PATH`, `make ingest` writes batches directly to Turso. Leave `DB_PATH` unset to build a local `data/faq.db` for offline testing instead.
 
 ## Run
+
+Start the app, check its health, and ask a question:
 
 ```bash
 make run
@@ -96,26 +103,22 @@ curl -s -X POST localhost:8000/ask \
   -d '{"question":"How do I install the dependencies for the course?"}'
 ```
 
-On boot the app opens the Turso-backed index, syncs the documents down to a
-local replica, and serves vector searches locally. `/ask` runs the agent, which
-calls the `search` tool, embeds the question with ONNX, and answers from the
-retrieved FAQ entries (with sources).
+On boot, we open the Turso-backed index and sync the documents to a local replica. We then serve vector searches from that replica. When you call `/ask`, the agent calls the `search` tool, embeds the question with ONNX, and answers from the retrieved FAQ entries with sources.
 
-## What's In This Code
+## Code map
 
-- `config.py` — shared config and the `open_vector_index()` factory. It holds the LSH settings in one place so ingest and serve build the index identically. `DB_PATH` is Turso-backed when it is a `libsql://` URL, otherwise a plain local SQLite file.
-- `embedder.py` — local ONNX text embedder (mean-pooled, L2-normalized) so cosine similarity is a dot product. No PyTorch.
-- `download.py` — downloads the ONNX model + tokenizer from HuggingFace into `models/` (build time only).
-- `ingest.py` — the offline half: fetch FAQ → embed → build the vector index. Writes to Turso when `DB_PATH` is a `libsql://` URL, otherwise to a local SQLite file.
-- `search.py` — the serve half: opens the Turso-backed index (syncs down), embeds the incoming query, returns nearest FAQ documents. Also defines the `search` tool schema shown to the model.
-- `agent.py` — the agent loop: sends the question to OpenAI, runs the `search` tool when the model asks, feeds results back, and produces a grounded answer.
-- `app.py` — FastAPI app: `GET /health` and `POST /ask`.
-- `renderer.py` — `CollectingRenderer` gathers the streamed tokens + tool calls into the final JSON response.
-- `schemas.py` — Pydantic request/response models.
+We separate configuration, ingestion, search, and request handling across these files:
+
+- `config.py`: shared configuration and the `open_vector_index()` factory, with LSH settings that keep ingestion and search consistent. Set `DB_PATH` to a `libsql://` value to use Turso. Use any other value for a local SQLite file.
+- `embedder.py`: a local, mean-pooled, L2-normalized ONNX text embedder that turns cosine similarity into a dot product without PyTorch.
+- `download.py`: download code for the ONNX model and tokenizer from Hugging Face into `models/` at build time.
+- `ingest.py`: offline code that fetches the FAQ, embeds it, and builds the vector index. A `libsql://` value for `DB_PATH` sends writes to Turso. Any other value sends them to a local SQLite file.
+- `search.py`: request-time code that opens and syncs the Turso-backed index, embeds an incoming query, and returns the nearest FAQ documents. It also contains the `search` tool schema shown to the model.
+- `agent.py`: the agent loop that sends the question to OpenAI, runs the `search` tool when requested, returns the results to the model, and produces a grounded answer.
+- `app.py`: the FastAPI app with `GET /health` and `POST /ask`.
+- `renderer.py`: the `CollectingRenderer`, which gathers streamed tokens and tool calls into the final JSON response.
+- `schemas.py`: the Pydantic request and response models.
 
 ## Deploying for free
 
-The data lives in Turso, so the app host needs no persistent disk. Point any
-free host (Render, Hugging Face Spaces, Fly, …) at this code and set three
-secrets — `OPENAI_API_KEY`, `DB_PATH` (the `libsql://` URL), `TURSO_AUTH_TOKEN`
-— plus bake the `models/` directory in (or run `make download` at build).
+We store the data in Turso, so the app host needs no persistent disk. Deploy the code to a free host such as Render, Hugging Face Spaces, or Fly. Set `OPENAI_API_KEY`, `DB_PATH` with the `libsql://` URL, and `TURSO_AUTH_TOKEN`. Include the `models/` directory in the image or run `make download` during the build.
