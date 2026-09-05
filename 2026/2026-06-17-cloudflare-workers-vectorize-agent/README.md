@@ -7,6 +7,17 @@ Published workshop:
 
 This repo is organized as two architecture tracks.
 
+## Architecture
+
+The TypeScript and Python Workers share the same deployed UI, agent, Workers
+AI, and Vectorize architecture. A local ingestion script embeds and uploads the
+FAQ separately:
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/overview-dark.svg">
+  <img alt="TypeScript and Python Workers share the same deployed UI, agent, Workers AI, and Vectorize architecture, while a local ingestion script embeds and uploads the FAQ separately." src="diagrams/overview.svg">
+</picture>
+
 ## `full-stack-cloudflare`
 
 Focus for now. The online app is fully deployed on Cloudflare:

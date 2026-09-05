@@ -13,26 +13,13 @@ Because that in-memory keyword index is rebuilt on every boot, we make retrieval
 
 ## Overview
 
-The agent uses a local replica for fast searches while Turso stores the durable index:
+Offline ingestion writes document embeddings to Turso. Application startup
+syncs a local replica, and each agent query is embedded and searched locally:
 
-```mermaid
-flowchart LR
-    subgraph ingest["ingest (offline, once)"]
-        FAQ["FAQ JSON"] --> EMB1["ONNX embed"]
-        EMB1 --> LSH["sqlitesearch<br/>LSH index"]
-        LSH -->|writes| TURSO[("Turso<br/>(hosted libSQL)")]
-    end
-
-    subgraph serve["serve (every request)"]
-        UI["client"] -->|POST /ask| API["FastAPI"]
-        API --> AGENT["agent loop"]
-        AGENT -->|search tool| SEARCH["sqlitesearch"]
-        SEARCH -->|embedded replica<br/>local reads| REPLICA["local replica"]
-        AGENT -->|model call| OPENAI["OpenAI"]
-    end
-
-    TURSO -.->|syncs down once on boot| REPLICA
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/overview-dark.svg">
+  <img alt="Offline ingestion writes document embeddings to Turso; application startup syncs a local replica, and each agent query is embedded and searched locally." src="diagrams/overview.svg">
+</picture>
 
 ## Turso
 

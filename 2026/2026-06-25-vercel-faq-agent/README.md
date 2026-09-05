@@ -20,6 +20,14 @@ the TypeScript backend for **Python** (FastAPI) while keeping the Next.js fronte
 for teams that prefer Python. Start in `option-1-minisearch/` — its README has
 setup, run, and deploy instructions.
 
+Options 1–3 successively change agent orchestration and retrieval, while Option
+4 branches from the baseline to replace the backend with Python:
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/overview-dark.svg">
+  <img alt="Options 1 through 3 successively change agent orchestration and retrieval, while Option 4 branches from the baseline to replace the backend with Python." src="diagrams/overview.svg">
+</picture>
+
 ## Common stack
 
 - Next.js (App Router) deployed to Vercel

@@ -6,22 +6,14 @@ This project serves a Vite frontend and an OpenAI-powered FAQ agent from one AWS
 
 ## Overview
 
-This diagram shows the request path from the frontend through Lambda and the agent to the search tool and model:
+The browser uses one Function URL for frontend files and agent requests. A
+custom Python runtime serves the bundled UI and streams results from its local
+agent loop:
 
-```mermaid
-flowchart LR
-    UI["Frontend UI"]
-    LAMBDA["Lambda runtime"]
-    AGENT["Agent loop"]
-    SEARCH["FAQ search tool<br/>minsearch"]
-    OPENAI["OpenAI Responses API"]
-
-    UI -->|POST /ask or /ask/stream| LAMBDA
-    LAMBDA --> AGENT
-    AGENT -->|tool call| SEARCH
-    AGENT -->|model call| OPENAI
-    LAMBDA -->|JSON or SSE| UI
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/overview-dark.svg">
+  <img alt="The browser uses one Function URL for frontend files and agent requests; a custom Python runtime serves the bundled UI and streams results from its local agent loop." src="diagrams/overview.svg">
+</picture>
 
 ## Project Layout
 

@@ -1,0 +1,22 @@
+{
+  "title": "Remote inference, local tool execution",
+  "description": "The local Python agent executes FAQ search and exchanges model turns with vLLM on a RunPod GPU, while model weights download into a persistent cache at startup.",
+  "style": "asl-light",
+  "canvas": {"width": 960, "height": 520},
+  "layout": {"type": "manual", "card_width": 200, "card_height": 90},
+  "nodes": [
+    {"id": "local", "title": "LOCAL MACHINE", "variant": "boundary", "contains": ["agent", "search"]},
+    {"id": "pod", "title": "RUNPOD GPU POD", "variant": "boundary", "contains": ["vllm", "cache"]},
+    {"id": "agent", "title": "Agent", "subtitle": "Python · owns tool loop", "icon": "robot", "color": "purple", "x": 90, "y": 140},
+    {"id": "search", "title": "Search", "subtitle": "Local keyword scoring", "icon": "search", "color": "amber", "x": 90, "y": 330},
+    {"id": "vllm", "title": "vLLM", "subtitle": "OpenAI-compatible API", "icon": "api", "color": "amber", "x": 670, "y": 140},
+    {"id": "cache", "title": "Cache", "subtitle": "Persistent · /workspace", "icon": "volume", "color": "green", "x": 670, "y": 330},
+    {"id": "repo", "title": "Source", "subtitle": "Model startup download", "icon": "document", "color": "blue", "x": 380, "y": 330}
+  ],
+  "edges": [
+    {"from": "agent", "to": "search", "bidirectional": true},
+    {"from": "agent", "to": "vllm", "bidirectional": true, "label": "HTTPS"},
+    {"from": "repo", "to": "cache"},
+    {"from": "cache", "to": "vllm"}
+  ]
+}

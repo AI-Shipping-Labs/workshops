@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">Evaluate the answer and the evidence-gathering behavior</title>
+  <desc id="desc">CLI and Telegram users share the SEC-backed agent used by manual evaluations, whose recorded answers and actual tool calls are judged against scenario expectations.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#a78bfa"/></marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#60a5fa"/></marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#fb923c"/></marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#bfff00"/></marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#f87171"/></marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#a3a3a3"/></marker>
+    <marker id="arrow-start-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#a3a3a3"/></marker>
+    <symbol id="icon-check" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="m7.5 12 3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+    <symbol id="icon-document" viewBox="0 0 24 24">
+        <path d="M6 2h8l4 4v16H6Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v5h4M9 12h6M9 16h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+    <symbol id="icon-robot" viewBox="0 0 24 24">
+        <path d="M12 5V2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="12" cy="2.5" r="1" fill="currentColor"/>
+        <rect x="4" y="5" width="16" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M4 10H2.5v5H4M20 10h1.5v5H20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="9" cy="11" r="1.3" fill="currentColor"/>
+        <circle cx="15" cy="11" r="1.3" fill="currentColor"/>
+        <path d="M8.5 16h7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M4 22c.6-5 3.3-7 8-7s7.4 2 8 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+    <style>
+      text { font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #fafafa; }
+      symbol [stroke] { vector-effect: non-scaling-stroke; }
+      .node rect { stroke-width: 2; }
+      .node-boundary rect { stroke-width: 2; stroke-dasharray: 8 8; }
+      .boundary-title { font-size: 16px; font-weight: 750; text-anchor: start; }
+      .node-title { font-weight: 750; text-anchor: middle; }
+      .node-title.icon-copy { text-anchor: start; }
+      .node-subtitle { font-weight: 500; fill: #a3a3a3; text-anchor: middle; }
+      .eyebrow { font-weight: 750; letter-spacing: 1px; fill: #a3a3a3; text-anchor: middle; }
+      .mention-icon { font-size: 27px; font-weight: 750; text-anchor: middle; }
+      .standalone-mention { font-size: 52px; font-weight: 750; text-anchor: middle; }
+      .icon-node-title { font-size: 16px; font-weight: 750; text-anchor: middle; }
+      .edge { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+      .edge-label rect { stroke-width: 2; }
+      .edge-label text { font-size: 14px; font-weight: 750; text-anchor: middle; dominant-baseline: central; }
+      .divider { stroke: #404040; stroke-width: 2; stroke-dasharray: 6 8; stroke-linecap: round; }
+      .center-annotation { fill: #262626; stroke: none; }
+      .center-title { font-weight: 800; letter-spacing: 0.08em; fill: #d4d4d4; text-anchor: middle; }
+      .center-detail { font-weight: 600; fill: #a3a3a3; text-anchor: middle; }
+    </style>
+  </defs>
+  <rect width="960" height="560" fill="#0a0a0a"/>
+
+  <path class="edge" d="M109 134L350 135" stroke="#a3a3a3" marker-start="url(#arrow-start-gray)" marker-end="url(#arrow-gray)"/>
+  <path class="edge" d="M550 135L700 135" stroke="#a3a3a3" marker-start="url(#arrow-start-gray)" marker-end="url(#arrow-gray)"/>
+  <path class="edge" d="M260 420H305V150H350" stroke="#a3a3a3" marker-end="url(#arrow-gray)"/>
+  <path class="edge" d="M260 435L350 435" stroke="#a3a3a3" marker-end="url(#arrow-gray)"/>
+  <path class="edge" d="M450 180L450 390" stroke="#a3a3a3" marker-end="url(#arrow-gray)"/>
+  <path class="edge" d="M550 435L700 435" stroke="#a3a3a3" marker-end="url(#arrow-gray)"/>
+
+  <g class="node-icon-only node-blue" transform="translate(60 106)">
+    <use href="#icon-user" x="0" y="0" width="56" height="56" color="#60a5fa"/>
+    <text class="icon-node-title" x="28" y="81">CLI / Telegram</text>
+  </g>
+  <g class="node node-purple" transform="translate(350 90)" filter="url(#shadow)">
+    <rect width="200" height="90" rx="18" fill="#2e1065" stroke="#a78bfa"/>
+    <use href="#icon-robot" x="16" y="4" width="34" height="34" color="#a78bfa"/>
+    <text class="node-title icon-copy" x="62" y="28.2" font-size="20">Agent</text>
+    <text class="node-subtitle" x="100" y="59" font-size="16">PydanticAI + SEC</text>
+    <text class="node-subtitle" x="100" y="81" font-size="16">tools</text>
+  </g>
+  <g class="node node-blue" transform="translate(700 90)" filter="url(#shadow)">
+    <rect width="200" height="90" rx="18" fill="#172554" stroke="#60a5fa"/>
+    <use href="#icon-document" x="16" y="15" width="34" height="34" color="#60a5fa"/>
+    <text class="node-title icon-copy" x="62" y="39.2" font-size="20">EDGAR</text>
+    <text class="node-subtitle" x="100" y="70" font-size="16">SEC filings and XBRL</text>
+  </g>
+  <g class="node node-blue" transform="translate(60 390)" filter="url(#shadow)">
+    <rect width="200" height="90" rx="18" fill="#172554" stroke="#60a5fa"/>
+    <use href="#icon-document" x="16" y="4" width="34" height="34" color="#60a5fa"/>
+    <text class="node-title icon-copy" x="62" y="28.2" font-size="20">Scenarios</text>
+    <text class="node-subtitle" x="100" y="59" font-size="16">Inputs and</text>
+    <text class="node-subtitle" x="100" y="81" font-size="16">expectations</text>
+  </g>
+  <g class="node node-green" transform="translate(350 390)" filter="url(#shadow)">
+    <rect width="200" height="90" rx="18" fill="#1a2e05" stroke="#bfff00"/>
+    <use href="#icon-document" x="16" y="4" width="34" height="34" color="#bfff00"/>
+    <text class="node-title icon-copy" x="62" y="28.2" font-size="20">Record</text>
+    <text class="node-subtitle" x="100" y="59" font-size="16">Answer + actual</text>
+    <text class="node-subtitle" x="100" y="81" font-size="16">calls</text>
+  </g>
+  <g class="node node-amber" transform="translate(700 390)" filter="url(#shadow)">
+    <rect width="200" height="90" rx="18" fill="#431407" stroke="#fb923c"/>
+    <use href="#icon-check" x="16" y="4" width="34" height="34" color="#fb923c"/>
+    <text class="node-title icon-copy" x="62" y="28.2" font-size="20">Judge</text>
+    <text class="node-subtitle" x="100" y="59" font-size="16">Expected versus</text>
+    <text class="node-subtitle" x="100" y="81" font-size="16">actual</text>
+  </g>
+</svg>

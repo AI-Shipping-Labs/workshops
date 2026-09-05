@@ -6,22 +6,13 @@ We use this directory for the workshop code from the AI Shipping Labs session "E
 
 ## Overview
 
-This diagram shows the request path from the frontend through the API and agent to the search tool and model:
+FastAPI streams results to the browser while the application's agent loop
+exchanges model messages with OpenAI and executes FAQ searches locally:
 
-```mermaid
-flowchart LR
-    UI["Frontend UI"]
-    API["FastAPI app"]
-    AGENT["Agent loop"]
-    SEARCH["FAQ search tool<br/>minsearch"]
-    OPENAI["OpenAI Responses API"]
-
-    UI -->|POST /ask or /ask/stream| API
-    API --> AGENT
-    AGENT -->|tool call| SEARCH
-    AGENT -->|model call| OPENAI
-    API -->|JSON or SSE| UI
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/overview-dark.svg">
+  <img alt="FastAPI streams results to the browser while the application's agent loop exchanges model messages with OpenAI and executes FAQ searches locally." src="diagrams/overview.svg">
+</picture>
 
 ## Prerequisites
 

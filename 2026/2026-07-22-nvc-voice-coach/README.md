@@ -4,6 +4,17 @@
 
 A private-by-default web prototype using ElevenLabs ElevenAgents (the managed-platform Option C from the project brief).
 
+## Architecture
+
+Next.js keeps the API key and obtains signed session URLs. The browser streams
+directly to ElevenAgents, while provider-side conversation retention remains
+separate from the app's live transcript:
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/overview-dark.svg">
+  <img alt="Next.js keeps the API key and obtains signed session URLs, while the browser streams directly to ElevenAgents and provider-side conversation retention remains separate from the app's live transcript." src="diagrams/overview.svg">
+</picture>
+
 ## Setup
 
 ### Get the ElevenLabs credentials

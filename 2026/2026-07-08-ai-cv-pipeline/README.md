@@ -5,11 +5,13 @@
 This directory contains the workshop code and example data for building focused,
 ATS-friendly AI engineering CVs from structured YAML.
 
-The workflow is:
+Each tailored CV has its own editable YAML source. All variants use the same
+renderer, and HTML and PDF are derived outputs:
 
-1. Keep CV content in `cv/<variant>/cv.yml`.
-2. Render HTML with the shared renderer.
-3. Print the generated HTML to PDF when needed.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/overview-dark.svg">
+  <img alt="Each tailored CV has its own editable YAML source, all variants use the same renderer, and HTML and PDF are derived outputs." src="diagrams/overview.svg">
+</picture>
 
 Generated `cv.html` and `cv.pdf` files are intentionally git-ignored.
 

@@ -1,0 +1,21 @@
+{
+  "title": "The application runs the agent loop",
+  "description": "FastAPI streams results to the browser while the application's agent loop exchanges model messages with OpenAI and executes FAQ searches locally.",
+  "style": "asl-light",
+  "canvas": {"width": 1000, "height": 480},
+  "layout": {"type": "manual", "card_width": 200, "card_height": 90},
+  "nodes": [
+    {"id": "app", "title": "APPLICATION", "variant": "boundary", "contains": ["api", "agent", "search"]},
+    {"id": "browser", "title": "Browser", "variant": "icon", "icon": "browser", "color": "blue", "x": 40, "y": 214},
+    {"id": "api", "title": "FastAPI", "subtitle": "JSON or SSE responses", "icon": "api", "color": "purple", "x": 270, "y": 225},
+    {"id": "agent", "title": "Agent", "subtitle": "Executes requested tools", "icon": "robot", "color": "purple", "x": 520, "y": 225},
+    {"id": "search", "title": "Search", "subtitle": "In-memory minsearch", "icon": "search", "color": "amber", "x": 740, "y": 100},
+    {"id": "openai", "title": "OpenAI", "subtitle": "Responses API · inference", "icon": "openai", "color": "amber", "x": 740, "y": 375}
+  ],
+  "edges": [
+    {"from": "browser", "to": "api", "bidirectional": true},
+    {"from": "api", "to": "agent", "bidirectional": true},
+    {"from": "agent", "to": "search", "bidirectional": true, "route": "step"},
+    {"from": "agent", "to": "openai", "bidirectional": true, "route": "step"}
+  ]
+}

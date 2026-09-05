@@ -1,0 +1,23 @@
+{
+  "title": "Evaluate the answer and the evidence-gathering behavior",
+  "description": "CLI and Telegram users share the SEC-backed agent used by manual evaluations, whose recorded answers and actual tool calls are judged against scenario expectations.",
+  "style": "asl-light",
+  "canvas": {"width": 960, "height": 560},
+  "layout": {"type": "manual", "card_width": 200, "card_height": 90},
+  "nodes": [
+    {"id": "channels", "title": "CLI / Telegram", "variant": "icon", "icon": "user", "color": "blue", "x": 60, "y": 106},
+    {"id": "agent", "title": "Agent", "subtitle": "PydanticAI + SEC tools", "icon": "robot", "color": "purple", "x": 350, "y": 90},
+    {"id": "sec", "title": "EDGAR", "subtitle": "SEC filings and XBRL", "icon": "document", "color": "blue", "x": 700, "y": 90},
+    {"id": "scenarios", "title": "Scenarios", "subtitle": "Inputs and expectations", "icon": "document", "color": "blue", "x": 60, "y": 390},
+    {"id": "record", "title": "Record", "subtitle": "Answer + actual calls", "icon": "document", "color": "green", "x": 350, "y": 390},
+    {"id": "judge", "title": "Judge", "subtitle": "Expected versus actual", "icon": "check", "color": "amber", "x": 700, "y": 390}
+  ],
+  "edges": [
+    {"from": "channels", "to": "agent", "bidirectional": true},
+    {"from": "agent", "to": "sec", "bidirectional": true},
+    {"from": "scenarios", "to": "agent", "route": "orthogonal", "from_anchor": "right_top", "to_anchor": "left_bottom"},
+    {"from": "scenarios", "to": "record"},
+    {"from": "agent", "to": "record", "route": "step"},
+    {"from": "record", "to": "judge"}
+  ]
+}

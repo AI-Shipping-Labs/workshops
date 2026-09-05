@@ -1,0 +1,23 @@
+{
+  "title": "The browser streams voice directly to ElevenAgents",
+  "description": "Next.js keeps the API key and obtains signed session URLs, while the browser streams directly to ElevenAgents and provider-side conversation retention remains separate from the app's live transcript.",
+  "style": "asl-light",
+  "canvas": {"width": 950, "height": 530},
+  "layout": {"type": "manual", "card_width": 190, "card_height": 90},
+  "nodes": [
+    {"id": "elevenlabs", "title": "ELEVENLABS", "variant": "boundary", "contains": ["agents", "api", "records"]},
+    {"id": "browser", "title": "Browser", "subtitle": "Voice + live transcript", "icon": "browser", "color": "blue", "x": 40, "y": 100},
+    {"id": "next", "title": "Next.js", "subtitle": "Issues signed URLs", "icon": "api", "color": "purple", "x": 40, "y": 370},
+    {"id": "key", "title": "Key", "subtitle": "Server only", "variant": "attached", "attach_to": "next", "attach_side": "right", "attach_align": "end", "color": "blue"},
+    {"id": "agents", "title": "Agent", "subtitle": "ElevenAgents · managed session", "icon": "robot", "color": "amber", "x": 700, "y": 100},
+    {"id": "api", "title": "API", "subtitle": "Sessions, cost, deletion", "icon": "api", "color": "purple", "x": 390, "y": 370},
+    {"id": "records", "title": "Records", "subtitle": "Provider retention settings", "icon": "database", "color": "green", "x": 700, "y": 370}
+  ],
+  "edges": [
+    {"from": "browser", "to": "agents", "bidirectional": true, "label": "WebSocket"},
+    {"from": "browser", "to": "next", "bidirectional": true, "label": "Signed URL"},
+    {"from": "next", "to": "api", "bidirectional": true},
+    {"from": "agents", "to": "records"},
+    {"from": "api", "to": "records", "bidirectional": true}
+  ]
+}

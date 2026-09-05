@@ -74,18 +74,14 @@ The bot currently supports:
 
 ## Architecture
 
-Here's how a request flows through the system:
+CLI and Telegram users share the SEC-backed agent used by manual evaluations.
+The evaluation records both answers and actual tool calls before comparing them
+with scenario expectations:
 
-```mermaid
-flowchart TD
-    user[User] --> interface[CLI or Telegram]
-    interface --> agent[PydanticAI Agent]
-    agent --> tools[SEC EDGAR Tools]
-    tools --> sec[SEC data: company tickers, companyfacts, submissions, filing HTML]
-    sec --> agent
-    agent --> response[Concise educational research response]
-    response --> user
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/overview-dark.svg">
+  <img alt="CLI and Telegram users share the SEC-backed agent used by manual evaluations, whose recorded answers and actual tool calls are judged against scenario expectations." src="diagrams/overview.svg">
+</picture>
 
 Main files:
 

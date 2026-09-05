@@ -1,0 +1,24 @@
+{
+  "title": "Editable CV variants share one renderer",
+  "description": "Each tailored CV has its own editable YAML source, all variants use the same renderer, and HTML and PDF are derived outputs.",
+  "style": "asl-light",
+  "canvas": {"width": 960, "height": 580},
+  "layout": {"type": "manual", "card_width": 190, "card_height": 90},
+  "nodes": [
+    {"id": "sources", "title": "EDIT CONTENT", "variant": "boundary", "contains": ["base", "education", "company"]},
+    {"id": "generated", "title": "GENERATED", "variant": "boundary", "contains": ["html", "pdf"]},
+    {"id": "base", "title": "Base", "subtitle": "alexey", "icon": "document", "color": "blue", "x": 35, "y": 80},
+    {"id": "education", "title": "Education", "subtitle": "alexey-edtech", "icon": "document", "color": "blue", "x": 35, "y": 245},
+    {"id": "company", "title": "Company", "subtitle": "alexey-knowunity", "icon": "document", "color": "blue", "x": 35, "y": 410},
+    {"id": "renderer", "title": "Renderer", "subtitle": "cv/render.py", "icon": "settings", "color": "amber", "x": 365, "y": 245},
+    {"id": "html", "title": "HTML CV", "subtitle": "Generated print layout", "icon": "browser", "color": "green", "x": 700, "y": 160},
+    {"id": "pdf", "title": "PDF CV", "subtitle": "Printed with Chromium", "icon": "document", "color": "green", "x": 700, "y": 365}
+  ],
+  "edges": [
+    {"from": "base", "to": "renderer", "route": "step"},
+    {"from": "education", "to": "renderer"},
+    {"from": "company", "to": "renderer", "route": "step"},
+    {"from": "renderer", "to": "html", "route": "step"},
+    {"from": "html", "to": "pdf"}
+  ]
+}

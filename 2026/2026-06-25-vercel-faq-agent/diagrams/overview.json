@@ -1,0 +1,19 @@
+{
+  "title": "Three progressive options and one Python branch",
+  "description": "Options 1 through 3 successively change agent orchestration and retrieval, while Option 4 branches from the baseline to replace the backend with Python.",
+  "style": "asl-light",
+  "canvas": {"width": 960, "height": 510},
+  "layout": {"type": "manual", "card_width": 220, "card_height": 100},
+  "nodes": [
+    {"id": "one", "title": "1 · AI SDK", "subtitle": "ToolLoopAgent + MiniSearch", "color": "purple", "x": 40, "y": 55},
+    {"id": "two", "title": "2 · Eve", "subtitle": "MiniSearch + durable sessions", "color": "purple", "x": 370, "y": 55},
+    {"id": "three", "title": "3 · Eve", "subtitle": "Upstash embeds and searches", "color": "purple", "x": 700, "y": 55},
+    {"id": "four", "title": "4 · Python", "subtitle": "FastAPI + minsearch", "color": "purple", "x": 40, "y": 245},
+    {"id": "foundation", "title": "Shared foundation", "subtitle": "Next.js UI · Vercel · same FAQ", "icon": "browser", "color": "blue", "width": 880, "height": 90, "x": 40, "y": 390}
+  ],
+  "edges": [
+    {"from": "one", "to": "two"},
+    {"from": "two", "to": "three"},
+    {"from": "one", "to": "four", "route": "step"}
+  ]
+}

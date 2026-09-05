@@ -1,0 +1,24 @@
+{
+  "title": "Batch the independent work around the live agent",
+  "description": "Synthetic question generation and judging contain independent requests that can use Batch, while the evaluated agent keeps its dependent model-and-tool turns live; generation also has a Flex execution option.",
+  "style": "asl-light",
+  "canvas": {"width": 960, "height": 520},
+  "layout": {"type": "manual", "card_width": 200, "card_height": 90},
+  "nodes": [
+    {"id": "faq", "title": "FAQ", "subtitle": "Source documents", "icon": "document", "color": "blue", "x": 20, "y": 215},
+    {"id": "generate", "title": "Questions", "subtitle": "Independent requests", "icon": "settings", "color": "amber", "x": 260, "y": 215},
+    {"id": "agent", "title": "Agent", "subtitle": "Dependent model/tool turns", "icon": "robot", "color": "purple", "x": 500, "y": 215},
+    {"id": "judge", "title": "Judge", "subtitle": "Independent checks", "icon": "check", "color": "amber", "x": 740, "y": 215},
+    {"id": "batch_gen", "title": "Batch", "subtitle": "Question generation", "color": "purple", "x": 260, "y": 55},
+    {"id": "flex", "title": "Flex", "subtitle": "Generation with fallback", "color": "purple", "x": 260, "y": 375},
+    {"id": "batch_judge", "title": "Batch", "subtitle": "Answer judging", "color": "purple", "x": 740, "y": 55}
+  ],
+  "edges": [
+    {"from": "faq", "to": "generate"},
+    {"from": "generate", "to": "agent"},
+    {"from": "agent", "to": "judge"},
+    {"from": "batch_gen", "to": "generate", "directed": false, "dashed": true},
+    {"from": "flex", "to": "generate", "directed": false, "dashed": true},
+    {"from": "batch_judge", "to": "judge", "directed": false, "dashed": true}
+  ]
+}

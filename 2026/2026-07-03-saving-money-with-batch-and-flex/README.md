@@ -11,22 +11,14 @@ workflow.
 
 ## Overview
 
-```mermaid
-flowchart LR
-    FAQ["FAQ documents"]
-    GEN["Synthetic questions"]
-    AGENT["Live FAQ agent run"]
-    JUDGE["LLM judge checks"]
-    BATCH["Batch API"]
-    FLEX["Flex processing"]
+Synthetic question generation and judging contain independent requests that
+can use Batch. The evaluated agent keeps its dependent model-and-tool turns
+live, while generation also has a Flex execution option:
 
-    FAQ --> GEN
-    GEN --> AGENT
-    AGENT --> JUDGE
-    GEN -. cheaper async generation .-> BATCH
-    JUDGE -. cheaper async judging .-> BATCH
-    FAQ -. cheaper real-time generation .-> FLEX
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/overview-dark.svg">
+  <img alt="Synthetic question generation and judging contain independent requests that can use Batch, while the evaluated agent keeps its dependent model-and-tool turns live; generation also has a Flex execution option." src="diagrams/overview.svg">
+</picture>
 
 ## Prerequisites
 

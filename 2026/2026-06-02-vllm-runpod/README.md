@@ -10,6 +10,16 @@ We tested `stelterlab/DeepSeek-R1-Distill-Qwen-14B-AWQ`, whose model weights
 aren't baked into an image. vLLM downloads them at pod startup and caches them
 under `/workspace/hf-cache/hub`.
 
+## Architecture
+
+The local Python agent executes FAQ search and exchanges model turns with vLLM
+on a RunPod GPU. Model weights download into a persistent cache at startup:
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/overview-dark.svg">
+  <img alt="The local Python agent executes FAQ search and exchanges model turns with vLLM on a RunPod GPU, while model weights download into a persistent cache at startup." src="diagrams/overview.svg">
+</picture>
+
 ## Project Structure
 
 You'll work with this project layout:

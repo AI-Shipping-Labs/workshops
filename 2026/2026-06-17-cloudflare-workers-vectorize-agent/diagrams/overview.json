@@ -1,0 +1,24 @@
+{
+  "title": "Cloudflare serves the app; ingestion runs locally",
+  "description": "TypeScript and Python Workers share the same deployed UI, agent, Workers AI, and Vectorize architecture, while a local ingestion script embeds and uploads the FAQ separately.",
+  "style": "asl-light",
+  "canvas": {"width": 960, "height": 650},
+  "layout": {"type": "manual", "card_width": 200, "card_height": 90},
+  "nodes": [
+    {"id": "cloudflare", "title": "CLOUDFLARE", "variant": "boundary", "contains": ["worker", "ai", "vectorize"]},
+    {"id": "browser", "title": "Browser", "variant": "icon", "icon": "browser", "color": "blue", "x": 30, "y": 74},
+    {"id": "worker", "title": "Worker", "subtitle": "UI + agent · TS or Python", "icon": "robot", "color": "purple", "x": 300, "y": 80},
+    {"id": "ai", "title": "AI", "subtitle": "Workers AI · embed and answer", "icon": "api", "color": "amber", "x": 700, "y": 80},
+    {"id": "vectorize", "title": "Vectorize", "subtitle": "FAQ vector index", "icon": "database", "color": "green", "x": 300, "y": 340},
+    {"id": "faq", "title": "FAQ", "subtitle": "Source documents", "icon": "document", "color": "blue", "x": 30, "y": 530},
+    {"id": "ingest", "title": "Ingest", "subtitle": "Operator-run script", "icon": "settings", "color": "amber", "x": 700, "y": 530}
+  ],
+  "edges": [
+    {"from": "browser", "to": "worker", "bidirectional": true},
+    {"from": "worker", "to": "ai", "bidirectional": true},
+    {"from": "worker", "to": "vectorize", "bidirectional": true},
+    {"from": "faq", "to": "ingest"},
+    {"from": "ingest", "to": "vectorize", "route": "orthogonal", "from_anchor": "left_top", "to_anchor": "bottom"},
+    {"from": "ingest", "to": "ai", "bidirectional": true, "route": "orthogonal", "from_anchor": "top", "to_anchor": "bottom"}
+  ]
+}

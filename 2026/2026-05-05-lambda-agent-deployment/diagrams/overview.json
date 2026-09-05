@@ -1,0 +1,25 @@
+{
+  "title": "One Lambda serves the frontend and streaming agent",
+  "description": "The browser uses one Function URL for frontend files and agent requests; a custom Python runtime serves the bundled UI and streams results from its local agent loop.",
+  "style": "asl-light",
+  "canvas": {"width": 960, "height": 480},
+  "layout": {"type": "manual", "card_width": 190, "card_height": 90},
+  "nodes": [
+    {"id": "image", "title": "LAMBDA CONTAINER IMAGE", "variant": "boundary", "contains": ["runtime", "assets", "agent", "search"]},
+    {"id": "browser", "title": "Browser", "variant": "icon", "icon": "browser", "color": "blue", "x": 10, "y": 89},
+    {"id": "url", "title": "URL", "subtitle": "One Lambda Function URL", "icon": "api", "color": "purple", "x": 220, "y": 100},
+    {"id": "runtime", "title": "Lambda", "subtitle": "Routes requests and SSE", "icon": "lambda", "color": "purple", "x": 470, "y": 100},
+    {"id": "assets", "title": "Frontend", "subtitle": "Compiled Vite assets", "icon": "document", "color": "green", "x": 720, "y": 100},
+    {"id": "openai", "title": "OpenAI", "subtitle": "Responses API · inference", "icon": "openai", "color": "amber", "x": 220, "y": 320},
+    {"id": "agent", "title": "Agent", "subtitle": "Executes requested tools", "icon": "robot", "color": "purple", "x": 470, "y": 320},
+    {"id": "search", "title": "Search", "subtitle": "In-memory minsearch", "icon": "search", "color": "amber", "x": 720, "y": 320}
+  ],
+  "edges": [
+    {"from": "browser", "to": "url", "bidirectional": true},
+    {"from": "url", "to": "runtime", "bidirectional": true},
+    {"from": "runtime", "to": "assets"},
+    {"from": "runtime", "to": "agent", "bidirectional": true},
+    {"from": "agent", "to": "search", "bidirectional": true},
+    {"from": "agent", "to": "openai", "bidirectional": true}
+  ]
+}
