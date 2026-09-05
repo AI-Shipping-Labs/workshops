@@ -1,19 +1,15 @@
 {
-  "title": "Three progressive options and one Python branch",
-  "description": "Options 1 through 3 successively change agent orchestration and retrieval, while Option 4 branches from the baseline to replace the backend with Python.",
+  "title": "Four architectures on one Vercel foundation",
+  "description": "Four workshop options share the Next.js interface, Vercel deployment, and FAQ content while varying orchestration, retrieval, session storage, and backend runtime.",
   "style": "asl-light",
-  "canvas": {"width": 960, "height": 510},
-  "layout": {"type": "manual", "card_width": 220, "card_height": 100},
+  "canvas": {"width": 960, "height": 520},
+  "layout": {"type": "manual", "card_width": 390, "card_height": 140, "fixed_icon_axis": false},
   "nodes": [
-    {"id": "one", "title": "1 · AI SDK", "subtitle": "ToolLoopAgent + MiniSearch", "color": "purple", "x": 40, "y": 55},
-    {"id": "two", "title": "2 · Eve", "subtitle": "MiniSearch + durable sessions", "color": "purple", "x": 370, "y": 55},
-    {"id": "three", "title": "3 · Eve", "subtitle": "Upstash embeds and searches", "color": "purple", "x": 700, "y": 55},
-    {"id": "four", "title": "4 · Python", "subtitle": "FastAPI + minsearch", "color": "purple", "x": 40, "y": 245},
-    {"id": "foundation", "title": "Shared foundation", "subtitle": "Next.js UI · Vercel · same FAQ", "icon": "browser", "color": "blue", "width": 880, "height": 90, "x": 40, "y": 390}
+    {"id": "foundation", "title": "SHARED · NEXT.JS UI · VERCEL · FAQ", "variant": "boundary", "contains": ["one", "two", "three", "four"]},
+    {"id": "one", "title": "1 · AI SDK + MiniSearch", "subtitle": "ToolLoopAgent · in-memory retrieval", "icon": "robot", "color": "purple", "x": 50, "y": 85},
+    {"id": "two", "title": "2 · Eve + MiniSearch", "subtitle": "Eve orchestration · durable sessions", "icon": "robot", "color": "blue", "x": 520, "y": 85},
+    {"id": "three", "title": "3 · Eve + Upstash", "subtitle": "Eve orchestration · hosted vectors", "icon": "database", "color": "green", "x": 50, "y": 295},
+    {"id": "four", "title": "4 · Python + minsearch", "subtitle": "FastAPI backend · in-memory retrieval", "icon": "api", "color": "amber", "x": 520, "y": 295}
   ],
-  "edges": [
-    {"from": "one", "to": "two"},
-    {"from": "two", "to": "three"},
-    {"from": "one", "to": "four", "route": "step"}
-  ]
+  "edges": []
 }

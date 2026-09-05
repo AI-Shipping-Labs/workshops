@@ -2,14 +2,13 @@
   "title": "Durable index, local query path",
   "description": "Offline ingestion writes document embeddings to Turso; application startup syncs a local replica, and each agent query is embedded and searched locally.",
   "style": "asl-light",
-  "canvas": {"width": 960, "height": 530},
-  "layout": {"type": "grid", "columns": 3, "column_width": 220, "row_height": 100, "column_gap": 80, "row_gap": 190},
-  "dividers": [{"after_row": 0}],
+  "canvas": {"width": 960, "height": 440},
+  "layout": {"type": "grid", "columns": 3, "column_width": 220, "row_height": 110, "column_gap": 80, "row_gap": 100, "fixed_icon_axis": false},
   "nodes": [
-    {"id": "faq", "title": "FAQ", "subtitle": "Source documents", "icon": "document", "color": "blue", "row": 0, "column": 0},
+    {"id": "faq", "title": "FAQ", "subtitle": "INGEST · source documents", "icon": "document", "color": "blue", "row": 0, "column": 0},
     {"id": "ingest", "title": "Ingest", "subtitle": "ONNX document embeddings", "icon": "settings", "color": "amber", "row": 0, "column": 1},
     {"id": "turso", "title": "Turso", "subtitle": "Durable vector index", "icon": "database", "color": "green", "row": 0, "column": 2},
-    {"id": "agent", "title": "FAQ agent", "subtitle": "FastAPI + OpenAI", "icon": "robot", "color": "purple", "row": 1, "column": 0},
+    {"id": "agent", "title": "FAQ agent", "subtitle": "QUERY · FastAPI + OpenAI", "icon": "robot", "color": "purple", "row": 1, "column": 0},
     {"id": "query", "title": "Search", "subtitle": "ONNX + sqlitesearch", "icon": "search", "color": "amber", "row": 1, "column": 1},
     {"id": "replica", "title": "Replica", "subtitle": "Reads stay on app host", "icon": "database", "color": "green", "row": 1, "column": 2}
   ],

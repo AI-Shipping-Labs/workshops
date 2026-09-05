@@ -61,57 +61,57 @@
   <rect width="960" height="520" fill="#ffffff"/>
 
   <g class="node-boundary node-blue" transform="translate(70 80)">
-    <rect width="240" height="370" rx="22" fill="none" stroke="#2563eb"/>
+    <rect width="240" height="380" rx="22" fill="none" stroke="#2563eb"/>
     <text class="boundary-title" x="20" y="31">LOCAL MACHINE</text>
   </g>
   <g class="node-boundary node-blue" transform="translate(650 80)">
-    <rect width="240" height="370" rx="22" fill="none" stroke="#2563eb"/>
+    <rect width="240" height="380" rx="22" fill="none" stroke="#2563eb"/>
     <text class="boundary-title" x="20" y="31">RUNPOD GPU POD</text>
   </g>
-  <path class="edge" d="M190 230L190 330" stroke="#737373" marker-start="url(#arrow-start-gray)" marker-end="url(#arrow-gray)"/>
-  <path class="edge-boundary-halo" d="M290 185L670 185" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-  <path class="edge" d="M290 185L670 185" stroke="#737373" marker-start="url(#arrow-start-gray)" marker-end="url(#arrow-gray)"/>
-  <g class="edge-label" transform="translate(480 185)">
+  <path class="edge" d="M190 240L190 330" stroke="#737373" marker-start="url(#arrow-start-gray)" marker-end="url(#arrow-gray)"/>
+  <path class="edge-boundary-halo" d="M290 190L670 190" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path class="edge" d="M290 190L670 190" stroke="#737373" marker-start="url(#arrow-start-gray)" marker-end="url(#arrow-gray)"/>
+  <g class="edge-label" transform="translate(480 190)">
     <rect x="-37.55" y="-16" width="75.1" height="32" rx="16.0" fill="#ffffff" stroke="#737373"/>
     <text fill="#737373">HTTPS</text>
   </g>
-  <path class="edge-boundary-halo" d="M580 375L670 375" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-  <path class="edge" d="M580 375L670 375" stroke="#737373" marker-end="url(#arrow-gray)"/>
-  <path class="edge" d="M770 330L770 230" stroke="#737373" marker-end="url(#arrow-gray)"/>
+  <path class="edge-boundary-halo" d="M580 380L670 380" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path class="edge" d="M580 380L670 380" stroke="#737373" marker-end="url(#arrow-gray)"/>
+  <path class="edge" d="M770 330L770 240" stroke="#737373" marker-end="url(#arrow-gray)"/>
 
   <g class="node node-purple" transform="translate(90 140)" filter="url(#shadow)">
-    <rect width="200" height="90" rx="18" fill="#f5f3ff" stroke="#7c3aed"/>
-    <use href="#icon-robot" x="16" y="4" width="34" height="34" color="#7c3aed"/>
-    <text class="node-title icon-copy" x="62" y="28.2" font-size="20">Agent</text>
-    <text class="node-subtitle" x="100" y="59" font-size="16">Python · owns tool</text>
-    <text class="node-subtitle" x="100" y="81" font-size="16">loop</text>
+    <rect width="200" height="100" rx="18" fill="#f5f3ff" stroke="#7c3aed"/>
+    <use href="#icon-robot" x="43.5" y="9" width="34" height="34" color="#7c3aed"/>
+    <text class="node-title icon-copy" x="87.39" y="33.2" font-size="20">Agent</text>
+    <text class="node-subtitle" x="100" y="64" font-size="16">Python · owns tool</text>
+    <text class="node-subtitle" x="100" y="86" font-size="16">loop</text>
   </g>
   <g class="node node-amber" transform="translate(90 330)" filter="url(#shadow)">
-    <rect width="200" height="90" rx="18" fill="#fff7ed" stroke="#c2410c"/>
-    <use href="#icon-search" x="16" y="4" width="34" height="34" color="#c2410c"/>
-    <text class="node-title icon-copy" x="62" y="28.2" font-size="20">Search</text>
-    <text class="node-subtitle" x="100" y="59" font-size="16">Local keyword</text>
-    <text class="node-subtitle" x="100" y="81" font-size="16">scoring</text>
+    <rect width="200" height="100" rx="18" fill="#fff7ed" stroke="#c2410c"/>
+    <use href="#icon-search" x="38.04" y="9" width="34" height="34" color="#c2410c"/>
+    <text class="node-title icon-copy" x="80.36" y="33.2" font-size="20">Search</text>
+    <text class="node-subtitle" x="100" y="64" font-size="16">Local keyword</text>
+    <text class="node-subtitle" x="100" y="86" font-size="16">scoring</text>
   </g>
   <g class="node node-amber" transform="translate(670 140)" filter="url(#shadow)">
-    <rect width="200" height="90" rx="18" fill="#fff7ed" stroke="#c2410c"/>
-    <use href="#icon-api" x="16" y="4" width="34" height="34" color="#c2410c"/>
-    <text class="node-title icon-copy" x="62" y="28.2" font-size="20">vLLM</text>
-    <text class="node-subtitle" x="100" y="59" font-size="16">OpenAI-compatible</text>
-    <text class="node-subtitle" x="100" y="81" font-size="16">API</text>
+    <rect width="200" height="100" rx="18" fill="#fff7ed" stroke="#c2410c"/>
+    <use href="#icon-api" x="47.75" y="9" width="34" height="34" color="#c2410c"/>
+    <text class="node-title icon-copy" x="90.93" y="33.2" font-size="20">vLLM</text>
+    <text class="node-subtitle" x="100" y="64" font-size="16">OpenAI-compatible</text>
+    <text class="node-subtitle" x="100" y="86" font-size="16">API</text>
   </g>
   <g class="node node-green" transform="translate(670 330)" filter="url(#shadow)">
-    <rect width="200" height="90" rx="18" fill="#f5fbe7" stroke="#648900"/>
-    <use href="#icon-volume" x="16" y="4" width="34" height="34" color="#648900"/>
-    <text class="node-title icon-copy" x="62" y="28.2" font-size="20">Cache</text>
-    <text class="node-subtitle" x="100" y="59" font-size="16">Persistent ·</text>
-    <text class="node-subtitle" x="100" y="81" font-size="16">/workspace</text>
+    <rect width="200" height="100" rx="18" fill="#f5fbe7" stroke="#648900"/>
+    <use href="#icon-volume" x="43.12" y="9" width="34" height="34" color="#648900"/>
+    <text class="node-title icon-copy" x="86.3" y="33.2" font-size="20">Cache</text>
+    <text class="node-subtitle" x="100" y="64" font-size="16">Persistent ·</text>
+    <text class="node-subtitle" x="100" y="86" font-size="16">/workspace</text>
   </g>
   <g class="node node-blue" transform="translate(380 330)" filter="url(#shadow)">
-    <rect width="200" height="90" rx="18" fill="#eff6ff" stroke="#2563eb"/>
-    <use href="#icon-document" x="16" y="4" width="34" height="34" color="#2563eb"/>
-    <text class="node-title icon-copy" x="62" y="28.2" font-size="20">Source</text>
-    <text class="node-subtitle" x="100" y="59" font-size="16">Model startup</text>
-    <text class="node-subtitle" x="100" y="81" font-size="16">download</text>
+    <rect width="200" height="100" rx="18" fill="#eff6ff" stroke="#2563eb"/>
+    <use href="#icon-document" x="30.81" y="9" width="34" height="34" color="#2563eb"/>
+    <text class="node-title icon-copy" x="69.74" y="33.2" font-size="20">Weights</text>
+    <text class="node-subtitle" x="100" y="64" font-size="16">Model download at</text>
+    <text class="node-subtitle" x="100" y="86" font-size="16">startup</text>
   </g>
 </svg>

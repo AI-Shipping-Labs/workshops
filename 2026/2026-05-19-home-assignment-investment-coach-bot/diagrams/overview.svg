@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="580" viewBox="0 0 1000 580" role="img" aria-labelledby="title desc">
   <title id="title">Evaluate the answer and the evidence-gathering behavior</title>
   <desc id="desc">CLI and Telegram users share the SEC-backed agent used by manual evaluations, whose recorded answers and actual tool calls are judged against scenario expectations.</desc>
   <defs>
@@ -53,51 +53,58 @@
       .center-detail { font-weight: 600; fill: #525252; text-anchor: middle; }
     </style>
   </defs>
-  <rect width="960" height="560" fill="#ffffff"/>
+  <rect width="1000" height="580" fill="#ffffff"/>
 
-  <path class="edge" d="M109 134L350 135" stroke="#737373" marker-start="url(#arrow-start-gray)" marker-end="url(#arrow-gray)"/>
-  <path class="edge" d="M550 135L700 135" stroke="#737373" marker-start="url(#arrow-start-gray)" marker-end="url(#arrow-gray)"/>
-  <path class="edge" d="M260 420H305V150H350" stroke="#737373" marker-end="url(#arrow-gray)"/>
-  <path class="edge" d="M260 435L350 435" stroke="#737373" marker-end="url(#arrow-gray)"/>
-  <path class="edge" d="M450 180L450 390" stroke="#737373" marker-end="url(#arrow-gray)"/>
-  <path class="edge" d="M550 435L700 435" stroke="#737373" marker-end="url(#arrow-gray)"/>
+  <path class="edge" d="M114 160L390 160" stroke="#737373" marker-start="url(#arrow-start-gray)" marker-end="url(#arrow-gray)"/>
+  <path class="edge" d="M610 160L715 160" stroke="#737373" marker-start="url(#arrow-start-gray)" marker-end="url(#arrow-gray)"/>
+  <path class="edge" d="M260 436.67H325V178.33H390" stroke="#737373" marker-end="url(#arrow-gray)"/>
+  <g class="edge-label" transform="translate(325 307.5)">
+    <rect x="-41.05" y="-16" width="82.1" height="32" rx="16.0" fill="#ffffff" stroke="#737373"/>
+    <text fill="#737373">Prompt</text>
+  </g>
+  <path class="edge" d="M260 455L390 455" stroke="#737373" marker-end="url(#arrow-gray)"/>
+  <path class="edge" d="M500 215L500 400" stroke="#737373" marker-end="url(#arrow-gray)"/>
+  <g class="edge-label" transform="translate(500 307.5)">
+    <rect x="-36.89" y="-16" width="73.79" height="32" rx="16.0" fill="#ffffff" stroke="#737373"/>
+    <text fill="#737373">Actual</text>
+  </g>
+  <path class="edge" d="M610 455L740 455" stroke="#737373" marker-end="url(#arrow-gray)"/>
 
-  <g class="node-icon-only node-blue" transform="translate(60 106)">
+  <g class="node-icon-only node-blue" transform="translate(65 132)">
     <use href="#icon-user" x="0" y="0" width="56" height="56" color="#2563eb"/>
     <text class="icon-node-title" x="28" y="81">CLI / Telegram</text>
   </g>
-  <g class="node node-purple" transform="translate(350 90)" filter="url(#shadow)">
-    <rect width="200" height="90" rx="18" fill="#f5f3ff" stroke="#7c3aed"/>
-    <use href="#icon-robot" x="16" y="4" width="34" height="34" color="#7c3aed"/>
-    <text class="node-title icon-copy" x="62" y="28.2" font-size="20">Agent</text>
-    <text class="node-subtitle" x="100" y="59" font-size="16">PydanticAI + SEC</text>
-    <text class="node-subtitle" x="100" y="81" font-size="16">tools</text>
+  <g class="node node-purple" transform="translate(390 105)" filter="url(#shadow)">
+    <rect width="220" height="110" rx="18" fill="#f5f3ff" stroke="#7c3aed"/>
+    <use href="#icon-robot" x="53.5" y="25" width="34" height="34" color="#7c3aed"/>
+    <text class="node-title icon-copy" x="97.39" y="49.2" font-size="20">Agent</text>
+    <text class="node-subtitle" x="110" y="80" font-size="16">PydanticAI + SEC tools</text>
   </g>
-  <g class="node node-blue" transform="translate(700 90)" filter="url(#shadow)">
-    <rect width="200" height="90" rx="18" fill="#eff6ff" stroke="#2563eb"/>
-    <use href="#icon-document" x="16" y="15" width="34" height="34" color="#2563eb"/>
-    <text class="node-title icon-copy" x="62" y="39.2" font-size="20">EDGAR</text>
-    <text class="node-subtitle" x="100" y="70" font-size="16">SEC filings and XBRL</text>
+  <g class="node node-blue" transform="translate(715 105)" filter="url(#shadow)">
+    <rect width="220" height="110" rx="18" fill="#eff6ff" stroke="#2563eb"/>
+    <use href="#icon-document" x="48.31" y="25" width="34" height="34" color="#2563eb"/>
+    <text class="node-title icon-copy" x="87.24" y="49.2" font-size="20">EDGAR</text>
+    <text class="node-subtitle" x="110" y="80" font-size="16">SEC filings and XBRL</text>
   </g>
-  <g class="node node-blue" transform="translate(60 390)" filter="url(#shadow)">
-    <rect width="200" height="90" rx="18" fill="#eff6ff" stroke="#2563eb"/>
-    <use href="#icon-document" x="16" y="4" width="34" height="34" color="#2563eb"/>
-    <text class="node-title icon-copy" x="62" y="28.2" font-size="20">Scenarios</text>
-    <text class="node-subtitle" x="100" y="59" font-size="16">Inputs and</text>
-    <text class="node-subtitle" x="100" y="81" font-size="16">expectations</text>
+  <g class="node node-blue" transform="translate(40 400)" filter="url(#shadow)">
+    <rect width="220" height="110" rx="18" fill="#eff6ff" stroke="#2563eb"/>
+    <use href="#icon-document" x="32.56" y="14" width="34" height="34" color="#2563eb"/>
+    <text class="node-title icon-copy" x="71.49" y="38.2" font-size="20">Scenarios</text>
+    <text class="node-subtitle" x="110" y="69" font-size="16">Prompts +</text>
+    <text class="node-subtitle" x="110" y="91" font-size="16">expectations</text>
   </g>
-  <g class="node node-green" transform="translate(350 390)" filter="url(#shadow)">
-    <rect width="200" height="90" rx="18" fill="#f5fbe7" stroke="#648900"/>
-    <use href="#icon-document" x="16" y="4" width="34" height="34" color="#648900"/>
-    <text class="node-title icon-copy" x="62" y="28.2" font-size="20">Record</text>
-    <text class="node-subtitle" x="100" y="59" font-size="16">Answer + actual</text>
-    <text class="node-subtitle" x="100" y="81" font-size="16">calls</text>
+  <g class="node node-green" transform="translate(390 400)" filter="url(#shadow)">
+    <rect width="220" height="110" rx="18" fill="#f5fbe7" stroke="#648900"/>
+    <use href="#icon-document" x="23.4" y="14" width="34" height="34" color="#648900"/>
+    <text class="node-title icon-copy" x="62.33" y="38.2" font-size="20">Eval record</text>
+    <text class="node-subtitle" x="110" y="69" font-size="16">Expected + actual</text>
+    <text class="node-subtitle" x="110" y="91" font-size="16">calls</text>
   </g>
-  <g class="node node-amber" transform="translate(700 390)" filter="url(#shadow)">
-    <rect width="200" height="90" rx="18" fill="#fff7ed" stroke="#c2410c"/>
-    <use href="#icon-check" x="16" y="4" width="34" height="34" color="#c2410c"/>
-    <text class="node-title icon-copy" x="62" y="28.2" font-size="20">Judge</text>
-    <text class="node-subtitle" x="100" y="59" font-size="16">Expected versus</text>
-    <text class="node-subtitle" x="100" y="81" font-size="16">actual</text>
+  <g class="node node-amber" transform="translate(740 400)" filter="url(#shadow)">
+    <rect width="220" height="110" rx="18" fill="#fff7ed" stroke="#c2410c"/>
+    <use href="#icon-check" x="55.12" y="14" width="34" height="34" color="#c2410c"/>
+    <text class="node-title icon-copy" x="98.3" y="38.2" font-size="20">Judge</text>
+    <text class="node-subtitle" x="110" y="69" font-size="16">Compares the full</text>
+    <text class="node-subtitle" x="110" y="91" font-size="16">record</text>
   </g>
 </svg>

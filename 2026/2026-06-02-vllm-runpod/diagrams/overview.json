@@ -3,7 +3,7 @@
   "description": "The local Python agent executes FAQ search and exchanges model turns with vLLM on a RunPod GPU, while model weights download into a persistent cache at startup.",
   "style": "asl-light",
   "canvas": {"width": 960, "height": 520},
-  "layout": {"type": "manual", "card_width": 200, "card_height": 90},
+  "layout": {"type": "manual", "card_width": 200, "card_height": 100, "fixed_icon_axis": false},
   "nodes": [
     {"id": "local", "title": "LOCAL MACHINE", "variant": "boundary", "contains": ["agent", "search"]},
     {"id": "pod", "title": "RUNPOD GPU POD", "variant": "boundary", "contains": ["vllm", "cache"]},
@@ -11,7 +11,7 @@
     {"id": "search", "title": "Search", "subtitle": "Local keyword scoring", "icon": "search", "color": "amber", "x": 90, "y": 330},
     {"id": "vllm", "title": "vLLM", "subtitle": "OpenAI-compatible API", "icon": "api", "color": "amber", "x": 670, "y": 140},
     {"id": "cache", "title": "Cache", "subtitle": "Persistent · /workspace", "icon": "volume", "color": "green", "x": 670, "y": 330},
-    {"id": "repo", "title": "Source", "subtitle": "Model startup download", "icon": "document", "color": "blue", "x": 380, "y": 330}
+    {"id": "repo", "title": "Weights", "subtitle": "Model download at startup", "icon": "document", "color": "blue", "x": 380, "y": 330}
   ],
   "edges": [
     {"from": "agent", "to": "search", "bidirectional": true},

@@ -25,7 +25,7 @@ Options 1–3 successively change agent orchestration and retrieval, while Optio
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="diagrams/overview-dark.svg">
-  <img alt="Options 1 through 3 successively change agent orchestration and retrieval, while Option 4 branches from the baseline to replace the backend with Python." src="diagrams/overview.svg">
+  <img alt="Four workshop options share the Next.js interface, Vercel deployment, and FAQ content while varying orchestration, retrieval, session storage, and backend runtime." src="diagrams/overview.svg">
 </picture>
 
 ## Common stack
