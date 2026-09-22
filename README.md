@@ -118,3 +118,16 @@ switches voices, tracks session costs, and deletes sensitive conversations.
 
 Tech: TypeScript · Next.js 16 · React 19 · ElevenLabs ElevenAgents · streaming
 WebSockets · browser audio · Playwright · ESLint
+
+## [Using Jev for LLM Evaluations](2026/2026-09-22-using-jev-for-llm-evaluations)
+
+September 22, 2026
+
+Judge an FAQ agent's evaluation runs with three LLM judges over the same
+three good/bad checks: an OpenAI structured-output baseline, Jev through
+OpenRouter's decisions API, and Laya running locally. You compare scores and
+costs across judges — including a 57× cost difference on the sample run — and
+see where cheap typed-decision judges fit an eval pipeline.
+
+Tech: Python · LLM-as-a-judge evaluations · Jev · OpenRouter decisions API ·
+Laya · OpenAI Responses API · structured outputs · `uv`
