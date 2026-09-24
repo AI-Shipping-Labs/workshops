@@ -1,5 +1,7 @@
 # Using Jev for LLM Evaluations
 
+[Follow the tutorial on AI Shipping Labs](https://aishippinglabs.com/workshops/jev-for-llm-evaluations).
+
 Workshop code for the AI Shipping Labs session "Using Jev for LLM
 Evaluations" on September 22, 2026.
 
