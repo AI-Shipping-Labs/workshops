@@ -131,3 +131,13 @@ see where cheap typed-decision judges fit an eval pipeline.
 
 Tech: Python · LLM-as-a-judge evaluations · Jev · OpenRouter decisions API ·
 Laya · OpenAI Responses API · structured outputs · `uv`
+
+## [Tracing a FAQ Agent with Langfuse](2026/2026-11-04-langfuse-tracing)
+
+November 4, 2026
+
+Add Langfuse tracing to a FAQ agent and view model calls, search results,
+token usage and cost. Use OpenCode to add tracing to the application, then review
+answers in a human annotation queue before adding them to an evaluation dataset.
+
+Tech: Python · FastAPI · OpenAI · Langfuse · OpenTelemetry · OpenCode · `uv`
