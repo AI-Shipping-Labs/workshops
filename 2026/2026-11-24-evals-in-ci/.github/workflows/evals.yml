@@ -1,0 +1,128 @@
+name: Evals
+
+# Runs only when the `run-evals` label is added to a PR (evals cost money, so
+# not every PR runs them). It runs the same eval on the baseline (the main
+# commit the branch started from) and on the PR branch, posts a comparison
+# table with a merge recommendation as a PR comment, then removes the label.
+# To re-run after new commits, add the label again.
+
+on:
+  pull_request:
+    branches: [main]
+    types: [labeled]
+  workflow_dispatch:
+
+# Re-adding the label while an eval is running cancels the old run.
+concurrency:
+  group: evals-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+env:
+  # Same as the global ~/.config/uv/uv.toml used when uv.lock was created.
+  UV_EXCLUDE_NEWER: "7 days"
+  EVAL_LIMIT: "20"
+  EVAL_SEED: "42"
+
+jobs:
+  compare:
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'run-evals'
+    runs-on: [self-hosted, hetzner]
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - name: Check out the PR branch
+        uses: actions/checkout@v4
+        with:
+          # The PR branch itself, not GitHub's temporary merge commit, so the
+          # baseline is the main commit the branch was created from.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Check out the baseline
+        id: refs
+        run: |
+          BASE_SHA=$(git merge-base origin/${{ github.base_ref || 'main' }} HEAD)
+          FEATURE_SHA=$(git rev-parse HEAD)
+          echo "base_sha=$BASE_SHA" >> "$GITHUB_OUTPUT"
+          echo "feature_sha=$FEATURE_SHA" >> "$GITHUB_OUTPUT"
+          echo "Baseline: $BASE_SHA  Feature: $FEATURE_SHA"
+          git worktree prune
+          git worktree add --detach "$RUNNER_TEMP/base" "$BASE_SHA"
+          # Use the PR's eval harness, judge and questions for both runs, so the
+          # only difference between them is the agent code.
+          cp -r evals/. "$RUNNER_TEMP/base/evals/"
+
+      - name: Install dependencies
+        run: |
+          uv sync --locked
+          (cd "$RUNNER_TEMP/base" && uv sync --locked)
+
+      - name: Run and judge the baseline
+        working-directory: ${{ runner.temp }}/base
+        run: |
+          uv run python -m evals.synthetic.run \
+            --limit "$EVAL_LIMIT" --seed "$EVAL_SEED" --output "$RUNNER_TEMP/out/base.json"
+          uv run python -m evals.synthetic.run_judge \
+            --data "$RUNNER_TEMP/out/base.json" --output "$RUNNER_TEMP/out/base_judged.json"
+
+      - name: Run and judge the feature branch
+        run: |
+          uv run python -m evals.synthetic.run \
+            --limit "$EVAL_LIMIT" --seed "$EVAL_SEED" --output "$RUNNER_TEMP/out/feature.json"
+          uv run python -m evals.synthetic.run_judge \
+            --data "$RUNNER_TEMP/out/feature.json" --output "$RUNNER_TEMP/out/feature_judged.json"
+
+      - name: Compare
+        id: compare
+        run: |
+          BASE_SHORT=$(echo "${{ steps.refs.outputs.base_sha }}" | cut -c1-7)
+          FEATURE_SHORT=$(echo "${{ steps.refs.outputs.feature_sha }}" | cut -c1-7)
+          set +e
+          uv run python -m evals.ci.compare \
+            --base "$RUNNER_TEMP/out/base_judged.json" \
+            --feature "$RUNNER_TEMP/out/feature_judged.json" \
+            --base-label "main @ $BASE_SHORT" \
+            --feature-label "${{ github.head_ref || github.ref_name }} @ $FEATURE_SHORT" \
+            --output "$RUNNER_TEMP/out/comparison.md" \
+            --fail-on-regression
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+          cat "$RUNNER_TEMP/out/comparison.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Post comparison on the PR
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} \
+            --body-file "$RUNNER_TEMP/out/comparison.md" --edit-last --create-if-none
+
+      - name: Upload eval results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-results
+          path: ${{ runner.temp }}/out/
+
+      - name: Fail if the PR regresses
+        if: steps.compare.outputs.exit_code != '0'
+        run: |
+          echo "::error::Eval regression: see the comparison table."
+          exit 1
+
+      - name: Remove the run-evals label
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X DELETE repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels/run-evals || true
+
+      - name: Remove the baseline worktree
+        if: always()
+        run: git worktree remove --force "$RUNNER_TEMP/base" || true

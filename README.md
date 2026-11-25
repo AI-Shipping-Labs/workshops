@@ -141,3 +141,14 @@ token usage and cost. Use OpenCode to add tracing to the application, then revie
 answers in a human annotation queue before adding them to an evaluation dataset.
 
 Tech: Python · FastAPI · OpenAI · Langfuse · OpenTelemetry · OpenCode · `uv`
+
+## [Evals in CI](2026/2026-11-24-evals-in-ci)
+
+November 24, 2026
+
+Run an FAQ agent and its judges against a baseline and a feature branch in GitHub
+Actions. Trigger paid evaluations with a pull request label and compare quality
+and API cost before merging. Keep ordinary pytest checks separate from the
+label-triggered evaluation runs.
+
+Tech: Python · pytest · GitHub Actions · OpenAI Responses API · minsearch · uv

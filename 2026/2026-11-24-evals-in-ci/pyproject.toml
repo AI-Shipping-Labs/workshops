@@ -1,0 +1,19 @@
+[project]
+name = "evals-in-ci-cd"
+version = "0.1.0"
+description = "Workshop code: running FAQ agent evals in CI/CD"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "minsearch>=0.0.10",
+    "openai>=2.31.0",
+    "pandas>=3.0.2",
+    "python-dotenv>=1.2.2",
+    "requests>=2.33.1",
+    "tqdm>=4.67.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4",
+]

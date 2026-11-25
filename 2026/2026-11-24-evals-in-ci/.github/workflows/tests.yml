@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+    # Only code changes trigger the (paid) test run; docs-only pushes skip it.
+    paths:
+      - "**.py"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".python-version"
+      - ".github/workflows/tests.yml"
+  workflow_dispatch:
+
+env:
+  # Same as the global ~/.config/uv/uv.toml used when uv.lock was created;
+  # without it `uv sync --locked` sees a different resolution and fails.
+  UV_EXCLUDE_NEWER: "7 days"
+
+jobs:
+  test:
+    runs-on: [self-hosted, hetzner]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      - name: Run tests
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: uv run pytest -v
